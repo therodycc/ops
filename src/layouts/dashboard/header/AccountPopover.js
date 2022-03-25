@@ -1,4 +1,6 @@
 import { useState } from 'react';
+// next
+import NextLink from 'next/link';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar } from '@mui/material';
@@ -85,9 +87,11 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} to={option.linkTo} onClick={handleClose}>
-              {option.label}
-            </MenuItem>
+            <NextLink key={option.label} href={option.linkTo} passHref>
+              <MenuItem key={option.label} onClick={handleClose}>
+                {option.label}
+              </MenuItem>
+            </NextLink>
           ))}
         </Stack>
 

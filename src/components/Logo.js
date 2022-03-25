@@ -1,24 +1,20 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
+import { forwardRef } from 'react';
+import NextLink from 'next/link';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-Logo.propTypes = {
-  disabledLink: PropTypes.bool,
-  sx: PropTypes.object,
-};
-
-export default function Logo({ disabledLink = false, sx }) {
+const Logo = forwardRef(({ disabledLink = false, sx }, ref) => {
   const theme = useTheme();
   const PRIMARY_LIGHT = theme.palette.primary.light;
   const PRIMARY_MAIN = theme.palette.primary.main;
   const PRIMARY_DARK = theme.palette.primary.dark;
 
   const logo = (
-    <Box sx={{ width: 40, height: 40, ...sx }}>
+    <Box ref={ref} sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}>
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 512 512">
         <defs>
           <linearGradient id="BG1" x1="100%" x2="50%" y1="9.946%" y2="50%">
@@ -56,5 +52,12 @@ export default function Logo({ disabledLink = false, sx }) {
     return <>{logo}</>;
   }
 
-  return <RouterLink to="/">{logo}</RouterLink>;
-}
+  return <NextLink href="/">{logo}</NextLink>;
+});
+
+Logo.propTypes = {
+  disabledLink: PropTypes.bool,
+  sx: PropTypes.object,
+};
+
+export default Logo;

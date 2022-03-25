@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { NavLink as RouterLink } from 'react-router-dom';
+// next
+import NextLink from 'next/link';
 // @mui
 import { Box, Link, ListItemText } from '@mui/material';
 //
@@ -52,9 +53,9 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }) 
       {renderContent}
     </ListItemStyle>
   ) : (
-    <ListItemStyle component={RouterLink} to={path} activeRoot={active}>
-      {renderContent}
-    </ListItemStyle>
+    <NextLink href={path} passHref>
+      <ListItemStyle activeRoot={active}>{renderContent}</ListItemStyle>
+    </NextLink>
   );
 }
 
@@ -97,9 +98,11 @@ export function NavItemSub({ item, open = false, active = false, onOpen }) {
       {renderContent}
     </ListItemStyle>
   ) : (
-    <ListItemStyle component={RouterLink} to={path} activeSub={active} subItem>
-      {renderContent}
-    </ListItemStyle>
+    <NextLink href={path} passHref>
+      <ListItemStyle activeSub={active} subItem>
+        {renderContent}
+      </ListItemStyle>
+    </NextLink>
   );
 }
 

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { createContext, useState, useEffect } from 'react';
-// hooks
-import useResponsive from '../hooks/useResponsive';
+// @mui
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -22,21 +23,21 @@ CollapseDrawerProvider.propTypes = {
 };
 
 function CollapseDrawerProvider({ children }) {
-  const isDesktop = useResponsive('up', 'lg');
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [collapse, setCollapse] = useState({
     click: false,
     hover: false,
   });
 
   useEffect(() => {
-    if (!isDesktop) {
+    if (isMobile) {
       setCollapse({
         click: false,
         hover: false,
       });
     }
-  }, [isDesktop]);
+  }, [isMobile]);
 
   const handleToggleCollapse = () => {
     setCollapse({ ...collapse, click: !collapse.click });

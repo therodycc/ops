@@ -24,8 +24,17 @@ export const ICON = {
 };
 
 // SETTINGS
-// Please remove `localStorage` when you set settings.
 // ----------------------------------------------------------------------
+
+export const cookiesExpires = 3;
+
+export const cookiesKey = {
+  themeMode: 'themeMode',
+  themeDirection: 'themeDirection',
+  themeColorPresets: 'themeColorPresets',
+  themeLayout: 'themeLayout',
+  themeStretch: 'themeStretch',
+};
 
 export const defaultSettings = {
   themeMode: 'light',

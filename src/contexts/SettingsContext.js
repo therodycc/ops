@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import { createContext } from 'react';
-// hooks
-import useLocalStorage from '../hooks/useLocalStorage';
+import Cookies from 'js-cookie';
+import { createContext, useEffect, useState } from 'react';
 // utils
 import getColorPresets, { colorPresets, defaultPreset } from '../utils/getColorPresets';
 // config
-import { defaultSettings } from '../config';
+import { defaultSettings, cookiesKey, cookiesExpires } from '../config';
 
 // ----------------------------------------------------------------------
 
@@ -28,16 +27,11 @@ const SettingsContext = createContext(initialState);
 
 SettingsProvider.propTypes = {
   children: PropTypes.node,
+  defaultSettings: PropTypes.object,
 };
 
-function SettingsProvider({ children }) {
-  const [settings, setSettings] = useLocalStorage('settings', {
-    themeMode: initialState.themeMode,
-    themeDirection: initialState.themeDirection,
-    themeColorPresets: initialState.themeColorPresets,
-    themeStretch: initialState.themeStretch,
-    themeLayout: initialState.themeLayout,
-  });
+function SettingsProvider({ children, defaultSettings = {} }) {
+  const [settings, setSettings] = useSettingCookies(defaultSettings);
 
   const onChangeMode = (event) => {
     setSettings({
@@ -121,3 +115,34 @@ function SettingsProvider({ children }) {
 }
 
 export { SettingsProvider, SettingsContext };
+
+// ----------------------------------------------------------------------
+
+function useSettingCookies(defaultSettings) {
+  const [settings, setSettings] = useState(defaultSettings);
+
+  const onChangeSetting = () => {
+    Cookies.set(cookiesKey.themeMode, settings.themeMode, { expires: cookiesExpires });
+
+    Cookies.set(cookiesKey.themeDirection, settings.themeDirection, { expires: cookiesExpires });
+
+    Cookies.set(cookiesKey.themeColorPresets, settings.themeColorPresets, {
+      expires: cookiesExpires,
+    });
+
+    Cookies.set(cookiesKey.themeLayout, settings.themeLayout, {
+      expires: cookiesExpires,
+    });
+
+    Cookies.set(cookiesKey.themeStretch, JSON.stringify(settings.themeStretch), {
+      expires: cookiesExpires,
+    });
+  };
+
+  useEffect(() => {
+    onChangeSetting();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings]);
+
+  return [settings, setSettings];
+}

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 // @mui
 import { List, Collapse } from '@mui/material';
 //
@@ -15,9 +15,9 @@ NavListRoot.propTypes = {
 };
 
 export function NavListRoot({ list, isCollapse }) {
-  const { pathname } = useLocation();
+  const { pathname, asPath } = useRouter();
 
-  const active = getActive(list.path, pathname);
+  const active = getActive(list.path, pathname, asPath);
 
   const [open, setOpen] = useState(active);
 
@@ -51,9 +51,9 @@ NavListSub.propTypes = {
 };
 
 function NavListSub({ list }) {
-  const { pathname } = useLocation();
+  const { pathname, asPath } = useRouter();
 
-  const active = getActive(list.path, pathname);
+  const active = getActive(list.path, pathname, asPath);
 
   const [open, setOpen] = useState(active);
 
@@ -67,7 +67,7 @@ function NavListSub({ list }) {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding sx={{ pl: 3 }}>
             {(list.children || []).map((item) => (
-              <NavItemSub key={item.title} item={item} active={getActive(item.path, pathname)} />
+              <NavItemSub key={item.title} item={item} active={getActive(item.path, pathname, asPath)} />
             ))}
           </List>
         </Collapse>

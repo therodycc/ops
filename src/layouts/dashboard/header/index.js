@@ -52,8 +52,8 @@ const RootStyle = styled(AppBar, {
 // ----------------------------------------------------------------------
 
 DashboardHeader.propTypes = {
-  onOpenSidebar: PropTypes.func,
   isCollapse: PropTypes.bool,
+  onOpenSidebar: PropTypes.func,
   verticalLayout: PropTypes.bool,
 };
 

@@ -30,5 +30,4 @@ export default function useResponsive(query, key, start, end) {
   if (query === 'only') {
     return mediaOnly;
   }
-  return null;
 }
