@@ -53,7 +53,26 @@ const reducer = (state, action) =>
 const AuthContext = createContext({
   ...initialState,
   method: 'jwt',
-  login: () => Promise.resolve(),
+  login: async (email, password) => {
+    const response = await axios
+      .post('/', {
+        email,
+        password,
+      })
+      .catch((error) => {
+        throw new Error('Usuario o contraseña invalido.');
+      });
+
+    const { accessToken, user } = response.data;
+
+    setSession(accessToken);
+    dispatch({
+      type: 'LOGIN',
+      payload: {
+        user,
+      },
+    });
+  },
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
 });
@@ -108,22 +127,6 @@ function AuthProvider({ children }) {
 
     initialize();
   }, []);
-
-  const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', {
-      email,
-      password,
-    });
-    const { accessToken, user } = response.data;
-
-    setSession(accessToken);
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        user,
-      },
-    });
-  };
 
   const register = async (email, password, firstName, lastName) => {
     const response = await axios.post('/api/account/register', {

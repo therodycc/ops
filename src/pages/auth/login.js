@@ -1,22 +1,12 @@
-import { capitalCase } from 'change-case';
 // next
 import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
-import {
-  Box,
-  Card,
-  Stack,
-  Link,
-  Alert,
-  Tooltip,
-  Container,
-  Typography,
-} from '@mui/material';
+import { Box, Card, Stack, Link, Container, Typography } from '@mui/material';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // hooks
-import useAuth from '../../hooks/useAuth';
+
 import useResponsive from '../../hooks/useResponsive';
 // guards
 // import GuestGuard from '../../guards/GuestGuard';
@@ -78,7 +68,6 @@ export default function Login() {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    // <GuestGuard>
     <Page title='Login'>
       <RootStyle>
         <HeaderStyle>
@@ -120,10 +109,10 @@ export default function Login() {
               </Box>
             </Stack>
 
-            <Alert severity='info' sx={{ mb: 3 }}>
+            {/* <Alert severity='info' sx={{ mb: 3 }}>
               Use email : <strong>demo@minimals.cc</strong> / password :
               <strong> demo1234</strong>
-            </Alert>
+            </Alert> */}
 
             <LoginForm />
 
@@ -139,6 +128,5 @@ export default function Login() {
         </Container>
       </RootStyle>
     </Page>
-    // </GuestGuard>
   );
 }
