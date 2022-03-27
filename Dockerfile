@@ -2,7 +2,7 @@ FROM node:alpine AS dependencies
 WORKDIR /usr/src/app/ops
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 FROM node:alpine AS builder
 WORKDIR /usr/src/app/ops
