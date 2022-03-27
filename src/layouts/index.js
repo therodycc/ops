@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import AuthGuard from '../guards/AuthGuard';
 // components
 import DashboardLayout from './dashboard';
 import LogoOnlyLayout from './LogoOnlyLayout';
@@ -15,5 +16,9 @@ export default function Layout({ variant = 'dashboard', children }) {
     return <LogoOnlyLayout> {children} </LogoOnlyLayout>;
   }
 
-  return <DashboardLayout> {children} </DashboardLayout>;
+  return (
+    <AuthGuard>
+      <DashboardLayout> {children} </DashboardLayout>
+    </AuthGuard>
+  );
 }

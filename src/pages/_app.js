@@ -6,6 +6,8 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 
+import { Provider } from 'react-redux';
+
 import PropTypes from 'prop-types';
 import cookie from 'cookie';
 // next
@@ -23,6 +25,9 @@ import Settings from '../components/settings';
 import ProgressBar from '../components/ProgressBar';
 import ThemeColorPresets from '../components/ThemeColorPresets';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
+
+import { store } from '../slices/store';
+import { AuthContext } from '../providers/auth.provider';
 
 // ----------------------------------------------------------------------
 
@@ -43,19 +48,23 @@ export default function MyApp(props) {
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 
-      <CollapseDrawerProvider>
-        <SettingsProvider defaultSettings={settings}>
-          <ThemeProvider>
-            <MotionLazyContainer>
-              <ThemeColorPresets>
-                <Settings />
-                <ProgressBar />
-                {getLayout(<Component {...pageProps} />)}
-              </ThemeColorPresets>
-            </MotionLazyContainer>
-          </ThemeProvider>
-        </SettingsProvider>
-      </CollapseDrawerProvider>
+      <Provider store={store}>
+        <AuthContext>
+          <CollapseDrawerProvider>
+            <SettingsProvider defaultSettings={settings}>
+              <ThemeProvider>
+                <MotionLazyContainer>
+                  <ThemeColorPresets>
+                    <Settings />
+                    <ProgressBar />
+                    {getLayout(<Component {...pageProps} />)}
+                  </ThemeColorPresets>
+                </MotionLazyContainer>
+              </ThemeProvider>
+            </SettingsProvider>
+          </CollapseDrawerProvider>
+        </AuthContext>
+      </Provider>
     </>
   );
 }

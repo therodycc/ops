@@ -1,5 +1,7 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 // next
 import NextLink from 'next/link';
 // form
@@ -9,9 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
-import { PATH_AUTH } from '../../../routes/paths';
+import { PATH_AUTH, PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
-import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
@@ -21,13 +22,17 @@ import {
   RHFCheckbox,
 } from '../../../components/hook-form';
 
+import { authService } from '../../../services/auth.service';
+import { authActions } from '../../../slices/auth.slice';
+import { useRouter } from 'next/router';
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const { login } = useAuth();
+  const dispatch = useDispatch();
+  const { replace } = useRouter();
+  const { user } = useSelector((state) => state.auth);
 
   const isMountedRef = useIsMountedRef();
-
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -38,8 +43,8 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: 'demo1234',
+    email: 'random@gmail.com',
+    password: '12345678',
     remember: true,
   };
 
@@ -57,7 +62,11 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
+      const profile = await authService.login(data.email, data.password);
+      if (!profile.role) throw new Error('No tiene acceso a la plataforma');
+
+      dispatch(authActions.login(profile));
+      replace(PATH_DASHBOARD.root);
     } catch (error) {
       reset();
       if (isMountedRef.current) {

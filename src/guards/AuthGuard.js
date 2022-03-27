@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 // next
 import { useRouter } from 'next/router';
 // hooks
-import useAuth from '../hooks/useAuth';
+
 import Login from '../pages/auth/login';
 // components
 import LoadingScreen from '../components/LoadingScreen';
@@ -15,9 +17,9 @@ AuthGuard.propTypes = {
 };
 
 export default function AuthGuard({ children }) {
-  const { isAuthenticated, isInitialized } = useAuth();
+  const { isAuthenticated, isInitialized } = useSelector((state) => state.auth);
 
-  const { pathname, push } = useRouter();
+  const { pathname, push, replace } = useRouter();
 
   const [requestedLocation, setRequestedLocation] = useState(null);
 
@@ -36,6 +38,7 @@ export default function AuthGuard({ children }) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
+
     return <Login />;
   }
 

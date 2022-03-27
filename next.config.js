@@ -13,8 +13,7 @@ module.exports = withTM({
   swcMinify: false,
   trailingSlash: true,
   env: {
-    HOST_API_KEY:
-      'https://func-authenticate-dev.azurewebsites.net/api/login?code=V0hDygagvUYoBZxOapPADfIGE1OJfLr93GAo0Noskxqis%2FXjtJHaQQ%3D%3D',
+    HOST_API_KEY: '',
     // FIREBASE AUTH
     FIREBASE_API_KEY: '',
     FIREBASE_AUTH_DOMAIN: '',

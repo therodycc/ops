@@ -14,6 +14,18 @@ const isValidToken = (accessToken) => {
   return decoded.exp > currentTime;
 };
 
+const getUserFromToken = (accessToken) => {
+  if (!accessToken) return false;
+
+  const user = jwtDecode(accessToken);
+  const currentTime = Date.now() / 1000;
+
+  // Token has expired
+  if (currentTime > user.exp) return null;
+
+  return user;
+};
+
 //  const handleTokenExpired = (exp) => {
 //   let expiredTimer;
 
@@ -40,4 +52,4 @@ const setSession = (accessToken) => {
   }
 };
 
-export { isValidToken, setSession };
+export { isValidToken, setSession, getUserFromToken };
