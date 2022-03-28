@@ -1,5 +1,5 @@
 // @mui
-import { Container, Box } from '@mui/material';
+import { Container, Box, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
 // hooks
@@ -12,7 +12,7 @@ import Layout from '../../layouts';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { ProductList } from '../../sections/products/list';
+import { ProductList, ProductSearch } from '../../sections/products/list';
 import { productService } from '../../services/product.service';
 import { useEffect, useState } from 'react';
 import { SkeletonProductItem } from '../../components/skeleton';
@@ -52,6 +52,16 @@ export default function UserCards() {
             { name: 'Lista' }
           ]}
         />
+
+        <Stack
+          spacing={2}
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ sm: 'center' }}
+          justifyContent="space-between"
+          sx={{ mb: 2 }}
+        >
+          <ProductSearch />
+        </Stack>
 
         <Box
           sx={{
