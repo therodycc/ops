@@ -6,6 +6,7 @@ function path(root, sublink) {
 
 const ROOTS_AUTH = '/auth';
 const ROOTS_DASHBOARD = '/dashboard';
+const ROOTS_PRODUCTS = '/products';
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +31,17 @@ export const PATH_PAGE = {
   page404: '/404',
   page500: '/500',
   components: '/components',
+};
+
+export const PATH_PRODUCTS = {
+  root: path(ROOTS_PRODUCTS, ''),
+  // new: path(ROOTS_DASHBOARD, '/user/new'),
+  list: path(ROOTS_PRODUCTS, '/list'),
+  // cards: path(ROOTS_DASHBOARD, '/user/cards'),
+  // profile: path(ROOTS_DASHBOARD, '/user/profile'),
+  // account: path(ROOTS_DASHBOARD, '/user/account'),
+  // edit: (name) => path(ROOTS_DASHBOARD, `/user/${name}/edit`),
+  // demoEdit: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
 };
 
 export const PATH_DASHBOARD = {
@@ -70,8 +82,14 @@ export const PATH_DASHBOARD = {
     new: path(ROOTS_DASHBOARD, '/e-commerce/product/new'),
     view: (name) => path(ROOTS_DASHBOARD, `/e-commerce/product/${name}`),
     edit: (name) => path(ROOTS_DASHBOARD, `/e-commerce/product/${name}/edit`),
-    demoEdit: path(ROOTS_DASHBOARD, '/e-commerce/product/nike-blazer-low-77-vintage/edit'),
-    demoView: path(ROOTS_DASHBOARD, '/e-commerce/product/nike-air-force-1-ndestrukt'),
+    demoEdit: path(
+      ROOTS_DASHBOARD,
+      '/e-commerce/product/nike-blazer-low-77-vintage/edit'
+    ),
+    demoView: path(
+      ROOTS_DASHBOARD,
+      '/e-commerce/product/nike-air-force-1-ndestrukt'
+    ),
   },
   invoice: {
     root: path(ROOTS_DASHBOARD, '/invoice'),
@@ -79,15 +97,24 @@ export const PATH_DASHBOARD = {
     new: path(ROOTS_DASHBOARD, '/invoice/new'),
     view: (id) => path(ROOTS_DASHBOARD, `/invoice/${id}`),
     edit: (id) => path(ROOTS_DASHBOARD, `/invoice/${id}/edit`),
-    demoEdit: path(ROOTS_DASHBOARD, '/invoice/e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1/edit'),
-    demoView: path(ROOTS_DASHBOARD, '/invoice/e99f09a7-dd88-49d5-b1c8-1daf80c2d7b5'),
+    demoEdit: path(
+      ROOTS_DASHBOARD,
+      '/invoice/e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1/edit'
+    ),
+    demoView: path(
+      ROOTS_DASHBOARD,
+      '/invoice/e99f09a7-dd88-49d5-b1c8-1daf80c2d7b5'
+    ),
   },
   blog: {
     root: path(ROOTS_DASHBOARD, '/blog'),
     posts: path(ROOTS_DASHBOARD, '/blog/posts'),
     new: path(ROOTS_DASHBOARD, '/blog/new'),
     view: (title) => path(ROOTS_DASHBOARD, `/blog/post/${title}`),
-    demoView: path(ROOTS_DASHBOARD, '/blog/post/apply-these-7-secret-techniques-to-improve-event'),
+    demoView: path(
+      ROOTS_DASHBOARD,
+      '/blog/post/apply-these-7-secret-techniques-to-improve-event'
+    ),
   },
 };
 

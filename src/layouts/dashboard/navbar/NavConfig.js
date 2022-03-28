@@ -3,7 +3,9 @@ import SvgIconStyle from '../../../components/SvgIconStyle';
 
 // ----------------------------------------------------------------------
 
-const getIcon = (name) => <SvgIconStyle src={`/icons/${name}.svg`} sx={{ width: 1, height: 1 }} />;
+const getIcon = (name) => (
+  <SvgIconStyle src={`/icons/${name}.svg`} sx={{ width: 1, height: 1 }} />
+);
 
 const ICONS = {
   user: getIcon('ic_user'),
@@ -18,7 +20,7 @@ const sidebarConfig = [
   {
     subheader: 'general v3.3.0',
     items: [
-      { title: 'One', path: '/dashboard/one', icon: ICONS.dashboard },
+      { title: 'Productos', path: '/products', icon: ICONS.dashboard },
       { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
       { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics },
     ],

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 // next
 import NextLink from 'next/link';
 // @mui
@@ -29,6 +30,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const { user } = useSelector(state => state.auth)
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -76,10 +78,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            Rayan Moran
+            { user.firstName + ' ' + user.lastName }
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            rayan.moran@gmail.com
+            { user.email }
           </Typography>
         </Box>
 
