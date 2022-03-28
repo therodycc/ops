@@ -35,7 +35,7 @@ export const PATH_PAGE = {
 
 export const PATH_PRODUCTS = {
   root: path(ROOTS_PRODUCTS, ''),
-  // new: path(ROOTS_DASHBOARD, '/user/new'),
+  new: path(ROOTS_PRODUCTS, '/new'),
   list: path(ROOTS_PRODUCTS, '/list')
   // cards: path(ROOTS_DASHBOARD, '/user/cards'),
   // profile: path(ROOTS_DASHBOARD, '/user/profile'),

@@ -1,19 +1,101 @@
-import { useEffect } from 'react';
-// next
-import { useRouter } from 'next/router';
+// @mui
+import { Button } from '@mui/material';
+import { Container, Box, Stack } from '@mui/material';
 // routes
-import { PATH_PRODUCTS } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
+// hooks
+import useSettings from '../../hooks/useSettings';
+// next
+import NextLink from 'next/link';
+// _mock_
+import { _userCards } from '../../_mock';
+// layouts
+import Layout from '../../layouts';
+// components
+import Page from '../../components/Page';
+import Iconify from '../../components/Iconify';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+
+// sections
+import { ProductList, ProductSearch } from '../../sections/products/list';
+import { productService } from '../../services/product.service';
+import { useEffect, useState } from 'react';
+import { SkeletonProductItem } from '../../components/skeleton';
 
 // ----------------------------------------------------------------------
 
-export default function Index() {
-  const { pathname, push } = useRouter();
+ProductListPage.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
+};
+
+// ----------------------------------------------------------------------
+
+export default function ProductListPage() {
+  const { themeStretch } = useSettings();
+
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (pathname === PATH_PRODUCTS.root) {
-      push(PATH_PRODUCTS.list);
-    }
-  }, [pathname]);
+    productService.list().then(response => {
+      const newProducts = response.data?.data ?? [];
+      setProducts(stateProducts => {
+        return newProducts;
+      });
+      setIsLoading(false);
+    });
+  }, []);
 
-  return null;
+  return (
+    <Page title="Productos - Lista">
+      <Container maxWidth={themeStretch ? false : 'lg'}>
+        <HeaderBreadcrumbs
+          heading="Lista de Productos"
+          links={[
+            { name: 'Inicio', href: PATH_DASHBOARD.root },
+            { name: 'Productos', href: PATH_PRODUCTS.root },
+            { name: 'Lista' }
+          ]}
+          action={
+            <NextLink href={PATH_PRODUCTS.new} passHref>
+              <Button variant="contained" startIcon={<Iconify icon={'eva:plus-fill'} />}>
+                Agregar Producto
+              </Button>
+            </NextLink>
+          }
+        />
+
+        <Stack
+          spacing={2}
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ sm: 'center' }}
+          justifyContent="space-between"
+          sx={{ mb: 2 }}
+        >
+          <ProductSearch />
+        </Stack>
+
+        <Box
+          sx={{
+            display: 'grid',
+            gap: 3,
+            gridTemplateColumns: {
+              xs: 'repeat(1, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(3, 1fr)',
+              lg: 'repeat(4, 1fr)'
+            }
+          }}
+        >
+          {(isLoading ? [...Array(12)] : products).map((product, index) =>
+            product ? (
+              <ProductList key={product.id} product={product} />
+            ) : (
+              <SkeletonProductItem key={index} />
+            )
+          )}
+        </Box>
+      </Container>
+    </Page>
+  );
 }

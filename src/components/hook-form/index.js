@@ -1,5 +1,5 @@
 export * from './RHFCheckbox';
-// export * from './RHFUpload';
+export * from './RHFUpload';
 
 export { default as FormProvider } from './FormProvider';
 

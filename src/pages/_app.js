@@ -25,8 +25,9 @@ import Settings from '../components/settings';
 import ProgressBar from '../components/ProgressBar';
 import ThemeColorPresets from '../components/ThemeColorPresets';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
+import NotistackProvider from '../components/NotistackProvider';
 
-import { store } from '../slices/store';
+import { store, persistor } from '../slices/store';
 import { AuthContext } from '../providers/auth.provider';
 
 // ----------------------------------------------------------------------
@@ -49,21 +50,25 @@ export default function MyApp(props) {
       </Head>
 
       <Provider store={store}>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
         <AuthContext>
           <CollapseDrawerProvider>
             <SettingsProvider defaultSettings={settings}>
               <ThemeProvider>
-                <MotionLazyContainer>
-                  <ThemeColorPresets>
-                    <Settings />
-                    <ProgressBar />
-                    {getLayout(<Component {...pageProps} />)}
-                  </ThemeColorPresets>
-                </MotionLazyContainer>
+                <NotistackProvider>
+                  <MotionLazyContainer>
+                    <ThemeColorPresets>
+                      <Settings />
+                      <ProgressBar />
+                      {getLayout(<Component {...pageProps} />)}
+                    </ThemeColorPresets>
+                  </MotionLazyContainer>
+                </NotistackProvider>
               </ThemeProvider>
             </SettingsProvider>
           </CollapseDrawerProvider>
         </AuthContext>
+        {/* </PersistGate> */}
       </Provider>
     </>
   );

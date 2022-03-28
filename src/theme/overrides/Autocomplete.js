@@ -5,14 +5,15 @@ export default function Autocomplete(theme) {
     MuiAutocomplete: {
       styleOverrides: {
         paper: {
-          boxShadow: theme.customShadows.dropdown
+          boxShadow:
+            '0 0 2px 0 rgba(145, 158, 171, 0.24), -20px 20px 40px -4px rgba(145, 158, 171, 0.24)'
         },
         listbox: {
-          padding: theme.spacing(0, 1),
+          padding: '8px',
           '& .MuiAutocomplete-option': {
-            padding: theme.spacing(1),
-            margin: theme.spacing(1, 0),
-            borderRadius: theme.shape.borderRadius
+            padding: '8px',
+            margin: '8px 0px',
+            borderRadius: 8
           }
         }
       }
