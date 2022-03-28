@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 // next
 import { useRouter } from 'next/router';
@@ -27,7 +27,6 @@ import { fData } from '../../../utils/formatNumber';
 // routes
 import { PATH_PRODUCTS } from '../../../routes/paths';
 // _mock
-import { countries } from '../../../_mock';
 // components
 import Label from '../../../components/Label';
 import {
@@ -37,6 +36,9 @@ import {
   RHFUploadAvatar
 } from '../../../components/hook-form';
 import Iconify from '../../../components/Iconify';
+
+// Services
+import { productService } from '../../../services/product.service';
 // ----------------------------------------------------------------------
 
 NewProductForm.propTypes = {
@@ -63,36 +65,34 @@ const TAGS_OPTION = [
 export default function NewProductForm({ isEdit = false, currentProduct }) {
   const { push } = useRouter();
 
+  const [activeSubstances, setActiveSubstances] = useState([]);
+  const [productTypes, setProductTypes] = useState([]);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const NewProductSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().required('Email is required').email(),
-    phoneNumber: Yup.string().required('Phone number is required'),
-    address: Yup.string().required('Address is required'),
-    country: Yup.string().required('country is required'),
-    company: Yup.string().required('Company is required'),
-    state: Yup.string().required('State is required'),
-    city: Yup.string().required('City is required'),
-    role: Yup.string().required('Role Number is required'),
-    photo: Yup.mixed().test('required', 'Avatar is required', value => value !== '')
+    name: Yup.string().required('El nombre es requerido'),
+    productType: Yup.string().required('La categoria es requerida'),
+    sellPrice: Yup.string().required('El precio de compra es requerido'),
+    buyPrice: Yup.string().required('El precio de venta es requerido'),
+    description: Yup.string(),
+    blisterSize: Yup.string(),
+    stock: Yup.string().required('La cantidad es inventario es requerida'),
+    activeSubstances: Yup.string(),
+    photo: Yup.mixed().test('required', 'La foto es requerida', value => value !== '')
   });
 
   const defaultValues = useMemo(
     () => ({
       name: currentProduct?.name || '',
-      email: currentProduct?.email || '',
-      phoneNumber: currentProduct?.phoneNumber || '',
-      address: currentProduct?.address || '',
-      country: currentProduct?.country || '',
-      state: currentProduct?.state || '',
-      city: currentProduct?.city || '',
-      zipCode: currentProduct?.zipCode || '',
-      photo: currentProduct?.photo || '',
-      isVerified: currentProduct?.isVerified || true,
-      status: currentProduct?.status,
-      company: currentProduct?.company || '',
-      role: currentProduct?.role || ''
+      productType: currentProduct?.productType || '',
+      sellPrice: currentProduct?.sellPrice || '',
+      buyPrice: currentProduct?.buyPrice || '',
+      description: currentProduct?.description || '',
+      blisterSize: currentProduct?.blisterSize || '',
+      stock: currentProduct?.stock || '',
+      activeSubstances: currentProduct?.activeSubstances || '',
+      photo: currentProduct?.photo || ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -123,6 +123,16 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentProduct]);
+
+  useEffect(() => {
+    productService.getActiveSubstances().then(activeSubstances => {
+      setActiveSubstances(activeSubstances?.data ?? []);
+    });
+
+    productService.getProductTypes().then(productTypes => {
+      setProductTypes(productTypes?.data ?? []);
+    });
+  }, []);
 
   const onSubmit = async () => {
     try {
@@ -247,10 +257,15 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
             >
               <Autocomplete
                 fullWidth
-                options={countries}
+                options={productTypes}
+                name="productType"
                 size="small"
-                getOptionLabel={countries => countries.label}
-                filterSelectedOptions
+                getOptionLabel={productType => productType.name}
+                // inputValue={inputValue}
+                onInputChange={(event, newCategory) => {
+                  // setInputValue(newInputValue);
+                  console.log(newCategory);
+                }}
                 renderInput={params => (
                   <TextField {...params} label="Categoria" placeholder="Categoria" />
                 )}
@@ -260,12 +275,15 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
                 multiple
                 fullWidth
                 size="small"
-                options={TAGS_OPTION}
-                getOptionLabel={option => option}
-                // defaultValue={[TAGS_OPTION[0]]}
+                options={activeSubstances}
+                getOptionLabel={option => option.name}
                 filterSelectedOptions
                 renderInput={params => (
-                  <TextField {...params} label="Sustancia Activa" placeholder="Sustancia Activa" />
+                  <TextField
+                    {...params}
+                    label="Sustancia Activa (Si aplica)"
+                    placeholder="Sustancia Activa (Si aplica)"
+                  />
                 )}
               />
             </Box>
@@ -282,9 +300,9 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
                 }
               }}
             >
-              <RHFTextField name="buyPrice" size="small" label="Costo Unidad $" />
-              <RHFTextField name="sellType" size="small" label="Precio Venta $" />
-              <RHFTextField name="stock" size="small" label="Disponible Para Venta" />
+              <RHFTextField name="buyPrice" size="small" label="Costo Compra $" />
+              <RHFTextField name="sellPrice" size="small" label="Precio Venta $" />
+              <RHFTextField name="stock" size="small" label="Cantidad en Inventario" />
             </Box>
 
             <RHFTextField
@@ -325,7 +343,7 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
                 columnGap: 1,
                 rowGap: 1,
                 gridTemplateColumns: {
-                  xs: 'repeat(3, 1fr)'
+                  xs: 'repeat(1, 1fr)'
                 }
               }}
             >
@@ -336,15 +354,6 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
                 sx={{ mb: 1, mx: 0, width: 1, justifyContent: 'space-between', value: true }}
               />
             </Box>
-            <Tooltip
-              title={'Se mostrara el producto en la aplicacion movil?'}
-              placement="top"
-              sx={{ mt: -12.0, ml: 27.0 }}
-            >
-              <IconButton>
-                <Iconify icon={'mdi-light:information'} sx={{ width: 20, height: 20 }} />
-              </IconButton>
-            </Tooltip>
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
