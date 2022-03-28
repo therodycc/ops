@@ -5,7 +5,7 @@ export const authReducer = {
       ...state,
       isAuthenticated,
       isInitialized: true,
-      user,
+      user
     };
   },
   login: (state, action) => {
@@ -14,13 +14,13 @@ export const authReducer = {
     return {
       ...state,
       isAuthenticated: true,
-      user,
+      user
     };
   },
-  logout: (state) => ({
+  logout: state => ({
     ...state,
     isAuthenticated: false,
-    user: null,
+    user: null
   }),
   register: (state, action) => {
     const { user } = action.payload;
@@ -28,7 +28,7 @@ export const authReducer = {
     return {
       ...state,
       isAuthenticated: true,
-      user,
+      user
     };
-  },
+  }
 };

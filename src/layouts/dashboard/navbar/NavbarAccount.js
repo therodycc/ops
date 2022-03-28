@@ -13,50 +13,50 @@ const RootStyle = styled('div')(({ theme }) => ({
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: theme.palette.grey[500_12],
   transition: theme.transitions.create('opacity', {
-    duration: theme.transitions.duration.shorter,
-  }),
+    duration: theme.transitions.duration.shorter
+  })
 }));
 
 // ----------------------------------------------------------------------
 
 NavbarAccount.propTypes = {
-  isCollapse: PropTypes.bool,
+  isCollapse: PropTypes.bool
 };
 
 export default function NavbarAccount({ isCollapse }) {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector(state => state.auth);
 
   return (
-    <Link underline='none' color='inherit'>
+    <Link underline="none" color="inherit">
       <RootStyle
         sx={{
           ...(isCollapse && {
-            bgcolor: 'transparent',
-          }),
+            bgcolor: 'transparent'
+          })
         }}
       >
         <Avatar
-          src='https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg'
+          src="https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg"
           alt={user.firstName + ' ' + user.lastName}
         />
 
         <Box
           sx={{
             ml: 2,
-            transition: (theme) =>
+            transition: theme =>
               theme.transitions.create('width', {
-                duration: theme.transitions.duration.shorter,
+                duration: theme.transitions.duration.shorter
               }),
             ...(isCollapse && {
               ml: 0,
-              width: 0,
-            }),
+              width: 0
+            })
           }}
         >
-          <Typography variant='subtitle2' noWrap>
+          <Typography variant="subtitle2" noWrap>
             {user.firstName + ' ' + user.lastName}
           </Typography>
-          <Typography variant='body2' noWrap sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
             {user.role.toLowerCase()}
           </Typography>
         </Box>

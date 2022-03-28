@@ -17,7 +17,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.background.default
 }));
 
 // ----------------------------------------------------------------------
@@ -32,7 +32,7 @@ export default function LoadingScreen() {
           duration: 2,
           ease: 'easeInOut',
           repeatDelay: 1,
-          repeat: Infinity,
+          repeat: Infinity
         }}
       >
         <Logo disabledLink sx={{ width: 64, height: 64 }} />
@@ -44,7 +44,7 @@ export default function LoadingScreen() {
           scale: [1.2, 1, 1, 1.2, 1.2],
           rotate: [270, 0, 0, 270, 270],
           opacity: [0.25, 1, 1, 1, 0.25],
-          borderRadius: ['25%', '25%', '50%', '50%', '25%'],
+          borderRadius: ['25%', '25%', '50%', '50%', '25%']
         }}
         transition={{ ease: 'linear', duration: 3.2, repeat: Infinity }}
         sx={{
@@ -52,7 +52,7 @@ export default function LoadingScreen() {
           height: 100,
           borderRadius: '25%',
           position: 'absolute',
-          border: (theme) => `solid 3px ${alpha(theme.palette.primary.dark, 0.24)}`,
+          border: theme => `solid 3px ${alpha(theme.palette.primary.dark, 0.24)}`
         }}
       />
 
@@ -62,19 +62,19 @@ export default function LoadingScreen() {
           scale: [1, 1.2, 1.2, 1, 1],
           rotate: [0, 270, 270, 0, 0],
           opacity: [1, 0.25, 0.25, 0.25, 1],
-          borderRadius: ['25%', '25%', '50%', '50%', '25%'],
+          borderRadius: ['25%', '25%', '50%', '50%', '25%']
         }}
         transition={{
           ease: 'linear',
           duration: 3.2,
-          repeat: Infinity,
+          repeat: Infinity
         }}
         sx={{
           width: 120,
           height: 120,
           borderRadius: '25%',
           position: 'absolute',
-          border: (theme) => `solid 8px ${alpha(theme.palette.primary.dark, 0.24)}`,
+          border: theme => `solid 8px ${alpha(theme.palette.primary.dark, 0.24)}`
         }}
       />
     </RootStyle>

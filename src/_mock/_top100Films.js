@@ -53,7 +53,7 @@ export const top100Films = [
   { title: 'Sunset Boulevard', year: 1950 },
   {
     title: 'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
-    year: 1964,
+    year: 1964
   },
   { title: 'The Great Dictator', year: 1940 },
   { title: 'Cinema Paradiso', year: 1988 },
@@ -101,5 +101,5 @@ export const top100Films = [
   { title: 'Inglourious Basterds', year: 2009 },
   { title: 'Snatch', year: 2000 },
   { title: '3 Idiots', year: 2009 },
-  { title: 'Monty Python and the Holy Grail', year: 1975 },
+  { title: 'Monty Python and the Holy Grail', year: 1975 }
 ];

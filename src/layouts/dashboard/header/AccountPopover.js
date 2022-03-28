@@ -14,25 +14,25 @@ import { IconButtonAnimate } from '../../../components/animate';
 const MENU_OPTIONS = [
   {
     label: 'Home',
-    linkTo: '/',
+    linkTo: '/'
   },
   {
     label: 'Profile',
-    linkTo: '/',
+    linkTo: '/'
   },
   {
     label: 'Settings',
-    linkTo: '/',
-  },
+    linkTo: '/'
+  }
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
-  const { user } = useSelector(state => state.auth)
+  const { user } = useSelector(state => state.auth);
 
-  const handleOpen = (event) => {
+  const handleOpen = event => {
     setOpen(event.currentTarget);
   };
 
@@ -54,12 +54,15 @@ export default function AccountPopover() {
               height: '100%',
               borderRadius: '50%',
               position: 'absolute',
-              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
-            },
-          }),
+              bgcolor: theme => alpha(theme.palette.grey[900], 0.8)
+            }
+          })
         }}
       >
-        <Avatar src="https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg" alt="Rayan Moran" />
+        <Avatar
+          src="https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg"
+          alt="Rayan Moran"
+        />
       </IconButtonAnimate>
 
       <MenuPopover
@@ -72,23 +75,23 @@ export default function AccountPopover() {
           ml: 0.75,
           '& .MuiMenuItem-root': {
             typography: 'body2',
-            borderRadius: 0.75,
-          },
+            borderRadius: 0.75
+          }
         }}
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            { user.firstName + ' ' + user.lastName }
+            {user.firstName + ' ' + user.lastName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            { user.email }
+            {user.email}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Stack sx={{ p: 1 }}>
-          {MENU_OPTIONS.map((option) => (
+          {MENU_OPTIONS.map(option => (
             <NextLink key={option.label} href={option.linkTo} passHref>
               <MenuItem key={option.label} onClick={handleClose}>
                 {option.label}

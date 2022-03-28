@@ -28,12 +28,12 @@ export const formats = [
   'strike',
   'table',
   'underline',
-  'video',
+  'video'
 ];
 
 EditorToolbar.propTypes = {
   id: PropTypes.string.isRequired,
-  isSimple: PropTypes.bool,
+  isSimple: PropTypes.bool
 };
 
 export default function EditorToolbar({ id, isSimple, ...other }) {

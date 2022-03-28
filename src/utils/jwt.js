@@ -4,7 +4,7 @@ import axios from './axios';
 
 // ----------------------------------------------------------------------
 
-const isValidToken = (accessToken) => {
+const isValidToken = accessToken => {
   if (!accessToken) {
     return false;
   }
@@ -14,7 +14,7 @@ const isValidToken = (accessToken) => {
   return decoded.exp > currentTime;
 };
 
-const getUserFromToken = (accessToken) => {
+const getUserFromToken = accessToken => {
   if (!accessToken) return false;
 
   const user = jwtDecode(accessToken);
@@ -39,7 +39,7 @@ const getUserFromToken = (accessToken) => {
 //   }, timeLeft);
 // };
 
-const setSession = (accessToken) => {
+const setSession = accessToken => {
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;

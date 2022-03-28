@@ -12,18 +12,18 @@ const LANGS = [
   {
     label: 'English',
     value: 'en',
-    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_flag_en.svg',
+    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_flag_en.svg'
   },
   {
     label: 'German',
     value: 'de',
-    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_flag_de.svg',
+    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_flag_de.svg'
   },
   {
     label: 'French',
     value: 'fr',
-    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_flag_fr.svg',
-  },
+    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_flag_fr.svg'
+  }
 ];
 
 // ----------------------------------------------------------------------
@@ -31,7 +31,7 @@ const LANGS = [
 export default function LanguagePopover() {
   const [open, setOpen] = useState(null);
 
-  const handleOpen = (event) => {
+  const handleOpen = event => {
     setOpen(event.currentTarget);
   };
 
@@ -46,7 +46,7 @@ export default function LanguagePopover() {
         sx={{
           width: 40,
           height: 40,
-          ...(open && { bgcolor: 'action.selected' }),
+          ...(open && { bgcolor: 'action.selected' })
         }}
       >
         <Image disabledEffect src={LANGS[0].icon} alt={LANGS[0].label} />
@@ -60,13 +60,22 @@ export default function LanguagePopover() {
           mt: 1.5,
           ml: 0.75,
           width: 180,
-          '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 },
+          '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 }
         }}
       >
         <Stack spacing={0.75}>
-          {LANGS.map((option) => (
-            <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={handleClose}>
-              <Image disabledEffect alt={option.label} src={option.icon} sx={{ width: 28, mr: 2 }} />
+          {LANGS.map(option => (
+            <MenuItem
+              key={option.value}
+              selected={option.value === LANGS[0].value}
+              onClick={handleClose}
+            >
+              <Image
+                disabledEffect
+                alt={option.label}
+                src={option.icon}
+                sx={{ width: 28, mr: 2 }}
+              />
 
               {option.label}
             </MenuItem>

@@ -14,7 +14,7 @@ import {
   ListItemText,
   ListSubheader,
   ListItemAvatar,
-  ListItemButton,
+  ListItemButton
 } from '@mui/material';
 // utils
 import { fToNow } from '../../../utils/formatTime';
@@ -31,11 +31,11 @@ import { IconButtonAnimate } from '../../../components/animate';
 export default function NotificationsPopover() {
   const [notifications, setNotifications] = useState(_notifications);
 
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
+  const totalUnRead = notifications.filter(item => item.isUnRead === true).length;
 
   const [open, setOpen] = useState(null);
 
-  const handleOpen = (event) => {
+  const handleOpen = event => {
     setOpen(event.currentTarget);
   };
 
@@ -45,16 +45,20 @@ export default function NotificationsPopover() {
 
   const handleMarkAllAsRead = () => {
     setNotifications(
-      notifications.map((notification) => ({
+      notifications.map(notification => ({
         ...notification,
-        isUnRead: false,
+        isUnRead: false
       }))
     );
   };
 
   return (
     <>
-      <IconButtonAnimate color={open ? 'primary' : 'default'} onClick={handleOpen} sx={{ width: 40, height: 40 }}>
+      <IconButtonAnimate
+        color={open ? 'primary' : 'default'}
+        onClick={handleOpen}
+        sx={{ width: 40, height: 40 }}
+      >
         <Badge badgeContent={totalUnRead} color="error">
           <Iconify icon="eva:bell-fill" width={20} height={20} />
         </Badge>
@@ -94,7 +98,7 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {notifications.slice(0, 2).map((notification) => (
+            {notifications.slice(0, 2).map(notification => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
@@ -107,7 +111,7 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {notifications.slice(2, 5).map((notification) => (
+            {notifications.slice(2, 5).map(notification => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
@@ -135,8 +139,8 @@ NotificationItem.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     type: PropTypes.string,
-    avatar: PropTypes.any,
-  }),
+    avatar: PropTypes.any
+  })
 };
 
 function NotificationItem({ notification }) {
@@ -149,8 +153,8 @@ function NotificationItem({ notification }) {
         px: 2.5,
         mt: '1px',
         ...(notification.isUnRead && {
-          bgcolor: 'action.selected',
-        }),
+          bgcolor: 'action.selected'
+        })
       }}
     >
       <ListItemAvatar>
@@ -165,7 +169,7 @@ function NotificationItem({ notification }) {
               mt: 0.5,
               display: 'flex',
               alignItems: 'center',
-              color: 'text.disabled',
+              color: 'text.disabled'
             }}
           >
             <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
@@ -197,7 +201,7 @@ function renderContent(notification) {
           src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_package.svg"
         />
       ),
-      title,
+      title
     };
   }
   if (notification.type === 'order_shipped') {
@@ -208,7 +212,7 @@ function renderContent(notification) {
           src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_shipping.svg"
         />
       ),
-      title,
+      title
     };
   }
   if (notification.type === 'mail') {
@@ -219,7 +223,7 @@ function renderContent(notification) {
           src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_mail.svg"
         />
       ),
-      title,
+      title
     };
   }
   if (notification.type === 'chat_message') {
@@ -230,11 +234,11 @@ function renderContent(notification) {
           src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_chat.svg"
         />
       ),
-      title,
+      title
     };
   }
   return {
     avatar: notification.avatar ? <img alt={notification.title} src={notification.avatar} /> : null,
-    title,
+    title
   };
 }

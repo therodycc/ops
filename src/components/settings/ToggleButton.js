@@ -22,7 +22,7 @@ const RootStyle = styled('span')(({ theme }) => ({
   boxShadow: `-12px 12px 32px -4px ${alpha(
     theme.palette.mode === 'light' ? theme.palette.grey[600] : theme.palette.common.black,
     0.36
-  )}`,
+  )}`
 }));
 
 const DotStyle = styled('span')(({ theme }) => ({
@@ -32,7 +32,7 @@ const DotStyle = styled('span')(({ theme }) => ({
   right: 10,
   borderRadius: '50%',
   position: 'absolute',
-  backgroundColor: theme.palette.error.main,
+  backgroundColor: theme.palette.error.main
 }));
 
 // ----------------------------------------------------------------------
@@ -40,7 +40,7 @@ const DotStyle = styled('span')(({ theme }) => ({
 ToggleButton.propTypes = {
   notDefault: PropTypes.bool,
   onToggle: PropTypes.func,
-  open: PropTypes.bool,
+  open: PropTypes.bool
 };
 
 export default function ToggleButton({ notDefault, open, onToggle }) {
@@ -54,11 +54,11 @@ export default function ToggleButton({ notDefault, open, onToggle }) {
           onClick={onToggle}
           sx={{
             p: 1.25,
-            transition: (theme) => theme.transitions.create('all'),
+            transition: theme => theme.transitions.create('all'),
             '&:hover': {
               color: 'primary.main',
-              bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.hoverOpacity),
-            },
+              bgcolor: theme => alpha(theme.palette.primary.main, theme.palette.action.hoverOpacity)
+            }
           }}
         >
           <Iconify icon="eva:options-2-fill" width={20} height={20} />

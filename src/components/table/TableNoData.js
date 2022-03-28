@@ -7,7 +7,7 @@ import EmptyContent from '../EmptyContent';
 // ----------------------------------------------------------------------
 
 TableNoData.propTypes = {
-  isNotFound: PropTypes.bool,
+  isNotFound: PropTypes.bool
 };
 
 export default function TableNoData({ isNotFound }) {
@@ -19,7 +19,7 @@ export default function TableNoData({ isNotFound }) {
             <EmptyContent
               title="No Data"
               sx={{
-                '& span.MuiBox-root': { height: 160 },
+                '& span.MuiBox-root': { height: 160 }
               }}
             />
           </TableCell>

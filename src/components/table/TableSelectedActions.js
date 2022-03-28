@@ -9,10 +9,16 @@ TableSelectedActions.propTypes = {
   actions: PropTypes.node,
   rowCount: PropTypes.number,
   numSelected: PropTypes.number,
-  onSelectAllRows: PropTypes.func,
+  onSelectAllRows: PropTypes.func
 };
 
-export default function TableSelectedActions({ dense, actions, rowCount, numSelected, onSelectAllRows }) {
+export default function TableSelectedActions({
+  dense,
+  actions,
+  rowCount,
+  numSelected,
+  onSelectAllRows
+}) {
   return (
     <Stack
       direction="row"
@@ -29,14 +35,14 @@ export default function TableSelectedActions({ dense, actions, rowCount, numSele
         bgcolor: 'primary.lighter',
         ...(dense && {
           pl: 1,
-          height: 38,
-        }),
+          height: 38
+        })
       }}
     >
       <Checkbox
         indeterminate={numSelected > 0 && numSelected < rowCount}
         checked={rowCount > 0 && numSelected === rowCount}
-        onChange={(event) => onSelectAllRows(event.target.checked)}
+        onChange={event => onSelectAllRows(event.target.checked)}
       />
 
       <Typography
@@ -46,8 +52,8 @@ export default function TableSelectedActions({ dense, actions, rowCount, numSele
           flexGrow: 1,
           color: 'primary.main',
           ...(dense && {
-            ml: 3,
-          }),
+            ml: 3
+          })
         }}
       >
         {numSelected} selected

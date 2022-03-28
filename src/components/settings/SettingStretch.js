@@ -13,7 +13,7 @@ const BoxStyle = styled(CardActionArea)(({ theme }) => ({
   color: theme.palette.text.disabled,
   border: `solid 1px ${theme.palette.grey[500_12]}`,
   backgroundColor: theme.palette.background.neutral,
-  borderRadius: Number(theme.shape.borderRadius) * 1.25,
+  borderRadius: Number(theme.shape.borderRadius) * 1.25
 }));
 
 // ----------------------------------------------------------------------
@@ -23,7 +23,7 @@ export default function SettingStretch() {
 
   const ICON_SIZE = {
     width: themeStretch ? 24 : 18,
-    height: themeStretch ? 24 : 18,
+    height: themeStretch ? 24 : 18
   };
 
   return (
@@ -31,8 +31,8 @@ export default function SettingStretch() {
       onClick={onToggleStretch}
       sx={{
         ...(themeStretch && {
-          color: (theme) => theme.palette.primary.main,
-        }),
+          color: theme => theme.palette.primary.main
+        })
       }}
     >
       <Stack
@@ -47,12 +47,12 @@ export default function SettingStretch() {
           borderRadius: 1,
           color: 'action.active',
           bgcolor: 'background.default',
-          boxShadow: (theme) => theme.customShadows.z12,
-          transition: (theme) => theme.transitions.create('width'),
+          boxShadow: theme => theme.customShadows.z12,
+          transition: theme => theme.transitions.create('width'),
           ...(themeStretch && {
             width: 1,
-            color: 'primary.main',
-          }),
+            color: 'primary.main'
+          })
         }}
       >
         <Iconify

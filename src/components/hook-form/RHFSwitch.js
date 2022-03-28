@@ -7,7 +7,7 @@ import { Switch, FormControlLabel } from '@mui/material';
 // ----------------------------------------------------------------------
 
 RHFSwitch.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string
 };
 
 export default function RHFSwitch({ name, ...other }) {
@@ -16,7 +16,11 @@ export default function RHFSwitch({ name, ...other }) {
   return (
     <FormControlLabel
       control={
-        <Controller name={name} control={control} render={({ field }) => <Switch {...field} checked={field.value} />} />
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => <Switch {...field} checked={field.value} />}
+        />
       }
       {...other}
     />

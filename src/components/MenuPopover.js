@@ -16,25 +16,25 @@ const ArrowStyle = styled('span')(({ arrow, theme }) => {
     borderRadius: '0 0 3px 0',
     top: POSITION,
     borderBottom: borderStyle,
-    borderRight: borderStyle,
+    borderRight: borderStyle
   };
   const bottomStyle = {
     borderRadius: '3px 0 0 0',
     bottom: POSITION,
     borderTop: borderStyle,
-    borderLeft: borderStyle,
+    borderLeft: borderStyle
   };
   const leftStyle = {
     borderRadius: '0 3px 0 0',
     left: POSITION,
     borderTop: borderStyle,
-    borderRight: borderStyle,
+    borderRight: borderStyle
   };
   const rightStyle = {
     borderRadius: '0 0 0 3px',
     right: POSITION,
     borderBottom: borderStyle,
-    borderLeft: borderStyle,
+    borderLeft: borderStyle
   };
 
   return {
@@ -46,7 +46,7 @@ const ArrowStyle = styled('span')(({ arrow, theme }) => {
       position: 'absolute',
 
       transform: 'rotate(-135deg)',
-      background: theme.palette.background.paper,
+      background: theme.palette.background.paper
     },
     // Top
     ...(arrow === 'top-left' && { ...topStyle, left: 20 }),
@@ -63,7 +63,7 @@ const ArrowStyle = styled('span')(({ arrow, theme }) => {
     // Right
     ...(arrow === 'right-top' && { ...rightStyle, top: 20 }),
     ...(arrow === 'right-center' && { ...rightStyle, top: 0, bottom: 0, margin: 'auto' }),
-    ...(arrow === 'right-bottom' && { ...rightStyle, bottom: 20 }),
+    ...(arrow === 'right-bottom' && { ...rightStyle, bottom: 20 })
   };
 });
 
@@ -85,11 +85,17 @@ MenuPopover.propTypes = {
     'left-bottom',
     'right-top',
     'right-center',
-    'right-bottom',
-  ]),
+    'right-bottom'
+  ])
 };
 
-export default function MenuPopover({ children, arrow = 'top-right', disabledArrow, sx, ...other }) {
+export default function MenuPopover({
+  children,
+  arrow = 'top-right',
+  disabledArrow,
+  sx,
+  ...other
+}) {
   return (
     <Popover
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -99,8 +105,8 @@ export default function MenuPopover({ children, arrow = 'top-right', disabledArr
           p: 1,
           width: 200,
           overflow: 'inherit',
-          ...sx,
-        },
+          ...sx
+        }
       }}
       {...other}
     >

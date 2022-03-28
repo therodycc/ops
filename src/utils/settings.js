@@ -3,12 +3,14 @@ import { defaultSettings, cookiesKey } from '../config';
 
 // ----------------------------------------------------------------------
 
-export const getSettings = (cookies) => {
+export const getSettings = cookies => {
   const themeMode = getData(cookies[cookiesKey.themeMode]) || defaultSettings.themeMode;
 
-  const themeDirection = getData(cookies[cookiesKey.themeDirection]) || defaultSettings.themeDirection;
+  const themeDirection =
+    getData(cookies[cookiesKey.themeDirection]) || defaultSettings.themeDirection;
 
-  const themeColorPresets = getData(cookies[cookiesKey.themeColorPresets]) || defaultSettings.themeColorPresets;
+  const themeColorPresets =
+    getData(cookies[cookiesKey.themeColorPresets]) || defaultSettings.themeColorPresets;
 
   const themeLayout = getData(cookies[cookiesKey.themeLayout]) || defaultSettings.themeLayout;
 
@@ -19,13 +21,13 @@ export const getSettings = (cookies) => {
     themeDirection,
     themeColorPresets,
     themeLayout,
-    themeStretch,
+    themeStretch
   };
 };
 
 // ----------------------------------------------------------------------
 
-const getData = (value) => {
+const getData = value => {
   if (value === 'true' || value === 'false') {
     return JSON.parse(value);
   }

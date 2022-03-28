@@ -28,16 +28,16 @@ const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     flexShrink: 0,
     transition: theme.transitions.create('width', {
-      duration: theme.transitions.duration.shorter,
-    }),
-  },
+      duration: theme.transitions.duration.shorter
+    })
+  }
 }));
 
 // ----------------------------------------------------------------------
 
 NavbarVertical.propTypes = {
   isOpenSidebar: PropTypes.bool,
-  onCloseSidebar: PropTypes.func,
+  onCloseSidebar: PropTypes.func
 };
 
 export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
@@ -61,7 +61,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
     <Scrollbar
       sx={{
         height: 1,
-        '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
+        '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' }
       }}
     >
       <Stack
@@ -71,7 +71,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
           pb: 2,
           px: 2.5,
           flexShrink: 0,
-          ...(isCollapse && { alignItems: 'center' }),
+          ...(isCollapse && { alignItems: 'center' })
         }}
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -97,15 +97,19 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
     <RootStyle
       sx={{
         width: {
-          lg: isCollapse ? NAVBAR.DASHBOARD_COLLAPSE_WIDTH : NAVBAR.DASHBOARD_WIDTH,
+          lg: isCollapse ? NAVBAR.DASHBOARD_COLLAPSE_WIDTH : NAVBAR.DASHBOARD_WIDTH
         },
         ...(collapseClick && {
-          position: 'absolute',
-        }),
+          position: 'absolute'
+        })
       }}
     >
       {!isDesktop && (
-        <Drawer open={isOpenSidebar} onClose={onCloseSidebar} PaperProps={{ sx: { width: NAVBAR.DASHBOARD_WIDTH } }}>
+        <Drawer
+          open={isOpenSidebar}
+          onClose={onCloseSidebar}
+          PaperProps={{ sx: { width: NAVBAR.DASHBOARD_WIDTH } }}
+        >
           {renderContent}
         </Drawer>
       )}
@@ -121,18 +125,18 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
               width: NAVBAR.DASHBOARD_WIDTH,
               borderRightStyle: 'dashed',
               bgcolor: 'background.default',
-              transition: (theme) =>
+              transition: theme =>
                 theme.transitions.create('width', {
-                  duration: theme.transitions.duration.standard,
+                  duration: theme.transitions.duration.standard
                 }),
               ...(isCollapse && {
-                width: NAVBAR.DASHBOARD_COLLAPSE_WIDTH,
+                width: NAVBAR.DASHBOARD_COLLAPSE_WIDTH
               }),
               ...(collapseHover && {
                 ...cssStyles(theme).bgBlur(),
-                boxShadow: (theme) => theme.customShadows.z24,
-              }),
-            },
+                boxShadow: theme => theme.customShadows.z24
+              })
+            }
           }}
         >
           {renderContent}

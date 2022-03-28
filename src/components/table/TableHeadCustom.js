@@ -13,7 +13,7 @@ const visuallyHidden = {
   overflow: 'hidden',
   position: 'absolute',
   whiteSpace: 'nowrap',
-  clip: 'rect(0 0 0 0)',
+  clip: 'rect(0 0 0 0)'
 };
 
 // ----------------------------------------------------------------------
@@ -26,7 +26,7 @@ TableHeadCustom.propTypes = {
   numSelected: PropTypes.number,
   onSelectAllRows: PropTypes.func,
   order: PropTypes.oneOf(['asc', 'desc']),
-  sx: PropTypes.object,
+  sx: PropTypes.object
 };
 
 export default function TableHeadCustom({
@@ -37,7 +37,7 @@ export default function TableHeadCustom({
   numSelected = 0,
   onSort,
   onSelectAllRows,
-  sx,
+  sx
 }) {
   return (
     <TableHead sx={sx}>
@@ -47,12 +47,12 @@ export default function TableHeadCustom({
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
               checked={rowCount > 0 && numSelected === rowCount}
-              onChange={(event) => onSelectAllRows(event.target.checked)}
+              onChange={event => onSelectAllRows(event.target.checked)}
             />
           </TableCell>
         )}
 
-        {headLabel.map((headCell) => (
+        {headLabel.map(headCell => (
           <TableCell
             key={headCell.id}
             align={headCell.align || 'left'}
@@ -70,7 +70,9 @@ export default function TableHeadCustom({
                 {headCell.label}
 
                 {orderBy === headCell.id ? (
-                  <Box sx={{ ...visuallyHidden }}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</Box>
+                  <Box sx={{ ...visuallyHidden }}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
                 ) : null}
               </TableSortLabel>
             ) : (

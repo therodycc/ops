@@ -7,7 +7,7 @@ function getDirection(value = 'bottom') {
     top: 'to top',
     right: 'to right',
     bottom: 'to bottom',
-    left: 'to left',
+    left: 'to left'
   }[value];
 }
 
@@ -15,7 +15,7 @@ function getDirection(value = 'bottom') {
 
 export default function cssStyles(theme) {
   return {
-    bgBlur: (props) => {
+    bgBlur: props => {
       const color = props?.color || theme?.palette.background.default || '#000000';
 
       const blur = props?.blur || 6;
@@ -24,20 +24,21 @@ export default function cssStyles(theme) {
       return {
         backdropFilter: `blur(${blur}px)`,
         WebkitBackdropFilter: `blur(${blur}px)`, // Fix on Mobile
-        backgroundColor: alpha(color, opacity),
+        backgroundColor: alpha(color, opacity)
       };
     },
-    bgGradient: (props) => {
+    bgGradient: props => {
       const direction = getDirection(props?.direction);
       const startColor = props?.startColor || `${alpha('#000000', 0)} 0%`;
       const endColor = props?.endColor || '#000000 75%';
 
       return {
-        background: `linear-gradient(${direction}, ${startColor}, ${endColor});`,
+        background: `linear-gradient(${direction}, ${startColor}, ${endColor});`
       };
     },
-    bgImage: (props) => {
-      const url = props?.url || 'https://minimal-assets-api.vercel.app/assets/images/bg_gradient.jpg';
+    bgImage: props => {
+      const url =
+        props?.url || 'https://minimal-assets-api.vercel.app/assets/images/bg_gradient.jpg';
       const direction = getDirection(props?.direction);
       const startColor = props?.startColor || alpha(theme?.palette.grey[900] || '#000000', 0.88);
       const endColor = props?.endColor || alpha(theme?.palette.grey[900] || '#000000', 0.88);
@@ -46,8 +47,8 @@ export default function cssStyles(theme) {
         background: `linear-gradient(${direction}, ${startColor}, ${endColor}), url(${url})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
+        backgroundPosition: 'center center'
       };
-    },
+    }
   };
 }

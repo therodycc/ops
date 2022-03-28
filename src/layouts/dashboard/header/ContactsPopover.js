@@ -22,7 +22,7 @@ const ITEM_HEIGHT = 64;
 export default function ContactsPopover() {
   const [open, setOpen] = useState(null);
 
-  const handleOpen = (event) => {
+  const handleOpen = event => {
     setOpen(event.currentTarget);
   };
 
@@ -39,8 +39,8 @@ export default function ContactsPopover() {
           width: 40,
           height: 40,
           ...(open && {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity),
-          }),
+            bgcolor: theme => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
+          })
         }}
       >
         <Iconify icon={'eva:people-fill'} width={20} height={20} />
@@ -57,8 +57,8 @@ export default function ContactsPopover() {
           '& .MuiMenuItem-root': {
             px: 1.5,
             height: ITEM_HEIGHT,
-            borderRadius: 0.75,
-          },
+            borderRadius: 0.75
+          }
         }}
       >
         <Typography variant="h6" sx={{ p: 1.5 }}>
@@ -66,11 +66,14 @@ export default function ContactsPopover() {
         </Typography>
 
         <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
-          {_contacts.map((contact) => (
+          {_contacts.map(contact => (
             <MenuItem key={contact.id}>
               <ListItemAvatar sx={{ position: 'relative' }}>
                 <Avatar src={contact.avatar} />
-                <BadgeStatus status={contact.status} sx={{ position: 'absolute', right: 1, bottom: 1 }} />
+                <BadgeStatus
+                  status={contact.status}
+                  sx={{ position: 'absolute', right: 1, bottom: 1 }}
+                />
               </ListItemAvatar>
 
               <ListItemText

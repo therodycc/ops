@@ -10,6 +10,8 @@
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "dev": "next dev -p 5001",
     "build": "next build",
+    "prepare": "husky install",
+    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\"",
     "start": "next start",
     "clear-all": "rm -rf .next node_modules",
     "re-start": "rm -rf .next node_modules && yarn install && yarn dev",
@@ -51,6 +53,7 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.0",
     "eslint": "^8.9.0",
+    "husky": "^7.0.0",
     "eslint-config-next": "^12.1.0",
     "eslint-config-prettier": "^8.4.0",
     "prettier": "2.5.1",

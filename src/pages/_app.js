@@ -34,18 +34,18 @@ import { AuthContext } from '../providers/auth.provider';
 MyApp.propTypes = {
   Component: PropTypes.func,
   pageProps: PropTypes.object,
-  settings: PropTypes.object,
+  settings: PropTypes.object
 };
 
 export default function MyApp(props) {
   const { Component, pageProps, settings } = props;
 
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? (page => page);
 
   return (
     <>
       <Head>
-        <meta name='viewport' content='initial-scale=1, width=device-width' />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
       <Provider store={store}>
@@ -71,7 +71,7 @@ export default function MyApp(props) {
 
 // ----------------------------------------------------------------------
 
-MyApp.getInitialProps = async (context) => {
+MyApp.getInitialProps = async context => {
   const appProps = await App.getInitialProps(context);
 
   const cookies = cookie.parse(
@@ -82,6 +82,6 @@ MyApp.getInitialProps = async (context) => {
 
   return {
     ...appProps,
-    settings,
+    settings
   };
 };

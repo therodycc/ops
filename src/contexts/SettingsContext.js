@@ -18,7 +18,7 @@ const initialState = {
   onChangeLayout: () => {},
   onResetSetting: () => {},
   setColor: defaultPreset,
-  colorOption: [],
+  colorOption: []
 };
 
 const SettingsContext = createContext(initialState);
@@ -27,51 +27,51 @@ const SettingsContext = createContext(initialState);
 
 SettingsProvider.propTypes = {
   children: PropTypes.node,
-  defaultSettings: PropTypes.object,
+  defaultSettings: PropTypes.object
 };
 
 function SettingsProvider({ children, defaultSettings = {} }) {
   const [settings, setSettings] = useSettingCookies(defaultSettings);
 
-  const onChangeMode = (event) => {
+  const onChangeMode = event => {
     setSettings({
       ...settings,
-      themeMode: event.target.value,
+      themeMode: event.target.value
     });
   };
 
   const onToggleMode = () => {
     setSettings({
       ...settings,
-      themeMode: settings.themeMode === 'light' ? 'dark' : 'light',
+      themeMode: settings.themeMode === 'light' ? 'dark' : 'light'
     });
   };
 
-  const onChangeDirection = (event) => {
+  const onChangeDirection = event => {
     setSettings({
       ...settings,
-      themeDirection: event.target.value,
+      themeDirection: event.target.value
     });
   };
 
-  const onChangeColor = (event) => {
+  const onChangeColor = event => {
     setSettings({
       ...settings,
-      themeColorPresets: event.target.value,
+      themeColorPresets: event.target.value
     });
   };
 
-  const onChangeLayout = (event) => {
+  const onChangeLayout = event => {
     setSettings({
       ...settings,
-      themeLayout: event.target.value,
+      themeLayout: event.target.value
     });
   };
 
   const onToggleStretch = () => {
     setSettings({
       ...settings,
-      themeStretch: !settings.themeStretch,
+      themeStretch: !settings.themeStretch
     });
   };
 
@@ -81,7 +81,7 @@ function SettingsProvider({ children, defaultSettings = {} }) {
       themeLayout: initialState.themeLayout,
       themeStretch: initialState.themeStretch,
       themeDirection: initialState.themeDirection,
-      themeColorPresets: initialState.themeColorPresets,
+      themeColorPresets: initialState.themeColorPresets
     });
   };
 
@@ -97,16 +97,16 @@ function SettingsProvider({ children, defaultSettings = {} }) {
         // Color
         onChangeColor,
         setColor: getColorPresets(settings.themeColorPresets),
-        colorOption: colorPresets.map((color) => ({
+        colorOption: colorPresets.map(color => ({
           name: color.name,
-          value: color.main,
+          value: color.main
         })),
         // Stretch
         onToggleStretch,
         // Navbar Horizontal
         onChangeLayout,
         // Reset Setting
-        onResetSetting,
+        onResetSetting
       }}
     >
       {children}
@@ -127,15 +127,15 @@ function useSettingCookies(defaultSettings) {
     Cookies.set(cookiesKey.themeDirection, settings.themeDirection, { expires: cookiesExpires });
 
     Cookies.set(cookiesKey.themeColorPresets, settings.themeColorPresets, {
-      expires: cookiesExpires,
+      expires: cookiesExpires
     });
 
     Cookies.set(cookiesKey.themeLayout, settings.themeLayout, {
-      expires: cookiesExpires,
+      expires: cookiesExpires
     });
 
     Cookies.set(cookiesKey.themeStretch, JSON.stringify(settings.themeStretch), {
-      expires: cookiesExpires,
+      expires: cookiesExpires
     });
   };
 

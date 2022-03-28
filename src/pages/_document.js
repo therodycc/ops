@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
 
 // ----------------------------------------------------------------------
 
-MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async ctx => {
   const originalRenderPage = ctx.renderPage;
 
   const cache = createEmotionCache();
@@ -60,18 +60,18 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) =>
+      enhanceApp: App => props =>
         (
           <CacheProvider value={cache}>
             <App {...props} />
           </CacheProvider>
-        ),
+        )
     });
 
   const initialProps = await Document.getInitialProps(ctx);
 
   const emotionStyles = extractCriticalToChunks(initialProps.html);
-  const emotionStyleTags = emotionStyles.styles.map((style) => (
+  const emotionStyleTags = emotionStyles.styles.map(style => (
     <style
       data-emotion={`${style.key} ${style.ids.join(' ')}`}
       key={style.key}
@@ -82,6 +82,6 @@ MyDocument.getInitialProps = async (ctx) => {
 
   return {
     ...initialProps,
-    styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
+    styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags]
   };
 };

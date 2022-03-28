@@ -15,7 +15,7 @@ import shadows, { customShadows } from './shadows';
 // ----------------------------------------------------------------------
 
 ThemeProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default function ThemeProvider({ children }) {
@@ -30,7 +30,7 @@ export default function ThemeProvider({ children }) {
       shape: { borderRadius: 8 },
       direction: themeDirection,
       shadows: isLight ? shadows.light : shadows.dark,
-      customShadows: isLight ? customShadows.light : customShadows.dark,
+      customShadows: isLight ? customShadows.light : customShadows.dark
     }),
     [isLight, themeDirection]
   );

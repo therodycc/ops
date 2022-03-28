@@ -20,7 +20,9 @@ export default function GetFontValue(variant) {
     variant === 'h6';
 
   const getFont =
-    hasResponsive && theme.typography[variant][key] ? theme.typography[variant][key] : theme.typography[variant];
+    hasResponsive && theme.typography[variant][key]
+      ? theme.typography[variant][key]
+      : theme.typography[variant];
 
   const fontSize = remToPx(getFont.fontSize);
   const lineHeight = Number(theme.typography[variant].lineHeight) * fontSize;
@@ -43,14 +45,14 @@ export function pxToRem(value) {
 export function responsiveFontSizes({ sm, md, lg }) {
   return {
     '@media (min-width:600px)': {
-      fontSize: pxToRem(sm),
+      fontSize: pxToRem(sm)
     },
     '@media (min-width:900px)': {
-      fontSize: pxToRem(md),
+      fontSize: pxToRem(md)
     },
     '@media (min-width:1200px)': {
-      fontSize: pxToRem(lg),
-    },
+      fontSize: pxToRem(lg)
+    }
   };
 }
 

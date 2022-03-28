@@ -11,7 +11,7 @@ import { varContainer } from '.';
 
 MotionViewport.propTypes = {
   children: PropTypes.node.isRequired,
-  disableAnimatedMobile: PropTypes.bool,
+  disableAnimatedMobile: PropTypes.bool
 };
 
 export default function MotionViewport({ children, disableAnimatedMobile = true, ...other }) {

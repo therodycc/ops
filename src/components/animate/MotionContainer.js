@@ -10,7 +10,7 @@ import { varContainer } from './variants';
 MotionContainer.propTypes = {
   action: PropTypes.bool,
   animate: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default function MotionContainer({ animate, action = false, children, ...other }) {
@@ -29,7 +29,14 @@ export default function MotionContainer({ animate, action = false, children, ...
   }
 
   return (
-    <Box component={m.div} initial="initial" animate="animate" exit="exit" variants={varContainer()} {...other}>
+    <Box
+      component={m.div}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={varContainer()}
+      {...other}
+    >
       {children}
     </Box>
   );

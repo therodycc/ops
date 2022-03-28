@@ -42,13 +42,20 @@ const RootStyle = styled(m.div)(({ theme }) => ({
   boxShadow: `-24px 12px 32px -4px ${alpha(
     theme.palette.mode === 'light' ? theme.palette.grey[500] : theme.palette.common.black,
     0.16
-  )}`,
+  )}`
 }));
 
 // ----------------------------------------------------------------------
 
 export default function Settings() {
-  const { themeMode, themeDirection, themeColorPresets, themeStretch, themeLayout, onResetSetting } = useSettings();
+  const {
+    themeMode,
+    themeDirection,
+    themeColorPresets,
+    themeStretch,
+    themeLayout,
+    onResetSetting
+  } = useSettings();
   const [open, setOpen] = useState(false);
 
   const notDefault =
@@ -63,12 +70,12 @@ export default function Settings() {
       ? varFade({
           distance: NAVBAR.BASE_WIDTH,
           durationIn: 0.32,
-          durationOut: 0.32,
+          durationOut: 0.32
         }).inRight
       : varFade({
           distance: NAVBAR.BASE_WIDTH,
           durationIn: 0.32,
-          durationOut: 0.32,
+          durationOut: 0.32
         }).inLeft;
 
   useEffect(() => {
@@ -80,7 +87,7 @@ export default function Settings() {
   }, [open]);
 
   const handleToggle = () => {
-    setOpen((prev) => !prev);
+    setOpen(prev => !prev);
   };
 
   const handleClose = () => {
@@ -92,7 +99,7 @@ export default function Settings() {
       <Backdrop
         open={open}
         onClick={handleClose}
-        sx={{ background: 'transparent', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ background: 'transparent', zIndex: theme => theme.zIndex.drawer + 1 }}
       />
 
       {!open && <ToggleButton open={open} notDefault={notDefault} onToggle={handleToggle} />}
@@ -101,7 +108,12 @@ export default function Settings() {
         {open && (
           <>
             <RootStyle {...varSidebar}>
-              <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 2, pr: 1, pl: 2.5 }}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{ py: 2, pr: 1, pl: 2.5 }}
+              >
                 <Typography variant="subtitle1">Settings</Typography>
                 <div>
                   <IconButtonAnimate onClick={onResetSetting}>
@@ -156,7 +168,7 @@ export default function Settings() {
 // ----------------------------------------------------------------------
 
 BoxMask.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 export function BoxMask({ value }) {
@@ -171,7 +183,7 @@ export function BoxMask({ value }) {
         right: 0,
         bottom: 0,
         left: 0,
-        position: 'absolute',
+        position: 'absolute'
       }}
     />
   );

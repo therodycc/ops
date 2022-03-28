@@ -7,10 +7,10 @@ const login = async (email, password) => {
       'https://func-authenticate-dev.azurewebsites.net/api/login?code=V0hDygagvUYoBZxOapPADfIGE1OJfLr93GAo0Noskxqis%2FXjtJHaQQ%3D%3D',
       {
         email,
-        password,
+        password
       }
     )
-    .catch((error) => {
+    .catch(error => {
       throw new Error('Usuario o contraseña invalido.');
     });
   setSession(profile.data.accessToken);
@@ -18,5 +18,5 @@ const login = async (email, password) => {
 };
 
 export const authService = {
-  login,
+  login
 };

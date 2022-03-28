@@ -20,8 +20,8 @@ NavItemRoot.propTypes = {
     icon: PropTypes.any,
     info: PropTypes.any,
     path: PropTypes.string,
-    title: PropTypes.string,
-  }),
+    title: PropTypes.string
+  })
 };
 
 export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }) {
@@ -69,8 +69,8 @@ NavItemSub.propTypes = {
     children: PropTypes.array,
     info: PropTypes.any,
     path: PropTypes.string,
-    title: PropTypes.string,
-  }),
+    title: PropTypes.string
+  })
 };
 
 export function NavItemSub({ item, open = false, active = false, onOpen }) {
@@ -109,7 +109,7 @@ export function NavItemSub({ item, open = false, active = false, onOpen }) {
 // ----------------------------------------------------------------------
 
 DotIcon.propTypes = {
-  active: PropTypes.bool,
+  active: PropTypes.bool
 };
 
 export function DotIcon({ active }) {
@@ -122,14 +122,14 @@ export function DotIcon({ active }) {
           height: 4,
           borderRadius: '50%',
           bgcolor: 'text.disabled',
-          transition: (theme) =>
+          transition: theme =>
             theme.transitions.create('transform', {
-              duration: theme.transitions.duration.shorter,
+              duration: theme.transitions.duration.shorter
             }),
           ...(active && {
             transform: 'scale(2)',
-            bgcolor: 'primary.main',
-          }),
+            bgcolor: 'primary.main'
+          })
         }}
       />
     </ListItemIconStyle>
@@ -139,7 +139,7 @@ export function DotIcon({ active }) {
 // ----------------------------------------------------------------------
 
 ArrowIcon.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.bool
 };
 
 export function ArrowIcon({ open }) {

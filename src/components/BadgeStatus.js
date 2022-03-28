@@ -17,7 +17,7 @@ const RootStyle = styled('span')(({ theme, ownerState }) => {
     '&:before, &:after': {
       content: "''",
       borderRadius: 1,
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.common.white
     },
 
     ...(size === 'small' && { width: 8, height: 8 }),
@@ -31,22 +31,22 @@ const RootStyle = styled('span')(({ theme, ownerState }) => {
       '&:before': {
         width: 2,
         height: 4,
-        transform: 'translateX(1px) translateY(-1px)',
+        transform: 'translateX(1px) translateY(-1px)'
       },
       '&:after': {
         width: 2,
         height: 4,
-        transform: 'translateY(1px) rotate(125deg)',
-      },
+        transform: 'translateY(1px) rotate(125deg)'
+      }
     }),
 
     ...(status === 'busy' && {
       backgroundColor: theme.palette.error.main,
-      '&:before': { width: 6, height: 2 },
+      '&:before': { width: 6, height: 2 }
     }),
 
     ...(status === 'online' && {
-      backgroundColor: theme.palette.success.main,
+      backgroundColor: theme.palette.success.main
     }),
 
     ...(status === 'invisible' && {
@@ -54,13 +54,13 @@ const RootStyle = styled('span')(({ theme, ownerState }) => {
       '&:before': {
         width: 6,
         height: 6,
-        borderRadius: '50%',
-      },
+        borderRadius: '50%'
+      }
     }),
 
     ...(status === 'unread' && {
-      backgroundColor: theme.palette.info.main,
-    }),
+      backgroundColor: theme.palette.info.main
+    })
   };
 });
 
@@ -68,7 +68,7 @@ const RootStyle = styled('span')(({ theme, ownerState }) => {
 
 BadgeStatus.propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']),
-  status: PropTypes.oneOf(['away', 'busy', 'unread', 'online', 'offline', 'invisible']),
+  status: PropTypes.oneOf(['away', 'busy', 'unread', 'online', 'offline', 'invisible'])
 };
 
 export default function BadgeStatus({ size = 'medium', status = 'offline', ...other }) {

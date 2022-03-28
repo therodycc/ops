@@ -46,7 +46,7 @@ export default function ProgressBar() {
             position: 'fixed',
             zIndex: theme.zIndex.snackbar,
             backgroundColor: theme.palette.primary.main,
-            boxShadow: `0 0 2px ${theme.palette.primary.main}`,
+            boxShadow: `0 0 2px ${theme.palette.primary.main}`
           },
           '& .peg': {
             right: 0,
@@ -56,9 +56,9 @@ export default function ProgressBar() {
             display: 'block',
             position: 'absolute',
             transform: 'rotate(3deg) translate(0px, -4px)',
-            boxShadow: `0 0 10px ${theme.palette.primary.main}, 0 0 5px ${theme.palette.primary.main}`,
-          },
-        },
+            boxShadow: `0 0 10px ${theme.palette.primary.main}, 0 0 5px ${theme.palette.primary.main}`
+          }
+        }
       }}
     />
   );

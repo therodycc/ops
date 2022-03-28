@@ -57,7 +57,7 @@ const Logo = forwardRef(({ disabledLink = false, sx }, ref) => {
 
 Logo.propTypes = {
   disabledLink: PropTypes.bool,
-  sx: PropTypes.object,
+  sx: PropTypes.object
 };
 
 export default Logo;

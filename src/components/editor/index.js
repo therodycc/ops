@@ -16,12 +16,12 @@ const ReactQuill = dynamic(() => import('react-quill'), {
         right: 0,
         bottom: 0,
         position: 'absolute',
-        bgcolor: 'background.paper',
+        bgcolor: 'background.paper'
       }}
     >
       Loading...
     </Box>
-  ),
+  )
 });
 
 // ----------------------------------------------------------------------
@@ -34,21 +34,21 @@ const RootStyle = styled(Box)(({ theme }) => ({
   '& .ql-container.ql-snow': {
     borderColor: 'transparent',
     ...theme.typography.body1,
-    fontFamily: theme.typography.fontFamily,
+    fontFamily: theme.typography.fontFamily
   },
   '& .ql-editor': {
     minHeight: 200,
     '&.ql-blank::before': {
       fontStyle: 'normal',
-      color: theme.palette.text.disabled,
+      color: theme.palette.text.disabled
     },
     '& pre.ql-syntax': {
       ...theme.typography.body2,
       padding: theme.spacing(2),
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: theme.palette.grey[900],
-    },
-  },
+      backgroundColor: theme.palette.grey[900]
+    }
+  }
 }));
 
 // ----------------------------------------------------------------------
@@ -60,7 +60,7 @@ Editor.propTypes = {
   error: PropTypes.bool,
   helperText: PropTypes.node,
   simple: PropTypes.bool,
-  sx: PropTypes.object,
+  sx: PropTypes.object
 };
 
 export default function Editor({
@@ -75,17 +75,17 @@ export default function Editor({
 }) {
   const modules = {
     toolbar: {
-      container: `#${id}`,
+      container: `#${id}`
     },
     history: {
       delay: 500,
       maxStack: 100,
-      userOnly: true,
+      userOnly: true
     },
     syntax: true,
     clipboard: {
-      matchVisual: false,
-    },
+      matchVisual: false
+    }
   };
 
   return (
@@ -93,9 +93,9 @@ export default function Editor({
       <RootStyle
         sx={{
           ...(error && {
-            border: (theme) => `solid 1px ${theme.palette.error.main}`,
+            border: theme => `solid 1px ${theme.palette.error.main}`
           }),
-          ...sx,
+          ...sx
         }}
       >
         <EditorToolbar id={id} isSimple={simple} />

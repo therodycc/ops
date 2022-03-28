@@ -11,7 +11,7 @@ TableMoreMenu.propTypes = {
   actions: PropTypes.node,
   open: PropTypes.object,
   onClose: PropTypes.func,
-  onOpen: PropTypes.func,
+  onOpen: PropTypes.func
 };
 
 export default function TableMoreMenu({ actions, open, onClose, onOpen }) {
@@ -35,8 +35,8 @@ export default function TableMoreMenu({ actions, open, onClose, onOpen }) {
             px: 1,
             typography: 'body2',
             borderRadius: 0.75,
-            '& svg': { mr: 2, width: 20, height: 20 },
-          },
+            '& svg': { mr: 2, width: 20, height: 20 }
+          }
         }}
       >
         {actions}

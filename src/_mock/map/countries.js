@@ -10,7 +10,7 @@ export const countries = [
     name: 'Aruba',
     country_code: 'AW',
     capital: 'Oranjestad',
-    photo: _mock.image.feed(1),
+    photo: _mock.image.feed(1)
   },
   {
     timezones: ['Asia/Kabul'],
@@ -18,7 +18,7 @@ export const countries = [
     name: 'Afghanistan',
     country_code: 'AF',
     capital: 'Kabul',
-    photo: _mock.image.feed(2),
+    photo: _mock.image.feed(2)
   },
   {
     timezones: ['Africa/Luanda'],
@@ -26,7 +26,7 @@ export const countries = [
     name: 'Angola',
     country_code: 'AO',
     capital: 'Luanda',
-    photo: _mock.image.feed(3),
+    photo: _mock.image.feed(3)
   },
   {
     timezones: ['Pacific/Efate'],
@@ -34,7 +34,7 @@ export const countries = [
     name: 'Vanuatu',
     country_code: 'VU',
     capital: 'Port Vila',
-    photo: _mock.image.feed(4),
+    photo: _mock.image.feed(4)
   },
   {
     timezones: ['Pacific/Wallis'],
@@ -42,7 +42,7 @@ export const countries = [
     name: 'Wallis and Futuna',
     country_code: 'WF',
     capital: 'Mata-Utu',
-    photo: _mock.image.feed(5),
+    photo: _mock.image.feed(5)
   },
   {
     timezones: ['Pacific/Apia'],
@@ -50,7 +50,7 @@ export const countries = [
     name: 'Samoa',
     country_code: 'WS',
     capital: 'Apia',
-    photo: _mock.image.feed(6),
+    photo: _mock.image.feed(6)
   },
   {
     timezones: ['Asia/Aden'],
@@ -58,7 +58,7 @@ export const countries = [
     name: 'Yemen',
     country_code: 'YE',
     capital: "Sana'a",
-    photo: _mock.image.feed(7),
+    photo: _mock.image.feed(7)
   },
   {
     timezones: ['Africa/Johannesburg'],
@@ -66,7 +66,7 @@ export const countries = [
     name: 'South Africa',
     country_code: 'ZA',
     capital: 'Pretoria',
-    photo: _mock.image.feed(8),
+    photo: _mock.image.feed(8)
   },
   {
     timezones: ['Africa/Lusaka'],
@@ -74,7 +74,7 @@ export const countries = [
     name: 'Zambia',
     country_code: 'ZM',
     capital: 'Lusaka',
-    photo: _mock.image.feed(9),
+    photo: _mock.image.feed(9)
   },
   {
     timezones: ['Africa/Harare'],
@@ -82,6 +82,6 @@ export const countries = [
     name: 'Zimbabwe',
     country_code: 'ZW',
     capital: 'Harare',
-    photo: _mock.image.feed(10),
-  },
+    photo: _mock.image.feed(10)
+  }
 ];

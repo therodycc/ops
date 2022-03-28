@@ -15,7 +15,7 @@ export default function useTable(props) {
 
   const [selected, setSelected] = useState(props?.defaultSelected || []);
 
-  const onSort = (id) => {
+  const onSort = id => {
     const isAsc = orderBy === id && order === 'asc';
     if (id !== '') {
       setOrder(isAsc ? 'desc' : 'asc');
@@ -23,7 +23,7 @@ export default function useTable(props) {
     }
   };
 
-  const onSelectRow = (id) => {
+  const onSelectRow = id => {
     const selectedIndex = selected.indexOf(id);
 
     let newSelected = [];
@@ -35,7 +35,10 @@ export default function useTable(props) {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
     }
     setSelected(newSelected);
   };
@@ -52,12 +55,12 @@ export default function useTable(props) {
     setPage(newPage);
   };
 
-  const onChangeRowsPerPage = (event) => {
+  const onChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const onChangeDense = (event) => {
+  const onChangeDense = event => {
     setDense(event.target.checked);
   };
 
@@ -79,7 +82,7 @@ export default function useTable(props) {
     onSort,
     onChangePage,
     onChangeDense,
-    onChangeRowsPerPage,
+    onChangeRowsPerPage
   };
 }
 

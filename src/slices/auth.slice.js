@@ -5,13 +5,13 @@ const { createSlice } = require('@reduxjs/toolkit');
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null,
+  user: null
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: authReducer,
+  reducers: authReducer
 });
 
 export const authActions = authSlice.actions;

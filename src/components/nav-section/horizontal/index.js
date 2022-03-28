@@ -12,21 +12,25 @@ const hideScrollbar = {
   scrollbarWidth: 'none',
   overflowY: 'scroll',
   '&::-webkit-scrollbar': {
-    display: 'none',
-  },
+    display: 'none'
+  }
 };
 
 NavSectionHorizontal.propTypes = {
-  navConfig: PropTypes.array,
+  navConfig: PropTypes.array
 };
 
 function NavSectionHorizontal({ navConfig }) {
   return (
-    <Stack direction="row" justifyContent="center" sx={{ bgcolor: 'background.neutral', borderRadius: 1, px: 0.5 }}>
+    <Stack
+      direction="row"
+      justifyContent="center"
+      sx={{ bgcolor: 'background.neutral', borderRadius: 1, px: 0.5 }}
+    >
       <Stack direction="row" sx={{ ...hideScrollbar, py: 1 }}>
-        {navConfig.map((group) => (
+        {navConfig.map(group => (
           <Stack key={group.subheader} direction="row" flexShrink={0}>
-            {group.items.map((list) => (
+            {group.items.map(list => (
               <NavListRoot key={list.title} list={list} />
             ))}
           </Stack>

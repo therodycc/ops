@@ -12,8 +12,8 @@ import { getActive } from '..';
 NavListRoot.propTypes = {
   list: PropTypes.shape({
     children: PropTypes.array,
-    path: PropTypes.string,
-  }),
+    path: PropTypes.string
+  })
 };
 
 export function NavListRoot({ list }) {
@@ -61,10 +61,10 @@ export function NavListRoot({ list }) {
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           PaperProps={{
             onMouseEnter: handleOpen,
-            onMouseLeave: handleClose,
+            onMouseLeave: handleClose
           }}
         >
-          {(list.children || []).map((item) => (
+          {(list.children || []).map(item => (
             <NavListSub key={item.title} list={item} />
           ))}
         </PaperStyle>
@@ -80,8 +80,8 @@ export function NavListRoot({ list }) {
 NavListSub.propTypes = {
   list: PropTypes.shape({
     children: PropTypes.array,
-    path: PropTypes.string,
-  }),
+    path: PropTypes.string
+  })
 };
 
 function NavListSub({ list }) {
@@ -122,10 +122,10 @@ function NavListSub({ list }) {
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           PaperProps={{
             onMouseEnter: handleOpen,
-            onMouseLeave: handleClose,
+            onMouseLeave: handleClose
           }}
         >
-          {(list.children || []).map((item) => (
+          {(list.children || []).map(item => (
             <NavListSub key={item.title} list={item} />
           ))}
         </PaperStyle>

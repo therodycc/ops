@@ -18,7 +18,13 @@ export const NavItemRoot = forwardRef(({ item, active, open, onMouseEnter, onMou
 
   if (children) {
     return (
-      <ListItemStyle ref={ref} open={open} activeRoot={active} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <ListItemStyle
+        ref={ref}
+        open={open}
+        activeRoot={active}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <NavItemContent icon={icon} title={title} children={children} />
       </ListItemStyle>
     );
@@ -46,8 +52,8 @@ NavItemRoot.propTypes = {
     children: PropTypes.array,
     icon: PropTypes.any,
     path: PropTypes.string,
-    title: PropTypes.string,
-  }),
+    title: PropTypes.string
+  })
 };
 
 // ----------------------------------------------------------------------
@@ -72,7 +78,14 @@ export const NavItemSub = forwardRef(({ item, active, open, onMouseEnter, onMous
   }
 
   return isExternalLink(path) ? (
-    <ListItemStyle subItem href={path} disableRipple rel="noopener" target="_blank" component={Link}>
+    <ListItemStyle
+      subItem
+      href={path}
+      disableRipple
+      rel="noopener"
+      target="_blank"
+      component={Link}
+    >
       <NavItemContent icon={icon} title={title} children={children} subItem />
     </ListItemStyle>
   ) : (
@@ -93,8 +106,8 @@ NavItemSub.propTypes = {
     children: PropTypes.array,
     icon: PropTypes.any,
     path: PropTypes.string,
-    title: PropTypes.string,
-  }),
+    title: PropTypes.string
+  })
 };
 
 // ----------------------------------------------------------------------
@@ -103,7 +116,7 @@ NavItemContent.propTypes = {
   children: PropTypes.array,
   icon: PropTypes.any,
   subItem: PropTypes.bool,
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 
 function NavItemContent({ icon, title, children, subItem }) {
@@ -116,7 +129,7 @@ function NavItemContent({ icon, title, children, subItem }) {
             mr: 1,
             width: ICON.NAVBAR_ITEM_HORIZONTAL,
             height: ICON.NAVBAR_ITEM_HORIZONTAL,
-            '& svg': { width: '100%', height: '100%' },
+            '& svg': { width: '100%', height: '100%' }
           }}
         >
           {icon}
@@ -129,7 +142,7 @@ function NavItemContent({ icon, title, children, subItem }) {
           sx={{
             ml: 0.5,
             width: ICON.NAVBAR_ITEM_HORIZONTAL,
-            height: ICON.NAVBAR_ITEM_HORIZONTAL,
+            height: ICON.NAVBAR_ITEM_HORIZONTAL
           }}
         />
       )}

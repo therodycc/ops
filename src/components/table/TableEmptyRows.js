@@ -6,7 +6,7 @@ import { TableRow, TableCell } from '@mui/material';
 
 TableEmptyRows.propTypes = {
   emptyRows: PropTypes.number,
-  height: PropTypes.number,
+  height: PropTypes.number
 };
 
 export default function TableEmptyRows({ emptyRows, height }) {
@@ -18,8 +18,8 @@ export default function TableEmptyRows({ emptyRows, height }) {
     <TableRow
       sx={{
         ...(height && {
-          height: height * emptyRows,
-        }),
+          height: height * emptyRows
+        })
       }}
     >
       <TableCell colSpan={9} />

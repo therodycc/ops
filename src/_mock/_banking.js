@@ -6,14 +6,14 @@ export const _bankingContacts = [...Array(5)].map((_, index) => ({
   id: _mock.id(index),
   name: _mock.name.fullName(index),
   email: _mock.email(index),
-  avatar: _mock.image.avatar(index + 4),
+  avatar: _mock.image.avatar(index + 4)
 }));
 
 export const _bankingQuickTransfer = [...Array(12)].map((_, index) => ({
   id: _mock.id(index),
   name: _mock.name.fullName(index),
   email: _mock.email(index),
-  avatar: _mock.image.avatar(index),
+  avatar: _mock.image.avatar(index)
 }));
 
 export const _bankingCreditCard = [
@@ -23,7 +23,7 @@ export const _bankingCreditCard = [
     cardType: 'mastercard',
     cardHolder: _mock.name.fullName(2),
     cardNumber: '**** **** **** 3640',
-    cardValid: '11/22',
+    cardValid: '11/22'
   },
   {
     id: _mock.id(3),
@@ -31,7 +31,7 @@ export const _bankingCreditCard = [
     cardType: 'visa',
     cardHolder: _mock.name.fullName(3),
     cardNumber: '**** **** **** 8864',
-    cardValid: '11/25',
+    cardValid: '11/25'
   },
   {
     id: _mock.id(4),
@@ -39,8 +39,8 @@ export const _bankingCreditCard = [
     cardType: 'mastercard',
     cardHolder: _mock.name.fullName(4),
     cardNumber: '**** **** **** 7755',
-    cardValid: '11/22',
-  },
+    cardValid: '11/22'
+  }
 ];
 
 export const _bankingRecentTransitions = [
@@ -53,7 +53,7 @@ export const _bankingRecentTransitions = [
     category: 'Annette Black',
     date: 1627556358365,
     status: 'in_progress',
-    amount: 811.45,
+    amount: 811.45
   },
   {
     id: _mock.id(3),
@@ -64,7 +64,7 @@ export const _bankingRecentTransitions = [
     category: 'Courtney Henry',
     date: 1627556329038,
     status: 'completed',
-    amount: 436.03,
+    amount: 436.03
   },
   {
     id: _mock.id(4),
@@ -75,7 +75,7 @@ export const _bankingRecentTransitions = [
     category: 'Theresa Webb',
     date: 1627556339677,
     status: 'failed',
-    amount: 82.26,
+    amount: 82.26
   },
   {
     id: _mock.id(5),
@@ -86,7 +86,7 @@ export const _bankingRecentTransitions = [
     category: 'Beauty & Health',
     date: 1627547330510,
     status: 'completed',
-    amount: 480.73,
+    amount: 480.73
   },
   {
     id: _mock.id(6),
@@ -97,6 +97,6 @@ export const _bankingRecentTransitions = [
     category: 'Books',
     date: 1627556347676,
     status: 'in_progress',
-    amount: 11.45,
-  },
+    amount: 11.45
+  }
 ];

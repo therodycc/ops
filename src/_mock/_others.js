@@ -7,14 +7,14 @@ export const _carouselsExample = [...Array(5)].map((_, index) => ({
   id: _mock.id(index),
   title: _mock.text.title(index),
   image: _mock.image.feed(index),
-  description: _mock.text.description(index),
+  description: _mock.text.description(index)
 }));
 
 export const _carouselsMembers = [...Array(5)].map((_, index) => ({
   id: _mock.id(index),
   name: _mock.name.fullName(index),
   role: _mock.role(index),
-  avatar: `https://minimal-assets-api.vercel.app/assets/images/members/member-${index + 1}.jpg`,
+  avatar: `https://minimal-assets-api.vercel.app/assets/images/members/member-${index + 1}.jpg`
 }));
 
 // ----------------------------------------------------------------------
@@ -29,22 +29,22 @@ export const _invoice = {
     address: _mock.address.fullAddress(1),
     company: _mock.company(1),
     email: _mock.email(1),
-    phone: _mock.phoneNumber(1),
+    phone: _mock.phoneNumber(1)
   },
   invoiceTo: {
     name: _mock.name.fullName(2),
     address: _mock.address.fullAddress(2),
     company: _mock.company(2),
     email: _mock.email(2),
-    phone: _mock.phoneNumber(2),
+    phone: _mock.phoneNumber(2)
   },
   items: [...Array(3)].map((_, index) => ({
     id: _mock.id(index),
     title: _mock.text.title(index),
     description: _mock.text.description(index),
     qty: 5,
-    price: _mock.number.price(index),
-  })),
+    price: _mock.number.price(index)
+  }))
 };
 
 // ----------------------------------------------------------------------
@@ -53,7 +53,7 @@ export const _faqs = [...Array(8)].map((_, index) => ({
   id: _mock.id(index),
   value: `panel${index + 1}`,
   heading: `Questions ${index + 1}`,
-  detail: _mock.text.description(index),
+  detail: _mock.text.description(index)
 }));
 
 // ----------------------------------------------------------------------
@@ -64,14 +64,14 @@ export const _addressBooks = [...Array(5)].map((_, index) => ({
   fullAddress: _mock.address.fullAddress(index),
   phone: _mock.phoneNumber(index),
   addressType: index === 0 ? 'Home' : 'Office',
-  isDefault: index === 0,
+  isDefault: index === 0
 }));
 
 // ----------------------------------------------------------------------
 
 export const _skills = [...Array(3)].map((_, index) => ({
   label: ['Development', 'Design', 'Marketing'][index],
-  value: _mock.number.percent(index),
+  value: _mock.number.percent(index)
 }));
 
 // ----------------------------------------------------------------------
@@ -81,7 +81,7 @@ export const _accordions = [...Array(4)].map((_, index) => ({
   value: `panel${index + 1}`,
   heading: `Accordion ${index + 1}`,
   subHeading: _mock.text.title(index),
-  detail: _mock.text.description(index),
+  detail: _mock.text.description(index)
 }));
 
 // ----------------------------------------------------------------------
@@ -97,7 +97,7 @@ export const _dataGrid = [...Array(36)].map((_, index) => ({
   isAdmin: _mock.boolean(index),
   lastName: _mock.name.lastName(index),
   firstName: _mock.name.firstName(index),
-  age: _mock.number.age(index),
+  age: _mock.number.age(index)
 }));
 
 // ----------------------------------------------------------------------
@@ -105,7 +105,7 @@ export const _dataGrid = [...Array(36)].map((_, index) => ({
 export const _megaMenuProducts = [...Array(10)].map((_, index) => ({
   name: _mock.text.title(index),
   image: _mock.image.feed(index),
-  path: '#',
+  path: '#'
 }));
 
 // ----------------------------------------------------------------------
@@ -120,7 +120,7 @@ export const _contacts = [...Array(20)].map((_, index) => ({
   email: _mock.email(index),
   lastActivity: _mock.time(index),
   status: randomInArray(['online', 'offline', 'away', 'busy']),
-  position: _mock.role(index),
+  position: _mock.role(index)
 }));
 
 // ----------------------------------------------------------------------
@@ -132,19 +132,19 @@ export const _notifications = [...Array(5)].map((_, index) => ({
     'Sylvan King',
     'You have new message',
     'You have new mail',
-    'Delivery processing',
+    'Delivery processing'
   ][index],
   description: [
     'waiting for shipping',
     'answered to your comment on the Minimal',
     '5 unread messages',
     'sent from Guido Padberg',
-    'Your order is being shipped',
+    'Your order is being shipped'
   ][index],
   avatar: [null, _mock.image.avatar(2), null, null, null][index],
   type: ['order_placed', 'friend_interactive', 'chat_message', 'mail', 'order_shipped'][index],
   createdAt: _mock.time(index),
-  isUnRead: [true, true, false, false, false][index],
+  isUnRead: [true, true, false, false, false][index]
 }));
 
 // ----------------------------------------------------------------------
@@ -153,11 +153,11 @@ export const _mapContact = [
   {
     latlng: [33, 65],
     address: _mock.address.fullAddress(1),
-    phoneNumber: _mock.phoneNumber(1),
+    phoneNumber: _mock.phoneNumber(1)
   },
   {
     latlng: [-12.5, 18.5],
     address: _mock.address.fullAddress(2),
-    phoneNumber: _mock.phoneNumber(2),
-  },
+    phoneNumber: _mock.phoneNumber(2)
+  }
 ];

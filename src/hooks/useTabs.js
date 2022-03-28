@@ -10,6 +10,6 @@ export default function useTabs(defaultValues) {
     onChangeTab: (event, newValue) => {
       setCurrentTab(newValue);
     },
-    setCurrentTab,
+    setCurrentTab
   };
 }

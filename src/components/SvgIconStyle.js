@@ -5,13 +5,13 @@ import { Box } from '@mui/material';
 
 SvgIconStyle.propTypes = {
   src: PropTypes.string.isRequired,
-  sx: PropTypes.object,
+  sx: PropTypes.object
 };
 
 export default function SvgIconStyle({ src, sx }) {
   return (
     <Box
-      component='span'
+      component="span"
       sx={
         {
           // width: 24,

@@ -16,11 +16,7 @@ import { PATH_AUTH, PATH_DASHBOARD } from '../../../routes/paths';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
-import {
-  FormProvider,
-  RHFTextField,
-  RHFCheckbox,
-} from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
 import { authService } from '../../../services/auth.service';
 import { authActions } from '../../../slices/auth.slice';
@@ -30,37 +26,35 @@ import { useRouter } from 'next/router';
 export default function LoginForm() {
   const dispatch = useDispatch();
   const { replace } = useRouter();
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector(state => state.auth);
 
   const isMountedRef = useIsMountedRef();
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Email must be a valid email address')
-      .required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    password: Yup.string().required('Password is required')
   });
 
   const defaultValues = {
     email: 'random@gmail.com',
     password: '12345678',
-    remember: true,
+    remember: true
   };
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
-    defaultValues,
+    defaultValues
   });
 
   const {
     reset,
     setError,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting }
   } = methods;
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
       const profile = await authService.login(data.email, data.password);
       if (!profile.role) throw new Error('No tiene acceso a la plataforma');
@@ -78,50 +72,38 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && (
-          <Alert severity='error'>{errors.afterSubmit.message}</Alert>
-        )}
+        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name='email' label='Email address' />
+        <RHFTextField name="email" label="Email address" />
 
         <RHFTextField
-          name='password'
-          label='Password'
+          name="password"
+          label="Password"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
-              <InputAdornment position='end'>
-                <IconButton
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge='end'
-                >
-                  <Iconify
-                    icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'}
-                  />
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                 </IconButton>
               </InputAdornment>
-            ),
+            )
           }}
         />
       </Stack>
 
-      <Stack
-        direction='row'
-        alignItems='center'
-        justifyContent='space-between'
-        sx={{ my: 2 }}
-      >
-        <RHFCheckbox name='remember' label='Remember me' />
+      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+        <RHFCheckbox name="remember" label="Remember me" />
         <NextLink href={PATH_AUTH.resetPassword} passHref>
-          <Link variant='subtitle2'>Forgot password?</Link>
+          <Link variant="subtitle2">Forgot password?</Link>
         </NextLink>
       </Stack>
 
       <LoadingButton
         fullWidth
-        size='large'
-        type='submit'
-        variant='contained'
+        size="large"
+        type="submit"
+        variant="contained"
         loading={isSubmitting}
       >
         Login

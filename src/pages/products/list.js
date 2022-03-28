@@ -32,9 +32,9 @@ export default function UserCards() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    productService.list().then((response) => {
+    productService.list().then(response => {
       const newProducts = response.data?.data ?? [];
-      setProducts((stateProducts) => {
+      setProducts(stateProducts => {
         return newProducts;
       });
       setIsLoading(false);
@@ -42,14 +42,14 @@ export default function UserCards() {
   }, []);
 
   return (
-    <Page title='Productos - Lista'>
+    <Page title="Productos - Lista">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading='Lista de Productos'
+          heading="Lista de Productos"
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
             { name: 'Productos', href: PATH_PRODUCTS.root },
-            { name: 'Lista' },
+            { name: 'Lista' }
           ]}
         />
 
@@ -61,8 +61,8 @@ export default function UserCards() {
               xs: 'repeat(1, 1fr)',
               sm: 'repeat(2, 1fr)',
               md: 'repeat(3, 1fr)',
-              lg: 'repeat(4, 1fr)',
-            },
+              lg: 'repeat(4, 1fr)'
+            }
           }}
         >
           {(isLoading ? [...Array(12)] : products).map((product, index) =>

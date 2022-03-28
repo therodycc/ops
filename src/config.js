@@ -5,7 +5,7 @@ export const HEADER = {
   MOBILE_HEIGHT: 64,
   MAIN_DESKTOP_HEIGHT: 88,
   DASHBOARD_DESKTOP_HEIGHT: 92,
-  DASHBOARD_DESKTOP_OFFSET_HEIGHT: 92 - 32,
+  DASHBOARD_DESKTOP_OFFSET_HEIGHT: 92 - 32
 };
 
 export const NAVBAR = {
@@ -15,12 +15,12 @@ export const NAVBAR = {
   //
   DASHBOARD_ITEM_ROOT_HEIGHT: 48,
   DASHBOARD_ITEM_SUB_HEIGHT: 40,
-  DASHBOARD_ITEM_HORIZONTAL_HEIGHT: 32,
+  DASHBOARD_ITEM_HORIZONTAL_HEIGHT: 32
 };
 
 export const ICON = {
   NAVBAR_ITEM: 22,
-  NAVBAR_ITEM_HORIZONTAL: 20,
+  NAVBAR_ITEM_HORIZONTAL: 20
 };
 
 // SETTINGS
@@ -33,7 +33,7 @@ export const cookiesKey = {
   themeDirection: 'themeDirection',
   themeColorPresets: 'themeColorPresets',
   themeLayout: 'themeLayout',
-  themeStretch: 'themeStretch',
+  themeStretch: 'themeStretch'
 };
 
 export const defaultSettings = {
@@ -41,5 +41,5 @@ export const defaultSettings = {
   themeDirection: 'ltr',
   themeColorPresets: 'purple',
   themeLayout: 'horizontal',
-  themeStretch: false,
+  themeStretch: false
 };

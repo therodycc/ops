@@ -27,8 +27,8 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
   boxShadow: theme.customShadows.z8,
   [theme.breakpoints.up('md')]: {
     height: APPBAR_DESKTOP,
-    padding: theme.spacing(0, 5),
-  },
+    padding: theme.spacing(0, 5)
+  }
 }));
 
 // ----------------------------------------------------------------------
@@ -37,7 +37,7 @@ export default function Searchbar() {
   const [isOpen, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpen((prev) => !prev);
+    setOpen(prev => !prev);
   };
 
   const handleClose = () => {

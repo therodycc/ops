@@ -7,7 +7,7 @@ export const colorPresets = [
   // DEFAULT
   {
     name: 'default',
-    ...palette.light.primary,
+    ...palette.light.primary
   },
   // PURPLE
   {
@@ -17,7 +17,7 @@ export const colorPresets = [
     main: '#7635dc',
     dark: '#431A9E',
     darker: '#200A69',
-    contrastText: '#fff',
+    contrastText: '#fff'
   },
   // CYAN
   {
@@ -27,7 +27,7 @@ export const colorPresets = [
     main: '#1CCAFF',
     dark: '#0E77B7',
     darker: '#053D7A',
-    contrastText: palette.light.grey[800],
+    contrastText: palette.light.grey[800]
   },
   // BLUE
   {
@@ -37,7 +37,7 @@ export const colorPresets = [
     main: '#2065D1',
     dark: '#103996',
     darker: '#061B64',
-    contrastText: '#fff',
+    contrastText: '#fff'
   },
   // ORANGE
   {
@@ -47,7 +47,7 @@ export const colorPresets = [
     main: '#fda92d',
     dark: '#B66816',
     darker: '#793908',
-    contrastText: palette.light.grey[800],
+    contrastText: palette.light.grey[800]
   },
   // RED
   {
@@ -57,8 +57,8 @@ export const colorPresets = [
     main: '#FF3030',
     dark: '#B71833',
     darker: '#7A0930',
-    contrastText: '#fff',
-  },
+    contrastText: '#fff'
+  }
 ];
 
 export const defaultPreset = colorPresets[0];
@@ -75,6 +75,6 @@ export default function getColorPresets(presetsKey) {
     blue: bluePreset,
     orange: orangePreset,
     red: redPreset,
-    default: defaultPreset,
+    default: defaultPreset
   }[presetsKey];
 }

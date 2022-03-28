@@ -17,7 +17,7 @@ import NavbarHorizontal from './navbar/NavbarHorizontal';
 // ----------------------------------------------------------------------
 
 const MainStyle = styled('main', {
-  shouldForwardProp: (prop) => prop !== 'collapseClick',
+  shouldForwardProp: prop => prop !== 'collapseClick'
 })(({ collapseClick, theme }) => ({
   flexGrow: 1,
   paddingTop: HEADER.MOBILE_HEIGHT + 24,
@@ -29,18 +29,18 @@ const MainStyle = styled('main', {
     paddingBottom: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,
     width: `calc(100% - ${NAVBAR.DASHBOARD_WIDTH}px)`,
     transition: theme.transitions.create('margin-left', {
-      duration: theme.transitions.duration.shorter,
+      duration: theme.transitions.duration.shorter
     }),
     ...(collapseClick && {
-      marginLeft: NAVBAR.DASHBOARD_COLLAPSE_WIDTH,
-    }),
-  },
+      marginLeft: NAVBAR.DASHBOARD_COLLAPSE_WIDTH
+    })
+  }
 }));
 
 // ----------------------------------------------------------------------
 
 DashboardLayout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default function DashboardLayout({ children }) {
@@ -71,12 +71,12 @@ export default function DashboardLayout({ children }) {
             px: { lg: 2 },
             pt: {
               xs: `${HEADER.MOBILE_HEIGHT + 24}px`,
-              lg: `${HEADER.DASHBOARD_DESKTOP_HEIGHT + 80}px`,
+              lg: `${HEADER.DASHBOARD_DESKTOP_HEIGHT + 80}px`
             },
             pb: {
               xs: `${HEADER.MOBILE_HEIGHT + 24}px`,
-              lg: `${HEADER.DASHBOARD_DESKTOP_HEIGHT + 24}px`,
-            },
+              lg: `${HEADER.DASHBOARD_DESKTOP_HEIGHT + 24}px`
+            }
           }}
         >
           {children}
@@ -89,7 +89,7 @@ export default function DashboardLayout({ children }) {
     <Box
       sx={{
         display: { lg: 'flex' },
-        minHeight: { lg: 1 },
+        minHeight: { lg: 1 }
       }}
     >
       <DashboardHeader isCollapse={isCollapse} onOpenSidebar={() => setOpen(true)} />

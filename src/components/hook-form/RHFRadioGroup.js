@@ -9,7 +9,7 @@ import { Radio, RadioGroup, FormHelperText, FormControlLabel } from '@mui/materi
 RHFRadioGroup.propTypes = {
   name: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string),
-  getOptionLabel: PropTypes.arrayOf(PropTypes.string),
+  getOptionLabel: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default function RHFRadioGroup({ name, options, getOptionLabel, ...other }) {

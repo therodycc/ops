@@ -8,7 +8,7 @@ import { IconButtonAnimate } from '../../../components/animate';
 
 CollapseButton.propTypes = {
   collapseClick: PropTypes.bool,
-  onToggleCollapse: PropTypes.func,
+  onToggleCollapse: PropTypes.func
 };
 
 export default function CollapseButton({ onToggleCollapse, collapseClick }) {
@@ -17,13 +17,13 @@ export default function CollapseButton({ onToggleCollapse, collapseClick }) {
       <Box
         sx={{
           lineHeight: 0,
-          transition: (theme) =>
+          transition: theme =>
             theme.transitions.create('transform', {
-              duration: theme.transitions.duration.shorter,
+              duration: theme.transitions.duration.shorter
             }),
           ...(collapseClick && {
-            transform: 'rotate(180deg)',
-          }),
+            transform: 'rotate(180deg)'
+          })
         }}
       >
         {icon}

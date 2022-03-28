@@ -90,7 +90,7 @@ export const countries = [
   {
     code: 'GS',
     label: 'South Georgia and the South Sandwich Islands',
-    phone: '500',
+    phone: '500'
   },
   { code: 'GT', label: 'Guatemala', phone: '502' },
   { code: 'GU', label: 'Guam', phone: '1-671' },
@@ -148,7 +148,7 @@ export const countries = [
   {
     code: 'MK',
     label: 'Macedonia, the Former Yugoslav Republic of',
-    phone: '389',
+    phone: '389'
   },
   { code: 'ML', label: 'Mali', phone: '223' },
   { code: 'MM', label: 'Myanmar', phone: '95' },
@@ -254,5 +254,5 @@ export const countries = [
   { code: 'YT', label: 'Mayotte', phone: '262' },
   { code: 'ZA', label: 'South Africa', phone: '27' },
   { code: 'ZM', label: 'Zambia', phone: '260' },
-  { code: 'ZW', label: 'Zimbabwe', phone: '263' },
+  { code: 'ZW', label: 'Zimbabwe', phone: '263' }
 ];

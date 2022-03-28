@@ -25,7 +25,7 @@ export default function VerifyCodeForm() {
     code3: Yup.string().required('Code is required'),
     code4: Yup.string().required('Code is required'),
     code5: Yup.string().required('Code is required'),
-    code6: Yup.string().required('Code is required'),
+    code6: Yup.string().required('Code is required')
   });
 
   const defaultValues = {
@@ -34,7 +34,7 @@ export default function VerifyCodeForm() {
     code3: '',
     code4: '',
     code5: '',
-    code6: '',
+    code6: ''
   };
 
   const {
@@ -42,11 +42,11 @@ export default function VerifyCodeForm() {
     control,
     setValue,
     handleSubmit,
-    formState: { isSubmitting, isValid },
+    formState: { isSubmitting, isValid }
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(VerifyCodeSchema),
-    defaultValues,
+    defaultValues
   });
 
   const values = watch();
@@ -56,9 +56,9 @@ export default function VerifyCodeForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
       console.log('code:', Object.values(data).join(''));
 
       enqueueSnackbar('Verify success!');
@@ -69,7 +69,7 @@ export default function VerifyCodeForm() {
     }
   };
 
-  const handlePasteClipboard = (event) => {
+  const handlePasteClipboard = event => {
     let data = event?.clipboardData?.getData('Text') || '';
 
     data = data.split('');
@@ -114,15 +114,15 @@ export default function VerifyCodeForm() {
                 id="field-code"
                 autoFocus={index === 0}
                 placeholder="-"
-                onChange={(event) => handleChangeWithNextField(event, field.onChange)}
+                onChange={event => handleChangeWithNextField(event, field.onChange)}
                 inputProps={{
                   maxLength: 1,
                   sx: {
                     p: 0,
                     textAlign: 'center',
                     width: { xs: 36, sm: 56 },
-                    height: { xs: 36, sm: 56 },
-                  },
+                    height: { xs: 36, sm: 56 }
+                  }
                 }}
               />
             )}

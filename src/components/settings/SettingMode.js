@@ -16,7 +16,7 @@ const BoxStyle = styled(CardActionArea)(({ theme }) => ({
   justifyContent: 'center',
   color: theme.palette.text.disabled,
   border: `solid 1px ${theme.palette.grey[500_12]}`,
-  borderRadius: Number(theme.shape.borderRadius) * 1.25,
+  borderRadius: Number(theme.shape.borderRadius) * 1.25
 }));
 
 // ----------------------------------------------------------------------
@@ -37,8 +37,8 @@ export default function SettingMode() {
                   bgcolor: mode === 'light' ? 'common.white' : 'grey.800',
                   ...(isSelected && {
                     color: 'primary.main',
-                    boxShadow: (theme) => theme.customShadows.z20,
-                  }),
+                    boxShadow: theme => theme.customShadows.z20
+                  })
                 }}
               >
                 <Iconify

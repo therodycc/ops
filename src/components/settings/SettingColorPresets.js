@@ -15,7 +15,7 @@ const BoxStyle = styled(CardActionArea)(({ theme }) => ({
   justifyContent: 'center',
   color: theme.palette.text.disabled,
   border: `solid 1px ${theme.palette.grey[500_12]}`,
-  borderRadius: Number(theme.shape.borderRadius) * 1.25,
+  borderRadius: Number(theme.shape.borderRadius) * 1.25
 }));
 
 // ----------------------------------------------------------------------
@@ -26,7 +26,7 @@ export default function SettingColorPresets() {
   return (
     <RadioGroup name="themeColorPresets" value={themeColorPresets} onChange={onChangeColor}>
       <Grid dir="ltr" container spacing={1.5}>
-        {colorOption.map((color) => {
+        {colorOption.map(color => {
           const colorName = color.name;
           const colorValue = color.value;
           const isSelected = themeColorPresets === colorName;
@@ -38,8 +38,8 @@ export default function SettingColorPresets() {
                   ...(isSelected && {
                     bgcolor: alpha(colorValue, 0.08),
                     border: `solid 2px ${colorValue}`,
-                    boxShadow: `inset 0 4px 8px 0 ${alpha(colorValue, 0.24)}`,
-                  }),
+                    boxShadow: `inset 0 4px 8px 0 ${alpha(colorValue, 0.24)}`
+                  })
                 }}
               >
                 <Box
@@ -49,12 +49,12 @@ export default function SettingColorPresets() {
                     borderRadius: '50%',
                     bgcolor: colorValue,
                     transform: 'rotate(-45deg)',
-                    transition: (theme) =>
+                    transition: theme =>
                       theme.transitions.create('all', {
                         easing: theme.transitions.easing.easeInOut,
-                        duration: theme.transitions.duration.shorter,
+                        duration: theme.transitions.duration.shorter
                       }),
-                    ...(isSelected && { transform: 'none' }),
+                    ...(isSelected && { transform: 'none' })
                   }}
                 />
 

@@ -10,7 +10,7 @@ import componentsOverride from '../theme/overrides';
 // ----------------------------------------------------------------------
 
 ThemeColorPresets.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default function ThemeColorPresets({ children }) {
@@ -22,12 +22,12 @@ export default function ThemeColorPresets({ children }) {
       ...defaultTheme,
       palette: {
         ...defaultTheme.palette,
-        primary: setColor,
+        primary: setColor
       },
       customShadows: {
         ...defaultTheme.customShadows,
-        primary: `0 8px 16px 0 ${alpha(setColor.main, 0.24)}`,
-      },
+        primary: `0 8px 16px 0 ${alpha(setColor.main, 0.24)}`
+      }
     }),
     [setColor, defaultTheme]
   );

@@ -11,14 +11,14 @@ export const _homePlans = [...Array(3)].map((_, index) => ({
     'JavaScript version',
     'TypeScript version',
     'Design Resources',
-    'Commercial applications',
+    'Commercial applications'
   ],
   icons: [
     'https://minimal-assets-api.vercel.app/assets/images/home/ic_sketch.svg',
     'https://minimal-assets-api.vercel.app/assets/images/home/ic_figma.svg',
     'https://minimal-assets-api.vercel.app/assets/images/home/ic_js.svg',
-    'https://minimal-assets-api.vercel.app/assets/images/home/ic_ts.svg',
-  ],
+    'https://minimal-assets-api.vercel.app/assets/images/home/ic_ts.svg'
+  ]
 }));
 
 export const _pricingPlans = [
@@ -32,9 +32,9 @@ export const _pricingPlans = [
       { text: '3 boards', isAvailable: true },
       { text: 'Up to 5 team members', isAvailable: false },
       { text: 'Advanced security', isAvailable: false },
-      { text: 'Permissions & workflows', isAvailable: false },
+      { text: 'Permissions & workflows', isAvailable: false }
     ],
-    labelAction: 'current plan',
+    labelAction: 'current plan'
   },
   {
     subscription: 'starter',
@@ -46,9 +46,9 @@ export const _pricingPlans = [
       { text: '3 boards', isAvailable: true },
       { text: 'Up to 5 team members', isAvailable: true },
       { text: 'Advanced security', isAvailable: false },
-      { text: 'Permissions & workflows', isAvailable: false },
+      { text: 'Permissions & workflows', isAvailable: false }
     ],
-    labelAction: 'choose starter',
+    labelAction: 'choose starter'
   },
   {
     subscription: 'premium',
@@ -60,8 +60,8 @@ export const _pricingPlans = [
       { text: '3 boards', isAvailable: true },
       { text: 'Up to 5 team members', isAvailable: true },
       { text: 'Advanced security', isAvailable: true },
-      { text: 'Permissions & workflows', isAvailable: true },
+      { text: 'Permissions & workflows', isAvailable: true }
     ],
-    labelAction: 'choose premium',
-  },
+    labelAction: 'choose premium'
+  }
 ];

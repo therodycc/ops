@@ -36,9 +36,15 @@ export default function BookingIllustration({ ...other }) {
           fillOpacity="0.24"
           d="M63.977 43.25A28.25 28.25 0 1135.727 15a28.26 28.26 0 0128.25 28.25z"
         />
-        <path fill={PRIMARY_LIGHTER} d="M62.975 43.249A27.249 27.249 0 1135.726 16a27.258 27.258 0 0127.25 27.249z" />
+        <path
+          fill={PRIMARY_LIGHTER}
+          d="M62.975 43.249A27.249 27.249 0 1135.726 16a27.258 27.258 0 0127.25 27.249z"
+        />
         <mask id="mask0" width="55" height="55" x="8" y="16" maskUnits="userSpaceOnUse">
-          <path fill="#fff" d="M62.975 43.249A27.249 27.249 0 1135.726 16a27.258 27.258 0 0127.25 27.249z" />
+          <path
+            fill="#fff"
+            d="M62.975 43.249A27.249 27.249 0 1135.726 16a27.258 27.258 0 0127.25 27.249z"
+          />
         </mask>
         <g mask="url(#mask0)">
           <path

@@ -8,7 +8,7 @@ import { TextField } from '@mui/material';
 
 RHFSelect.propTypes = {
   children: PropTypes.node,
-  name: PropTypes.string,
+  name: PropTypes.string
 };
 
 export default function RHFSelect({ name, children, ...other }) {

@@ -8,7 +8,7 @@ import { getUserFromToken, setSession } from '../utils/jwt';
 import { authActions } from '../slices/auth.slice';
 
 AuthContext.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 function AuthContext({ children }) {
@@ -23,14 +23,14 @@ function AuthContext({ children }) {
         dispatch(
           authActions.initialize({
             isAuthenticated: true,
-            user,
+            user
           })
         );
       } else {
         dispatch(
           authActions.initialize({
             isAuthenticated: false,
-            user: null,
+            user: null
           })
         );
       }

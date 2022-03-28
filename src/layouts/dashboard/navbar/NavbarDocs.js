@@ -7,7 +7,7 @@ import { DocIllustration } from '../../../assets';
 // ----------------------------------------------------------------------
 
 export default function NavbarDocs() {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector(state => state.auth);
 
   return (
     <Stack
@@ -18,22 +18,22 @@ export default function NavbarDocs() {
         mt: 10,
         width: 1,
         textAlign: 'center',
-        display: 'block',
+        display: 'block'
       }}
     >
       <DocIllustration sx={{ width: 1 }} />
 
       <div>
-        <Typography gutterBottom variant='subtitle1'>
+        <Typography gutterBottom variant="subtitle1">
           Hi, {user.firstName + ' ' + user.lastName}
         </Typography>
-        <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           Need help?
           <br /> Please check our docs
         </Typography>
       </div>
 
-      <Button variant='contained'>Documentation</Button>
+      <Button variant="contained">Documentation</Button>
     </Stack>
   );
 }

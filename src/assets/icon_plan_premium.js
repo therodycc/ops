@@ -37,7 +37,10 @@ export default function PlanPremiumIcon({ ...other }) {
                 </mask>
                 <g mask="url(#mask-4)">
                   <g transform="translate(9.167 19.932)">
-                    <path fill={PRIMARY_DARK} d="M53.333 17.441H61.666V24.915999999999997H53.333z" />
+                    <path
+                      fill={PRIMARY_DARK}
+                      d="M53.333 17.441H61.666V24.915999999999997H53.333z"
+                    />
                     <path
                       fill={PRIMARY_DARKER}
                       d="M.935 20.42L25.963 8.001a5.059 5.059 0 014.52.012L60.74 23.228a1.68 1.68 0 01.015 2.996L35.417 39.301a5.059 5.059 0 01-4.694-.029L.893 23.41a1.68 1.68 0 01.042-2.99z"
@@ -60,7 +63,10 @@ export default function PlanPremiumIcon({ ...other }) {
                 </mask>
                 <g mask="url(#mask-6)">
                   <g transform="translate(9.167 19.932)">
-                    <path fill={PRIMARY_DARK} d="M53.333 17.441H61.666V24.915999999999997H53.333z" />
+                    <path
+                      fill={PRIMARY_DARK}
+                      d="M53.333 17.441H61.666V24.915999999999997H53.333z"
+                    />
                     <path
                       fill={PRIMARY_DARKER}
                       d="M.935 20.42L25.963 8.001a5.059 5.059 0 014.52.012L60.74 23.228a1.68 1.68 0 01.015 2.996L35.417 39.301a5.059 5.059 0 01-4.694-.029L.893 23.41a1.68 1.68 0 01.042-2.99z"
@@ -83,7 +89,10 @@ export default function PlanPremiumIcon({ ...other }) {
                 </mask>
                 <g mask="url(#mask-8)">
                   <g transform="translate(9.167 19.932)">
-                    <path fill={PRIMARY_DARK} d="M53.333 17.441H61.666V24.915999999999997H53.333z" />
+                    <path
+                      fill={PRIMARY_DARK}
+                      d="M53.333 17.441H61.666V24.915999999999997H53.333z"
+                    />
                     <path
                       fill={PRIMARY_DARKER}
                       d="M.935 20.42L25.963 8.001a5.059 5.059 0 014.52.012L60.74 23.228a1.68 1.68 0 01.015 2.996L35.417 39.301a5.059 5.059 0 01-4.694-.029L.893 23.41a1.68 1.68 0 01.042-2.99z"

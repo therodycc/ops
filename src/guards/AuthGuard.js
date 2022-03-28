@@ -13,11 +13,11 @@ import LoadingScreen from '../components/LoadingScreen';
 // ----------------------------------------------------------------------
 
 AuthGuard.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default function AuthGuard({ children }) {
-  const { isAuthenticated, isInitialized } = useSelector((state) => state.auth);
+  const { isAuthenticated, isInitialized } = useSelector(state => state.auth);
 
   const { pathname, push, replace } = useRouter();
 
