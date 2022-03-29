@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-console.log('NODE_ENV', node.env.NODE_ENV);
+console.log('NODE_ENV', process.env.NODE_ENV);
 
 const ENDPOINTS = {
   DEV: {
