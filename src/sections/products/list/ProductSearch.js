@@ -36,7 +36,6 @@ export default function ProductSearch() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       handleChangeSearch(searchQuery);
-      console.log(searchQuery);
     }, 500);
 
     return () => {
@@ -49,9 +48,7 @@ export default function ProductSearch() {
       if (!value) return;
       const response = await productService.filter(value);
 
-      // if (isMountedRef.current) {
       setSearchResults(response.data.data);
-      // }
     } catch (error) {
       console.error(error);
     }

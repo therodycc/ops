@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 // next
 import { useRouter } from 'next/router';
 // form
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { LoadingButton } from '@mui/lab';
@@ -14,9 +14,7 @@ import {
   Card,
   Grid,
   Stack,
-  Switch,
   Typography,
-  FormControlLabel,
   Tooltip,
   IconButton,
   Autocomplete,
@@ -46,22 +44,6 @@ NewProductForm.propTypes = {
   currentProduct: PropTypes.object
 };
 
-const TAGS_OPTION = [
-  'Toy Story 3',
-  'Logan',
-  'Full Metal Jacket',
-  'Dangal',
-  'The Sting',
-  '2001: A Space Odyssey',
-  "Singin' in the Rain",
-  'Toy Story',
-  'Bicycle Thieves',
-  'The Kid',
-  'Inglourious Basterds',
-  'Snatch',
-  '3 Idiots'
-];
-
 export default function NewProductForm({ isEdit = false, currentProduct }) {
   const { push } = useRouter();
 
@@ -72,27 +54,29 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('El nombre es requerido'),
-    productType: Yup.string().required('La categoria es requerida'),
-    sellPrice: Yup.string().required('El precio de compra es requerido'),
-    buyPrice: Yup.string().required('El precio de venta es requerido'),
-    description: Yup.string(),
-    blisterSize: Yup.string(),
-    stock: Yup.string().required('La cantidad es inventario es requerida'),
-    activeSubstances: Yup.string(),
-    photo: Yup.mixed().test('required', 'La foto es requerida', value => value !== '')
+    productTypeId: Yup.number().required('La categoria es requerida'),
+    sellPrice: Yup.number('Ingresar un numero').required('El precio de compra es requerido'),
+    buyPrice: Yup.number('Ingresar un numero').required('El precio de venta es requerido'),
+    description: Yup.string().nullable(),
+    blisterSize: Yup.number('Ingresar un numero').nullable(),
+    stock: Yup.number('Ingresar un numero').required('La cantidad es inventario es requerida'),
+    activeSubstances: Yup.array(),
+    photo: Yup.mixed().test('required', 'La foto es requerida', value => value !== ''),
+    displayInMobile: Yup.boolean().nullable()
   });
 
   const defaultValues = useMemo(
     () => ({
       name: currentProduct?.name || '',
-      productType: currentProduct?.productType || '',
-      sellPrice: currentProduct?.sellPrice || '',
-      buyPrice: currentProduct?.buyPrice || '',
-      description: currentProduct?.description || '',
-      blisterSize: currentProduct?.blisterSize || '',
-      stock: currentProduct?.stock || '',
-      activeSubstances: currentProduct?.activeSubstances || '',
-      photo: currentProduct?.photo || ''
+      productType: currentProduct?.productType || 0,
+      sellPrice: currentProduct?.sellPrice || undefined,
+      buyPrice: currentProduct?.buyPrice || undefined,
+      description: currentProduct?.description || undefined,
+      blisterSize: currentProduct?.blisterSize || 0,
+      stock: currentProduct?.stock || undefined,
+      activeSubstances: currentProduct?.activeSubstances || [],
+      photo: currentProduct?.photo || undefined,
+      displayInMobile: currentProduct?.displayInMobile || true
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -136,16 +120,28 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
 
   const onSubmit = async () => {
     try {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const form = new FormData();
+
+      for (var key in values) {
+        form.append(key, values[key]);
+      }
+
+      const createdProduct = await productService.save(form);
+
+      enqueueSnackbar(
+        !isEdit ? 'Producto creado satisfactoriamente!' : 'Producto actualizado satisfactoriamente!'
+      );
       reset();
-      enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
-      push(PATH_PRODUCTS.list);
+      push(PATH_PRODUCTS.root);
     } catch (error) {
+      // enqueueSnackbar(
+      //   !isEdit ? 'Producto creado satisfactoriamente!' : 'Producto actualizado satisfactoriamente!'
+      // );
       console.error(error);
     }
   };
 
-  const handleDrop = useCallback(
+  const onFileSelected = useCallback(
     acceptedFiles => {
       const file = acceptedFiles[0];
 
@@ -177,10 +173,10 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
 
             <Box sx={{ mb: 5 }}>
               <RHFUploadAvatar
+                onDrop={onFileSelected}
                 name="photo"
                 accept="image/*"
                 maxSize={3145728}
-                onDrop={handleDrop}
                 helperText={
                   <Typography
                     variant="caption"
@@ -199,7 +195,7 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
               />
             </Box>
 
-            {isEdit && (
+            {/* {isEdit && (
               <FormControlLabel
                 labelPlacement="start"
                 control={
@@ -229,7 +225,7 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
                 }
                 sx={{ mx: 0, mb: 3, width: 1, justifyContent: 'space-between' }}
               />
-            )}
+            )} */}
           </Card>
         </Grid>
 
@@ -257,14 +253,13 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
             >
               <Autocomplete
                 fullWidth
-                options={productTypes}
-                name="productType"
+                name="productType-obj"
                 size="small"
+                autoCapitalize={true}
+                options={productTypes}
                 getOptionLabel={productType => productType.name}
-                // inputValue={inputValue}
-                onInputChange={(event, newCategory) => {
-                  // setInputValue(newInputValue);
-                  console.log(newCategory);
+                onChange={(_, productType) => {
+                  setValue('productTypeId', productType.id);
                 }}
                 renderInput={params => (
                   <TextField {...params} label="Categoria" placeholder="Categoria" />
@@ -274,10 +269,20 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
               <Autocomplete
                 multiple
                 fullWidth
+                name="activeSubstances"
                 size="small"
                 options={activeSubstances}
                 getOptionLabel={option => option.name}
                 filterSelectedOptions
+                onChange={(_, activeSubstance) => {
+                  const value = JSON.stringify(
+                    activeSubstance.map(element => {
+                      return { id: element.id };
+                    })
+                  );
+
+                  setValue('activeSubstances', value);
+                }}
                 renderInput={params => (
                   <TextField
                     {...params}

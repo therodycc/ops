@@ -1,25 +1,24 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Card, Divider, Typography, Stack } from '@mui/material';
 // utils
 import cssStyles from '../../../utils/cssStyles';
-import { fCurrency, fShortenNumber } from '../../../utils/formatNumber';
+import { fCurrency } from '../../../utils/formatNumber';
 // components
 import Image from '../../../components/Image';
 import Label from '../../../components/Label';
 
 // ----------------------------------------------------------------------
 
-const OverlayStyle = styled('div')(({ theme }) => ({
-  ...cssStyles().bgBlur({ blur: 2, color: theme.palette.primary.darker }),
-  top: 0,
-  zIndex: 8,
-  content: "''",
-  width: '100%',
-  height: '100%',
-  position: 'absolute'
-}));
+const hasDiscount = price => {
+  const applyDiscount = price.blisterPriceWithDiscount > 0 || price.priceWithDiscount > 0;
+  return (
+    applyDiscount &&
+    (price.priceWithDiscount !== price.price ||
+      (price.blisterPrice && price.blisterPriceWithDiscount !== price.blisterPrice))
+  );
+};
 
 // ----------------------------------------------------------------------
 
@@ -75,7 +74,7 @@ export default function UserCard({ product }) {
           </div>
 
           <Stack direction="row" spacing={0.5}>
-            {(price.blisterPriceWithDiscount > 0 || price.priceWithDiscount > 0) && (
+            {hasDiscount(price) && (
               <Typography
                 component="span"
                 sx={{
@@ -90,8 +89,8 @@ export default function UserCard({ product }) {
             <Typography variant="subtitle1">
               {fCurrency(
                 price.blisterPriceWithDiscount > 0
-                  ? price.blisterPriceWithDiscount
-                  : price.priceWithDiscount
+                  ? price.blisterPriceWithDiscount ?? prices.blisterPrice
+                  : price.priceWithDiscount ?? price.price
               )}
             </Typography>
           </Stack>
