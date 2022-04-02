@@ -17,6 +17,7 @@ import {
   Typography,
   Tooltip,
   IconButton,
+  InputAdornment,
   Autocomplete,
   TextField
 } from '@mui/material';
@@ -75,7 +76,7 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
       blisterSize: currentProduct?.blisterSize || 0,
       stock: currentProduct?.stock || undefined,
       activeSubstances: currentProduct?.activeSubstances || [],
-      photo: currentProduct?.photo || undefined,
+      photo: currentProduct?.photo || '',
       displayInMobile: currentProduct?.displayInMobile || true
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -239,7 +240,12 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)' }
               }}
             >
-              <RHFTextField name="name" size="small" label="Nombre Producto" />
+              <RHFTextField
+                name="name"
+                placeholder="Complejo B"
+                size="small"
+                label="Nombre Producto"
+              />
             </Box>
 
             <Box
@@ -305,9 +311,35 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
                 }
               }}
             >
-              <RHFTextField name="buyPrice" size="small" label="Costo Compra $" />
-              <RHFTextField name="sellPrice" size="small" label="Precio Venta $" />
-              <RHFTextField name="stock" size="small" label="Cantidad en Inventario" />
+              <RHFTextField
+                name="buyPrice"
+                InputLabelProps={{ shrink: true }}
+                placeholder="0.00"
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  type: 'number'
+                }}
+                size="small"
+                label="Costo Compra"
+              />
+
+              <RHFTextField
+                name="sellPrice"
+                placeholder="0.00"
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  type: 'number'
+                }}
+                size="small"
+                label="Precio Venta"
+              />
+
+              <RHFTextField
+                name="stock"
+                size="small"
+                placeholder="100"
+                label="Cantidad en Inventario"
+              />
             </Box>
 
             <RHFTextField

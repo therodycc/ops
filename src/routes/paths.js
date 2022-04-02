@@ -35,12 +35,8 @@ export const PATH_PAGE = {
 
 export const PATH_PRODUCTS = {
   root: path(ROOTS_PRODUCTS, ''),
-  new: path(ROOTS_PRODUCTS, '/new')
-  // cards: path(ROOTS_DASHBOARD, '/user/cards'),
-  // profile: path(ROOTS_DASHBOARD, '/user/profile'),
-  // account: path(ROOTS_DASHBOARD, '/user/account'),
-  // edit: (name) => path(ROOTS_DASHBOARD, `/user/${name}/edit`),
-  // demoEdit: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
+  new: path(ROOTS_PRODUCTS, '/new'),
+  detail: name => path(ROOTS_PRODUCTS, `/${name}/detail`)
 };
 
 export const PATH_DASHBOARD = {
