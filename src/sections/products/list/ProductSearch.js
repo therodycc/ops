@@ -27,7 +27,7 @@ const PopperStyle = styled(props => <Popper placement="bottom-start" {...props} 
 // ----------------------------------------------------------------------
 
 export default function ProductSearch() {
-  // const { push } = useRouter();
+  const { push } = useRouter();
   // const isMountedRef = useIsMountedRef();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -54,8 +54,8 @@ export default function ProductSearch() {
     }
   };
 
-  const handleClick = name => {
-    // push(PATH_DASHBOARD.eCommerce.view(paramCase(name)));
+  const handleClick = id => {
+    push(PATH_PRODUCTS.detail(id));
   };
 
   const handleKeyUp = event => {
@@ -106,7 +106,7 @@ export default function ProductSearch() {
               src={photo}
               sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }}
             />
-            <Link underline="none" onClick={() => handleClick(name)}>
+            <Link underline="none" onClick={() => handleClick(product.id)}>
               {parts.map((part, index) => (
                 <Typography
                   key={index}

@@ -4,31 +4,16 @@ import { Box, Card, Typography, Stack, Link } from '@mui/material';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
 //paths
-
+import { PATH_PRODUCTS } from 'src/routes/paths';
 // components
 import Image from '../../../components/Image';
 import Label from '../../../components/Label';
-import { PATH_PRODUCTS } from 'src/routes/paths';
+import { hasDiscount } from '../utils/product.util';
 
 // ----------------------------------------------------------------------
-
-const hasDiscount = price => {
-  const applyDiscount = price.blisterPriceWithDiscount > 0 || price.priceWithDiscount > 0;
-  return (
-    applyDiscount &&
-    (price.priceWithDiscount !== price.price ||
-      (price.blisterPrice && price.blisterPriceWithDiscount !== price.blisterPrice))
-  );
-};
-
-// ----------------------------------------------------------------------
-
-// UserCard.propTypes = {
-//   product: PropTypes.object.isRequired,
-// };
 
 export default function ProductList({ product }) {
-  const { name, photo, stock, price, blisterSize, totalPost, avatarUrl, following } = product;
+  const { name, photo, stock, price, blisterSize } = product;
 
   return (
     <Card>
