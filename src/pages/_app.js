@@ -27,8 +27,9 @@ import ThemeColorPresets from '../components/ThemeColorPresets';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
 import NotistackProvider from '../components/NotistackProvider';
 
-import { store, persistor } from '../slices/store';
+import { store, persistor } from '../redux/store';
 import { AuthContext } from '../providers/auth.provider';
+import { PersistGate } from 'redux-persist/integration/react';
 
 // ----------------------------------------------------------------------
 
@@ -50,25 +51,25 @@ export default function MyApp(props) {
       </Head>
 
       <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
-        <AuthContext>
-          <CollapseDrawerProvider>
-            <SettingsProvider defaultSettings={settings}>
-              <ThemeProvider>
-                <NotistackProvider>
-                  <MotionLazyContainer>
-                    <ThemeColorPresets>
-                      <Settings />
-                      <ProgressBar />
-                      {getLayout(<Component {...pageProps} />)}
-                    </ThemeColorPresets>
-                  </MotionLazyContainer>
-                </NotistackProvider>
-              </ThemeProvider>
-            </SettingsProvider>
-          </CollapseDrawerProvider>
-        </AuthContext>
-        {/* </PersistGate> */}
+        <PersistGate loading={null} persistor={persistor}>
+          <AuthContext>
+            <CollapseDrawerProvider>
+              <SettingsProvider defaultSettings={settings}>
+                <ThemeProvider>
+                  <NotistackProvider>
+                    <MotionLazyContainer>
+                      <ThemeColorPresets>
+                        <Settings />
+                        <ProgressBar />
+                        {getLayout(<Component {...pageProps} />)}
+                      </ThemeColorPresets>
+                    </MotionLazyContainer>
+                  </NotistackProvider>
+                </ThemeProvider>
+              </SettingsProvider>
+            </CollapseDrawerProvider>
+          </AuthContext>
+        </PersistGate>
       </Provider>
     </>
   );

@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 // @mui
 import { Card, Grid, Container } from '@mui/material';
+// redux
+import { useDispatch, useSelector } from '../../../redux/store';
+import { getProduct, addCart } from '../../../redux/slices/product';
 // routes
 import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../../routes/paths';
 // hooks
@@ -14,9 +17,9 @@ import Page from '../../../components/Page';
 import { SkeletonProductDetail } from '../../../components/skeleton';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 // sections
-import { productService } from '../../../services/product.service';
 import { ProductImage } from '../../../sections/products/detail/ProductImage';
 import { ProductDetailSummary } from '../../../sections/products/detail/ProductDetailSummary';
+import { CartWidget } from '../../../sections/products/detail//CartWidget';
 
 ProductDetailPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -27,30 +30,19 @@ ProductDetailPage.getLayout = function getLayout(page) {
 export default function ProductDetailPage() {
   const { themeStretch } = useSettings();
 
-  // const dispatch = useDispatch();
-
-  const [product, setProduct] = useState(null);
-
+  const dispatch = useDispatch();
   const { query } = useRouter();
   const { id } = query;
 
-  // const { product, error, checkout } = useSelector(state => state.product);
+  const { product } = useSelector(state => state.product);
 
   useEffect(() => {
-    productService.detail(id).then(response => {
-      let responseProduct = response.data;
-      console.log(responseProduct);
-      setProduct(responseProduct);
-    });
-  }, [id]);
+    dispatch(getProduct(id));
+  }, [dispatch, id]);
 
-  // const handleAddCart = product => {
-  //   dispatch(addCart(product));
-  // };
-
-  // const handleGotoStep = step => {
-  //   dispatch(onGotoStep(step));
-  // };
+  const handleAddCart = product => {
+    dispatch(addCart(product));
+  };
 
   return (
     <Page title="Detalle de Producto">
@@ -67,6 +59,7 @@ export default function ProductDetailPage() {
           ]}
         />
 
+        <CartWidget />
         {product && (
           <>
             <Card>
@@ -79,7 +72,7 @@ export default function ProductDetailPage() {
                   <ProductDetailSummary
                     product={product}
                     // cart={checkout.cart}
-                    // onAddCart={handleAddCart}
+                    onAddCart={handleAddCart}
                     // onGotoStep={handleGotoStep}
                   />
                 </Grid>

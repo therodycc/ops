@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // utils
 import { getUserFromToken, setSession } from '../utils/jwt';
 
-import { authActions } from '../slices/auth.slice';
+import { initialize as initializePlatform } from '../redux/slices/auth';
 
 AuthContext.propTypes = {
   children: PropTypes.node
@@ -20,19 +20,15 @@ function AuthContext({ children }) {
       if (user) {
         setSession(accessToken);
 
-        dispatch(
-          authActions.initialize({
-            isAuthenticated: true,
-            user
-          })
-        );
+        initializePlatform({
+          isAuthenticated: true,
+          user
+        });
       } else {
-        dispatch(
-          authActions.initialize({
-            isAuthenticated: false,
-            user: null
-          })
-        );
+        initializePlatform({
+          isAuthenticated: false,
+          user: null
+        });
       }
     };
     initialize();

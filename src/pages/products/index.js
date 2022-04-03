@@ -1,3 +1,5 @@
+// React
+import { useEffect } from 'react';
 // @mui
 import { Button } from '@mui/material';
 import { Container, Box, Stack } from '@mui/material';
@@ -15,11 +17,11 @@ import Layout from '../../layouts';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-
+// Redux
+import { getProducts } from '../../redux/slices/product';
+import { useDispatch, useSelector } from '../../redux/store';
 // sections
 import { ProductList, ProductSearch } from '../../sections/products/list';
-import { productService } from '../../services/product.service';
-import { useEffect, useState } from 'react';
 import { SkeletonProductItem } from '../../components/skeleton';
 
 // ----------------------------------------------------------------------
@@ -32,19 +34,13 @@ ProductListPage.getLayout = function getLayout(page) {
 
 export default function ProductListPage() {
   const { themeStretch } = useSettings();
+  const dispatch = useDispatch();
 
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { products, isLoading } = useSelector(state => state.product);
 
   useEffect(() => {
-    productService.list().then(response => {
-      const newProducts = response.data?.data ?? [];
-      setProducts(stateProducts => {
-        return newProducts;
-      });
-      setIsLoading(false);
-    });
-  }, []);
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <Page title="Productos - Lista">
@@ -87,7 +83,7 @@ export default function ProductListPage() {
             }
           }}
         >
-          {(isLoading ? [...Array(12)] : products).map((product, index) =>
+          {(!products ? [...Array(12)] : products).map((product, index) =>
             product ? (
               <ProductList key={product.id} product={product} />
             ) : (

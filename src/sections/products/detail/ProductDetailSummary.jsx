@@ -26,7 +26,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export const ProductDetailSummary = ({ product }) => {
+export const ProductDetailSummary = ({ product, onAddCart }) => {
   const theme = useTheme();
 
   const { push } = useRouter();
@@ -90,14 +90,14 @@ export const ProductDetailSummary = ({ product }) => {
   };
 
   const handleAddCart = async () => {
-    // try {
-    //   onAddCart({
-    //     ...values,
-    //     subtotal: values.price * values.quantity
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      onAddCart({
+        ...values,
+        subtotal: values.price * values.quantity
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -182,7 +182,7 @@ export const ProductDetailSummary = ({ product }) => {
           >
             {price.priceWithDiscount && fCurrency(price.price)}
           </Box>
-          &nbsp; {fCurrency(price.priceWithDiscount)}
+          &nbsp; {fCurrency(price.priceWithDiscount ?? price.price)}
         </Typography>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
@@ -262,7 +262,7 @@ function Incrementer({ stock, quantity, onIncrementQuantity, onDecrementQuantity
 
 ProductDetailSummary.propTypes = {
   // cart: PropTypes.array,
-  // onAddCart: PropTypes.func,
+  onAddCart: PropTypes.func,
   // onGotoStep: PropTypes.func,
   product: PropTypes.object
 };
