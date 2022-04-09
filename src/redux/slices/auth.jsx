@@ -7,7 +7,9 @@ import { dispatch } from '../store';
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null
+  user: null,
+  isLoading: false,
+  hasError: null
 };
 
 const authSlice = createSlice({
@@ -33,13 +35,11 @@ const authSlice = createSlice({
       };
     },
     loginSuccess: (state, action) => {
-      isLoading = false;
-      const { user } = action.payload;
-
       return {
         ...state,
+        isLoading: false,
         isAuthenticated: true,
-        user
+        user: action.payload
       };
     },
     logoutSuccess: state => ({
@@ -54,11 +54,12 @@ const authSlice = createSlice({
 // ----------------------------------------------------------------------
 
 // // Reducer 
-// export const {
-//   initialize,
-//   loginSuccess,
-//   logoutSuccess
-// } = authSlice.actions;
+export const {
+  //   initialize,
+  loginSuccess,
+  hasError
+  //   logoutSuccess
+} = authSlice.actions;
 
 export default authSlice.reducer;
 

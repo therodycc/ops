@@ -17,10 +17,11 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
-
 import { authService } from '../../../services/auth.service';
-import { login } from '../../../redux/slices/auth';
+import { loginSuccess } from '../../../redux/slices/auth';
 import { useRouter } from 'next/router';
+import { setSession } from 'src/utils/jwt';
+
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
@@ -56,9 +57,11 @@ export default function LoginForm() {
 
   const onSubmit = async data => {
     try {
-      const profile = await login(data.email, data.password);
+      const profile = await authService.login(data.email, data.password);
 
-      dispatch(authActions.login(profile));
+      setSession(profile?.accessToken);
+      dispatch(loginSuccess(profile));
+
       replace(PATH_DASHBOARD.root);
     } catch (error) {
       reset();

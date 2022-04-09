@@ -5,7 +5,8 @@ import { useRouter } from 'next/router';
 import { Card, Grid, Container } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../../redux/store';
-import { getProduct, addCart } from '../../../redux/slices/product';
+import { getProduct } from '../../../redux/slices/product';
+import { addToCart, clearCart, updateCart } from '../../../redux/slices/cart';
 // routes
 import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../../routes/paths';
 // hooks
@@ -37,11 +38,21 @@ export default function ProductDetailPage() {
   const { product } = useSelector(state => state.product);
 
   useEffect(() => {
+    // dispatch(clearCart());
     dispatch(getProduct(id));
   }, [dispatch, id]);
 
-  const handleAddCart = product => {
-    dispatch(addCart(product));
+  const onUpdateCart = product => {
+    dispatch(updateCart(product));
+  };
+
+  const onAddCart = product => {
+    let timeout;
+
+    return () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => dispatch(addToCart(product)), 1000);
+    };
   };
 
   return (
@@ -72,7 +83,8 @@ export default function ProductDetailPage() {
                   <ProductDetailSummary
                     product={product}
                     // cart={checkout.cart}
-                    onAddCart={handleAddCart}
+                    onAddCart={onAddCart}
+                    onUpdateCart={onUpdateCart}
                     // onGotoStep={handleGotoStep}
                   />
                 </Grid>

@@ -4,6 +4,7 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 // slices
 import productReducer from './slices/product';
 import authReducer from './slices/auth';
+import cartReducer from './slices/cart';
 
 // ----------------------------------------------------------------------
 
@@ -41,9 +42,16 @@ const authPersistConfig = {
   keyPrefix: 'redux-'
 };
 
+const cartPersistConfig = {
+  key: 'cart',
+  storage,
+  keyPrefix: 'redux-'
+};
+
 const rootReducer = combineReducers({
   product: persistReducer(productPersistConfig, productReducer),
-  auth: persistReducer(authPersistConfig, authReducer)
+  auth: persistReducer(authPersistConfig, authReducer),
+  cart: persistReducer(cartPersistConfig, cartReducer)
 });
 
 export { rootPersistConfig, rootReducer };

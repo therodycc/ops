@@ -127,13 +127,13 @@ export default function NewProductForm({ isEdit = false, currentProduct }) {
         form.append(key, values[key]);
       }
 
-      const createdProduct = await productService.save(form);
+      await productService.save(form);
 
       enqueueSnackbar(
         !isEdit ? 'Producto creado satisfactoriamente!' : 'Producto actualizado satisfactoriamente!'
       );
       reset();
-      push(PATH_PRODUCTS.root);
+      // push(PATH_PRODUCTS.root);
     } catch (error) {
       // enqueueSnackbar(
       //   !isEdit ? 'Producto creado satisfactoriamente!' : 'Producto actualizado satisfactoriamente!'

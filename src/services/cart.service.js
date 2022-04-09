@@ -2,10 +2,10 @@ import axios from '../utils/axios';
 
 const ENDPOINTS = {
   DEV: {
-    list: 'http://localhost:7072/api/all/',
-    save: 'http://localhost:7072/api/create',
-    update: 'http://localhost:7072/api/update/',
-    clear: 'http://localhost:7072/api/clear/'
+    list: 'http://localhost:7010/api/all/',
+    add: 'http://localhost:7010/api/create',
+    update: 'http://localhost:7010/api/update/',
+    clear: 'http://localhost:7010/api/clear/'
   },
   PROD: {
     list: 'https://dev-api.farmacianazir.com/cart',
@@ -22,9 +22,9 @@ const get = () => {
   });
 };
 
-const save = cart => {
-  return axios.post(env.save, cart).catch(error => {
-    throw new Error('Error al guardar producto en el carro');
+const add = cart => {
+  return axios.post(env.add, cart).catch(error => {
+    throw new Error('Error al guardar producto en el carrito');
   });
 };
 
@@ -34,15 +34,15 @@ const clear = cart => {
   });
 };
 
-const update = cart => {
-  return axios.update(`${env.update}&productId=${card.product.id}`, cart).catch(error => {
-    throw new Error('Error al actualizar producto en el carro');
+const update = data => {
+  return axios.put(`${env.update}?productId=${data.productId}`, data).catch(error => {
+    throw new Error('Error al actualizar producto en el carrito');
   });
 };
 
-export const productService = {
+export const cartService = {
   get,
-  save,
+  add,
   clear,
   update
 };

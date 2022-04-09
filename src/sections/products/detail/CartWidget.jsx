@@ -37,13 +37,13 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export const CartWidget = () => {
-  const { checkout } = useSelector((state) => state.product);
-  const totalItems = sum(checkout.cart.map((item) => item.quantity));
+  const { products } = useSelector((state) => state.cart);
+  const totalProduct = sum(products.map(_product => _product.quantity));
 
   return (
     <NextLink href={PATH_DASHBOARD.eCommerce.checkout} passHref>
       <RootStyle>
-        <Badge showZero badgeContent={totalItems} color="error" max={99}>
+        <Badge showZero badgeContent={totalProduct} color="error" max={99}>
           <Iconify icon={'eva:shopping-cart-fill'} width={24} height={24} />
         </Badge>
       </RootStyle>

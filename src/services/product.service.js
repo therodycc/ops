@@ -2,11 +2,11 @@ import axios from '../utils/axios';
 
 const ENDPOINTS = {
   DEV: {
-    list: 'http://localhost:7071/api/list/',
-    save: 'http://localhost:7071/api/create',
-    detail: 'http://localhost:7071/api/detail/',
-    categories: 'http://localhost:7071/api/categories/',
-    activeSubstances: 'http://localhost:7071/api/active-substance/'
+    list: 'https://dev-api.farmacianazir.com/products',
+    save: 'https://dev-api.farmacianazir.com/products',
+    detail: 'https://dev-api.farmacianazir.com/products/detail',
+    categories: 'https://dev-api.farmacianazir.com/products/categories',
+    activeSubstances: 'https://dev-api.farmacianazir.com/active-substances/'
   },
   PROD: {
     list: 'https://dev-api.farmacianazir.com/products',

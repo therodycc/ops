@@ -5,15 +5,18 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 // @mui
 import { useTheme, styled } from '@mui/material/styles';
-import { Box, Stack, Button, Rating, Divider, IconButton, Typography } from '@mui/material';
+import { Box, Stack, Button, Divider, IconButton, Typography } from '@mui/material';
+// redux
+import { useSelector } from '../../../redux/store';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
 // components
 import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFSelect } from '../../../components/hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getPricesBySellTypeAndQuantity } from '../utils/product.util';
+
 
 // ----------------------------------------------------------------------
 
@@ -26,16 +29,21 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export const ProductDetailSummary = ({ product, onAddCart }) => {
+export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
   const theme = useTheme();
 
   const { push } = useRouter();
+  const { id, name, blisterSize, activeSubstances, cover } = product;
 
-  const { id, name, blisterSize, activeSubstances, price: productPrice, cover } = product;
+  const { products: cardProducts } = useSelector((state) => state.cart);
+
 
   const [quantity, setQuantity] = useState(1);
+  const [isProductInCart, setIsProductInCart] = useState(null);
   const [stock, setStock] = useState(product.stock);
   const [selectedSellType, setSelectedSellType] = useState('UNIT');
+
+
 
   const price = getPricesBySellTypeAndQuantity(product, selectedSellType, quantity);
 
@@ -43,6 +51,15 @@ export const ProductDetailSummary = ({ product, onAddCart }) => {
     setQuantity(newValue);
     setValue('quantity', newValue);
   };
+
+  useEffect(() => {
+    const productInCart = cardProducts.find(_product => product.id === _product.id);
+    if (productInCart) {
+      updateQuantity(productInCart.quantity);
+      updateSellType(productInCart.selectedSellType);
+      setIsProductInCart(productInCart);
+    }
+  }, [product, cardProducts, setIsProductInCart]);
 
   const updateSellType = sellType => {
     if (sellType === 'BLISTER') {
@@ -91,10 +108,14 @@ export const ProductDetailSummary = ({ product, onAddCart }) => {
 
   const handleAddCart = async () => {
     try {
-      onAddCart({
-        ...values,
-        subtotal: values.price * values.quantity
-      });
+      const data = {
+        productId: product.id,
+        quantity,
+        selectedSellType
+      };
+
+      if (!isProductInCart) onAddCart(data);
+      else onUpdateCart(data);
     } catch (error) {
       console.error(error);
     }
@@ -116,7 +137,7 @@ export const ProductDetailSummary = ({ product, onAddCart }) => {
         </Typography>
 
         {activeSubstances?.map(({ name }, i) => (
-          <Typography variant="outlined" sx={{ color: 'text.disabled' }}>
+          <Typography key={`${i} - ${name}`} variant="outlined" sx={{ color: 'text.disabled' }}>
             {name} {activeSubstances.length - 1 > i ? '| ' : ''}
           </Typography>
         ))}
