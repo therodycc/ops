@@ -43,13 +43,13 @@ const list = (page = 1, offset = 20) => {
 };
 
 const filter = name => {
-  return axios.get(`${env.list}?name=${name}`).catch(error => {
+  return axios.get(`${env.list}&name=${name}`).catch(error => {
     throw new Error('Error al obtener lista de productos.');
   });
 };
 
 const detail = id => {
-  return axios.get(`${env.detail}?productId=${id}`).catch(error => {
+  return axios.get(`${env.detail}&productId=${id}`).catch(error => {
     throw new Error('Error al obtener el detalle del producto.');
   });
 };

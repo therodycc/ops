@@ -17,8 +17,9 @@ export const getPricesBySellTypeAndQuantity = (product, sellType, quantity) => {
     };
   }
 
+  const { blisterPrice, blisterPriceWithDiscount, price } = product.price;
   return {
-    price: product.price.blisterPrice * quantity,
-    priceWithDiscount: applyDiscount ? product.price.blisterPriceWithDiscount * quantity : undefined
+    price: (blisterPrice ?? price) * quantity,
+    priceWithDiscount: applyDiscount ? blisterPriceWithDiscount * quantity : undefined
   };
 };

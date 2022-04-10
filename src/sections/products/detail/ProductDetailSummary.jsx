@@ -41,7 +41,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
   const [quantity, setQuantity] = useState(1);
   const [isProductInCart, setIsProductInCart] = useState(null);
   const [stock, setStock] = useState(product.stock);
-  const [selectedSellType, setSelectedSellType] = useState('UNIT');
+  const [selectedSellType, setSelectedSellType] = useState('BLISTER');
 
 
 
@@ -63,7 +63,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
 
   const updateSellType = sellType => {
     if (sellType === 'BLISTER') {
-      stock = parseInt(stock / blisterSize);
+      stock = parseInt(product.stock / blisterSize);
       setStock(stock);
       updateQuantity(stock > 0 ? 1 : 0);
     } else {
@@ -80,7 +80,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
     stock,
     price,
     quantity,
-    sellType: 'UNIT'
+    sellType: 'BLISTER'
   };
 
   const methods = useForm({

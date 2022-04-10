@@ -49,10 +49,8 @@ export default function ProductDetailPage() {
   const onAddCart = product => {
     let timeout;
 
-    return () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => dispatch(addToCart(product)), 1000);
-    };
+    clearTimeout(timeout);
+    timeout = setTimeout(() => dispatch(addToCart(product)), 1000);
   };
 
   return (

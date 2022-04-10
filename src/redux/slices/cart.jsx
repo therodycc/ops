@@ -37,20 +37,11 @@ const cartSlice = createSlice({
         },
         updateCart(state, action) {
             state.isLoading = false;
-            const cart = action.payload;
-            const newProduct = cart.products[0];
-
-            const productIndex = state.products.findIndex(_product => newProduct.id === _product.id);
-
-            const oldProduct = state.products[productIndex];
-            if (newProduct.selectedSellType !== oldProduct.selectedSellType) {
-                state.itbis += (Number(cart.itbis) - Number(state.itbis));
-                state.total += (Number(cart.total) - Number(state.total));
-                state.discount += (Number(cart.discount) - Number(state.discount));
-                state.subTotal += (Number(cart.subTotal) - Number(state.subTotal));
-            }
-
-            state.products[productIndex] = oldProduct;
+            state.products = [...action.payload.products];
+            state.itbis = action.payload.itbis;
+            state.total = action.payload.total;
+            state.discount = action.payload.discount;
+            state.subTotal = action.payload.subTotal;
         },
         resetCart(state) {
             state.products = [];
