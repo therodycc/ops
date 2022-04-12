@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
 // next
 import { useRouter } from 'next/router';
 // form
 import { useForm } from 'react-hook-form';
 // @mui
 import { useTheme, styled } from '@mui/material/styles';
-import { Box, Stack, Button, Divider, IconButton, Typography } from '@mui/material';
+import { Box, Stack, Button, Divider, Typography } from '@mui/material';
 // redux
 import { useSelector } from '../../../redux/store';
 // utils
@@ -18,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { getPricesBySellTypeAndQuantity } from '../utils/product.util';
 import { Product } from '../../../interfaces/product/product';
 import { CartDto } from '../../../interfaces/cart/cart';
+import { Incrementer } from '../../../components/Incrementer';
 
 // ----------------------------------------------------------------------
 
@@ -145,9 +145,9 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
         </Typography>
 
         {activeSubstances?.map(({ name }, i) => (
-          <Typography key={`${i} - ${name}`} variant="outlined" sx={{ color: 'text.disabled' }}>
-            {name} {activeSubstances.length - 1 > i ? '| ' : ''}
-          </Typography>
+          <Label key={`${i} - ${name}`} sx={{ color: 'text.disabled', margin: '0 2px' }}>
+            {name}
+          </Label>
         ))}
 
         <Divider sx={{ mt: 3, mb: 3, borderStyle: 'dashed' }} />
@@ -186,7 +186,6 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
 
           <div>
             <Incrementer
-              name="quantity"
               quantity={values.quantity}
               stock={stock}
               onIncrementQuantity={() => updateCounterQuantity(quantity + 1)}
@@ -221,7 +220,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
             fullWidth
             size="large"
             variant="contained"
-            startIcon={<Iconify icon={'ic:round-add-shopping-cart'} />}
+            startIcon={<Iconify icon={'ic:round-add-shopping-cart'} sx={{}} />}
             onClick={handleAddCart}
             sx={{ whiteSpace: 'nowrap' }}
           >
@@ -240,51 +239,3 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
     </RootStyle>
   );
 };
-
-// ----------------------------------------------------------------------
-
-Incrementer.propTypes = {
-  stock: PropTypes.number,
-  quantity: PropTypes.number,
-  onIncrementQuantity: PropTypes.func,
-  onDecrementQuantity: PropTypes.func
-};
-
-function Incrementer({ stock, quantity, onIncrementQuantity, onDecrementQuantity }) {
-  return (
-    <Box
-      sx={{
-        py: 0.5,
-        px: 0.75,
-        border: 1,
-        lineHeight: 0,
-        borderRadius: 1,
-        display: 'flex',
-        alignItems: 'center',
-        borderColor: 'grey.50032'
-      }}
-    >
-      <IconButton
-        size="large"
-        color="inherit"
-        disabled={quantity <= 1}
-        onClick={onDecrementQuantity}
-      >
-        <Iconify icon={'eva:minus-fill'} width={14} height={14} />
-      </IconButton>
-
-      <Typography variant="body2" component="span" sx={{ width: 40, textAlign: 'center' }}>
-        {quantity}
-      </Typography>
-
-      <IconButton
-        size="large"
-        color="inherit"
-        disabled={quantity >= stock}
-        onClick={onIncrementQuantity}
-      >
-        <Iconify icon={'eva:plus-fill'} width={14} height={14} />
-      </IconButton>
-    </Box>
-  );
-}
