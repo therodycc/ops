@@ -39,7 +39,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
 
 
   const [quantity, setQuantity] = useState(1);
-  const [isProductInCart, setIsProductInCart] = useState(null);
+  const [productInCart, setProductInCart] = useState({});
   const [stock, setStock] = useState(product.stock);
   const [selectedSellType, setSelectedSellType] = useState('BLISTER');
 
@@ -47,7 +47,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
 
   const price = getPricesBySellTypeAndQuantity(product, selectedSellType, quantity);
 
-  const updateQuantity = newValue => {
+  const updateCounterQuantity = newValue => {
     setQuantity(newValue);
     setValue('quantity', newValue);
   };
@@ -55,21 +55,25 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
   useEffect(() => {
     const productInCart = cardProducts.find(_product => product.id === _product.id);
     if (productInCart) {
-      updateQuantity(productInCart.quantity);
       updateSellType(productInCart.selectedSellType);
-      setIsProductInCart(productInCart);
+      updateCounterQuantity(productInCart.quantity);
+      setProductInCart(productInCart);
     }
-  }, [product, cardProducts, setIsProductInCart]);
+  }, [product, cardProducts]);
 
   const updateSellType = sellType => {
     if (sellType === 'BLISTER') {
       stock = parseInt(product.stock / blisterSize);
       setStock(stock);
-      updateQuantity(stock > 0 ? 1 : 0);
     } else {
       if (stock !== product.stock) setStock(product.stock);
     }
 
+    if (productInCart.selectedSellType === sellType) {
+      updateCounterQuantity(stock > 0 ? productInCart.quantity ?? 1 : 0);
+    } else {
+      updateCounterQuantity(stock > 0 ? 1 : 0);
+    }
     setSelectedSellType(sellType);
   };
 
@@ -114,7 +118,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
         selectedSellType
       };
 
-      if (!isProductInCart) onAddCart(data);
+      if (!productInCart?.id) onAddCart(data);
       else onUpdateCart(data);
     } catch (error) {
       console.error(error);
@@ -181,8 +185,8 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
               name="quantity"
               quantity={values.quantity}
               stock={stock}
-              onIncrementQuantity={() => updateQuantity(quantity + 1)}
-              onDecrementQuantity={() => updateQuantity(quantity - 1)}
+              onIncrementQuantity={() => updateCounterQuantity(quantity + 1)}
+              onDecrementQuantity={() => updateCounterQuantity(quantity - 1)}
             />
             <Typography
               variant="caption"

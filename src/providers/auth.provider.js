@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { getUserFromToken, setSession } from '../utils/jwt';
 
 import { initialize as initializePlatform } from '../redux/slices/auth';
+import { getCart } from 'src/redux/slices/cart';
 
 AuthContext.propTypes = {
   children: PropTypes.node
@@ -30,6 +31,9 @@ function AuthContext({ children }) {
           user: null
         });
       }
+
+      // Update user cart
+      dispatch(getCart());
     };
     initialize();
   }, []);

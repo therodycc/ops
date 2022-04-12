@@ -58,6 +58,19 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer;
 
+export const getCart = () => {
+    return async () => {
+        try {
+            dispatch(cartSlice.actions.startLoading());
+            const { data } = await cartService.get();
+            dispatch(cartSlice.actions.updateCart(data));
+        } catch (error) {
+            console.error(error);
+            dispatch(cartSlice.actions.hasError(error));
+        }
+    };
+}
+
 export const addToCart = (product) => {
     return async () => {
         try {
@@ -76,7 +89,9 @@ export const updateCart = (cart) => {
         try {
             dispatch(cartSlice.actions.startLoading());
             const { data } = await cartService.update(cart);
-            dispatch(cartSlice.actions.updateCart(data));
+            if (data) dispatch(cartSlice.actions.updateCart(data));
+            else dispatch(cartSlice.actions.resetCart());
+
         } catch (error) {
             console.error(error);
             dispatch(cartSlice.actions.hasError(error));
