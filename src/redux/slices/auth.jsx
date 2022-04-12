@@ -1,5 +1,5 @@
-import { authService } from 'src/services/auth.service';
-import { setSession } from 'src/utils/jwt';
+import { authService } from '../../services/auth.service';
+import { setSession } from '../../utils/jwt';
 const { createSlice } = require('@reduxjs/toolkit');
 
 import { dispatch } from '../store';

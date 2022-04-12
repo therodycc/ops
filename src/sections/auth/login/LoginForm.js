@@ -20,7 +20,7 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 import { authService } from '../../../services/auth.service';
 import { loginSuccess } from '../../../redux/slices/auth';
 import { useRouter } from 'next/router';
-import { setSession } from 'src/utils/jwt';
+import { setSession } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 

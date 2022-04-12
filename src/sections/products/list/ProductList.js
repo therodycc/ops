@@ -4,7 +4,7 @@ import { Box, Card, Typography, Stack, Link } from '@mui/material';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
 //paths
-import { PATH_PRODUCTS } from 'src/routes/paths';
+import { PATH_PRODUCTS } from '../../../routes/paths';
 // components
 import Image from '../../../components/Image';
 import Label from '../../../components/Label';

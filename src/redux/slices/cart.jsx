@@ -1,4 +1,4 @@
-import { cartService } from 'src/services/cart.service';
+import { cartService } from '../../services/cart.service';
 const { createSlice } = require('@reduxjs/toolkit');
 
 import { dispatch } from '../store';

@@ -16,7 +16,7 @@ import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
 import InputStyle from '../../../components/InputStyle';
 import SearchNotFound from '../../../components/SearchNotFound';
-import { productService } from 'src/services/product.service';
+import { productService } from '../../../services/product.service';
 
 // ----------------------------------------------------------------------
 

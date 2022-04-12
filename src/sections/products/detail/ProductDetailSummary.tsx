@@ -16,7 +16,8 @@ import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFSelect } from '../../../components/hook-form';
 import { useEffect, useState } from 'react';
 import { getPricesBySellTypeAndQuantity } from '../utils/product.util';
-
+import { Product } from '../../../interfaces/product/product';
+import { CartDto } from '../../../interfaces/cart/cart';
 
 // ----------------------------------------------------------------------
 
@@ -27,23 +28,26 @@ const RootStyle = styled('div')(({ theme }) => ({
   }
 }));
 
+export interface ProductDetailProps {
+  product: Product;
+  onAddCart(cart: CartDto): void;
+  onUpdateCart(cart: CartDto): void;
+}
+
 // ----------------------------------------------------------------------
 
-export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
+export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: ProductDetailProps) => {
   const theme = useTheme();
 
   const { push } = useRouter();
-  const { id, name, blisterSize, activeSubstances, cover } = product;
+  const { id, name, blisterSize, activeSubstances } = product;
 
-  const { products: cardProducts } = useSelector((state) => state.cart);
-
+  const { products: cardProducts } = useSelector((state: any) => state.cart);
 
   const [quantity, setQuantity] = useState(1);
-  const [productInCart, setProductInCart] = useState({});
+  const [productInCart, setProductInCart] = useState<Product>(null);
   const [stock, setStock] = useState(product.stock);
-  const [selectedSellType, setSelectedSellType] = useState('BLISTER');
-
-
+  const [selectedSellType, setSelectedSellType] = useState<'UNIT' | 'BLISTER'>('BLISTER');
 
   const price = getPricesBySellTypeAndQuantity(product, selectedSellType, quantity);
 
@@ -55,6 +59,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
   useEffect(() => {
     const productInCart = cardProducts.find(_product => product.id === _product.id);
     if (productInCart) {
+      console.log(productInCart);
       updateSellType(productInCart.selectedSellType);
       updateCounterQuantity(productInCart.quantity);
       setProductInCart(productInCart);
@@ -63,13 +68,13 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
 
   const updateSellType = sellType => {
     if (sellType === 'BLISTER') {
-      stock = parseInt(product.stock / blisterSize);
+      let stock = product.stock / blisterSize;
       setStock(stock);
     } else {
       if (stock !== product.stock) setStock(product.stock);
     }
 
-    if (productInCart.selectedSellType === sellType) {
+    if (productInCart?.selectedSellType === sellType) {
       updateCounterQuantity(stock > 0 ? productInCart.quantity ?? 1 : 0);
     } else {
       updateCounterQuantity(stock > 0 ? 1 : 0);
@@ -80,7 +85,6 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
   const defaultValues = {
     id,
     name,
-    cover,
     stock,
     price,
     quantity,
@@ -112,7 +116,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }) => {
 
   const handleAddCart = async () => {
     try {
-      const data = {
+      const data: CartDto = {
         productId: product.id,
         quantity,
         selectedSellType
@@ -284,10 +288,3 @@ function Incrementer({ stock, quantity, onIncrementQuantity, onDecrementQuantity
     </Box>
   );
 }
-
-ProductDetailSummary.propTypes = {
-  // cart: PropTypes.array,
-  onAddCart: PropTypes.func,
-  // onGotoStep: PropTypes.func,
-  product: PropTypes.object
-};
