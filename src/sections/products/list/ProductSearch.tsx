@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
 // hooks
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
 
 // routes
 import { PATH_PRODUCTS } from '../../../routes/paths';
@@ -20,7 +19,7 @@ import { productService } from '../../../services/product.service';
 
 // ----------------------------------------------------------------------
 
-const PopperStyle = styled(props => <Popper placement="bottom-start" {...props} />)({
+const PopperStyle = styled(props => <Popper open={false} placement="bottom-start" {...props} />)({
   width: '280px !important'
 });
 
@@ -77,8 +76,8 @@ export default function ProductSearch() {
       isOptionEqualToValue={(option, value) => option.id === value.id}
       renderInput={params => (
         <InputStyle
+          sx={{ width: 300 }}
           {...params}
-          stretchStart={250}
           placeholder="Buscar productos..."
           onKeyUp={handleKeyUp}
           InputProps={{
@@ -105,6 +104,7 @@ export default function ProductSearch() {
               alt={photo}
               src={photo}
               sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }}
+              ratio={{}}
             />
             <Link underline="none" onClick={() => handleClick(product.id)}>
               {parts.map((part, index) => (

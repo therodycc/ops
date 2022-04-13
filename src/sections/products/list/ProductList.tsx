@@ -16,8 +16,8 @@ export default function ProductList({ product }) {
   const { name, photo, stock, price, blisterSize } = product;
 
   return (
-    <Card>
-      <NextLink href={PATH_PRODUCTS.detail(product.id)} xs={{ cursor: 'pointer' }} passHref>
+    <Card sx={{ cursor: 'pointer' }}>
+      <NextLink href={PATH_PRODUCTS.detail(product.id)} passHref>
         <Link color="inherit">
           <Box sx={{ position: 'relative' }}>
             <Label
@@ -33,7 +33,7 @@ export default function ProductList({ product }) {
             >
               {stock} disp
             </Label>
-            <Image src={photo} alt={photo} ratio="16/9" />
+            <Image src={photo} alt={photo} ratio="16/9" sx={{}} />
           </Box>
 
           <Stack spacing={2} sx={{ p: 3 }}>
@@ -75,7 +75,7 @@ export default function ProductList({ product }) {
                 <Typography variant="subtitle1">
                   {fCurrency(
                     price.blisterPriceWithDiscount > 0
-                      ? price.blisterPriceWithDiscount ?? prices.blisterPrice
+                      ? price.blisterPriceWithDiscount ?? price.blisterPrice
                       : price.priceWithDiscount ?? price.price
                   )}
                 </Typography>

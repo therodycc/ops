@@ -22,7 +22,7 @@
       },
       "typescript": {
         "alwaysTryTypes": true
-      },
+      }
     },
     "propWrapperFunctions": [
       "forbidExtraProps",
@@ -95,14 +95,14 @@
       {
         "code": 100,
         "ignoreStrings": true
-      },
+      }
     ],
     "no-eval": "error",
     "no-multiple-empty-lines": [
       "error",
       {
         "max": 2
-      },
+      }
     ],
     "no-new-wrappers": "error",
     "no-underscore-dangle": "off",
@@ -193,7 +193,7 @@
       {
         "anonymous": "never",
         "named": "never",
-        "asyncArrow": "always",
+        "asyncArrow": "always"
       }
     ],
     "strict": "error",
@@ -232,8 +232,8 @@
       "warn",
       "single",
       {
-        "avoidEscape": true,
-      },
+        "avoidEscape": true
+      }
     ],
     "@typescript-eslint/ban-types": "error",
     "@typescript-eslint/no-empty-function": "error",

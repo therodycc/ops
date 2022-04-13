@@ -20,7 +20,7 @@ import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 // sections
 import { ProductImage } from '../../../sections/products/detail/ProductImage';
 import { ProductDetailSummary } from '../../../sections/products/detail/ProductDetailSummary';
-import { CartWidget } from '../../../sections/products/detail//CartWidget';
+import { CartWidget } from '../../../sections/products/detail/CartWidget';
 
 ProductDetailPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -35,7 +35,7 @@ export default function ProductDetailPage() {
   const { query } = useRouter();
   const { id } = query;
 
-  const { product } = useSelector(state => state.product);
+  const { product } = useSelector((state: any) => state.product);
 
   useEffect(() => {
     // dispatch(clearCart());

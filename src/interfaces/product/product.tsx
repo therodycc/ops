@@ -1,6 +1,7 @@
 export interface Product {
   id: number;
   name: string;
+  photo: string;
   stock: number;
   quantity: number;
   selectedSellType: 'UNIT' | 'BLISTER';

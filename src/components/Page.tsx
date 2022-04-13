@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 // next
 import Head from 'next/head';
@@ -6,8 +6,12 @@ import Head from 'next/head';
 import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
-
-const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
+interface PageProps {
+  children: ReactNode;
+  title: string;
+  meta?: any;
+}
+const Page = forwardRef(({ children, title = '', meta, ...other }: PageProps, ref) => (
   <>
     <Head>
       <title>{`${title} | Farmacia Nazir`}</title>
