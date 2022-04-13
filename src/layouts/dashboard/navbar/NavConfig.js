@@ -12,35 +12,36 @@ const ICONS = {
   dashboard: getIcon('ic_dashboard')
 };
 
+console.log(ICONS.dashboard);
 const sidebarConfig = [
   // GENERAL
   // ----------------------------------------------------------------------
   {
-    subheader: 'general v3.3.0',
+    subheader: 'Menu',
     items: [
-      { title: 'Productos', path: '/products', icon: ICONS.dashboard },
-      { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
-      { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics }
+      { title: 'Productos', path: '/products', icon: ICONS.dashboard }
+      // { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
+      // { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics }
     ]
-  },
+  }
 
   // MANAGEMENT
   // ----------------------------------------------------------------------
-  {
-    subheader: 'management',
-    items: [
-      {
-        title: 'user',
-        path: '/dashboard/user',
-        icon: ICONS.user,
-        children: [
-          { title: 'Four', path: '/dashboard/user/four' },
-          { title: 'Five', path: '/dashboard/user/five' },
-          { title: 'Six', path: '/dashboard/user/six' }
-        ]
-      }
-    ]
-  }
+  // {
+  //   subheader: 'management',
+  //   items: [
+  //     {
+  //       title: 'user',
+  //       path: '/dashboard/user',
+  //       icon: ICONS.user,
+  //       children: [
+  //         { title: 'Four', path: '/dashboard/user/four' },
+  //         { title: 'Five', path: '/dashboard/user/five' },
+  //         { title: 'Six', path: '/dashboard/user/six' }
+  //       ]
+  //     }
+  //   ]
+  // }
 ];
 
 export default sidebarConfig;
