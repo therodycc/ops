@@ -104,7 +104,6 @@ export default function ProductSearch() {
               alt={photo}
               src={photo}
               sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }}
-              ratio={{}}
             />
             <Link underline="none" onClick={() => handleClick(product.id)}>
               {parts.map((part, index) => (

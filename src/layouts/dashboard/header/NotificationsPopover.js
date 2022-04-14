@@ -22,7 +22,7 @@ import { fToNow } from '../../../utils/formatTime';
 import { _notifications } from '../../../_mock';
 // components
 import Iconify from '../../../components/Iconify';
-import Scrollbar from '../../../components/Scrollbar';
+import { Scrollbar } from '../../../components/Scrollbar';
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
 

@@ -8,7 +8,12 @@ export interface IncrementerProps {
   onDecrementQuantity(): void;
 }
 
-export const Incrementer = ({ stock, quantity, onIncrementQuantity, onDecrementQuantity }) => {
+export const Incrementer = ({
+  stock,
+  quantity,
+  onIncrementQuantity,
+  onDecrementQuantity
+}: IncrementerProps) => {
   return (
     <Box
       sx={{

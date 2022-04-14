@@ -7,6 +7,7 @@ function path(root, sublink) {
 const ROOTS_AUTH = '/auth';
 const ROOTS_DASHBOARD = '/dashboard';
 const ROOTS_PRODUCTS = '/products';
+const ROOTS_CHECKOUT = '/checkout';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +38,11 @@ export const PATH_PRODUCTS = {
   root: path(ROOTS_PRODUCTS, ''),
   new: path(ROOTS_PRODUCTS, '/new'),
   detail: name => path(ROOTS_PRODUCTS, `/${name}/detail`)
+};
+
+export const PATH_CHECKOUT = {
+  root: path(ROOTS_CHECKOUT, ''),
+  summary: path(ROOTS_PRODUCTS, '/summary')
 };
 
 export const PATH_DASHBOARD = {

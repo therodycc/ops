@@ -7,7 +7,7 @@ import { Badge } from '@mui/material';
 // redux
 import { useSelector } from '../../../redux/store';
 // routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_CHECKOUT } from '../../../routes/paths';
 // components
 import Iconify from '../../../components/Iconify';
 
@@ -41,7 +41,7 @@ export const CartWidget = () => {
   const totalProduct = sum(products.map(_product => _product.quantity));
 
   return (
-    <NextLink href={PATH_DASHBOARD.eCommerce.checkout} passHref>
+    <NextLink href={PATH_CHECKOUT.root} passHref>
       <RootStyle>
         <Badge showZero badgeContent={totalProduct} color="error" max={99}>
           <Iconify icon={'eva:shopping-cart-fill'} width={24} height={24} />

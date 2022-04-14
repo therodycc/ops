@@ -18,6 +18,7 @@ import { getPricesBySellTypeAndQuantity } from '../utils/product.util';
 import { Product } from '../../../interfaces/product/product';
 import { CartDto } from '../../../interfaces/cart/cart';
 import { Incrementer } from '../../../components/Incrementer';
+import { PATH_CHECKOUT } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -62,8 +63,10 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
       updateSellType(productInCart.selectedSellType);
       updateCounterQuantity(productInCart.quantity);
       setProductInCart(productInCart);
+    } else {
+      if (blisterSize === 0) updateSellType('UNIT');
     }
-  }, [product, cardProducts]);
+  }, [cardProducts]);
 
   const updateSellType = sellType => {
     if (sellType === 'BLISTER') {
@@ -98,21 +101,6 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
 
   const values = watch();
 
-  const onSubmit = async data => {
-    // try {{...other}
-    //   if (!alreadyProduct) {
-    //     onAddCart({
-    //       ...data,
-    //       subtotal: data.price * data.quantity
-    //     });
-    //   }
-    //   onGotoStep(0);
-    //   push(PATH_DASHBOARD.eCommerce.checkout);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  };
-
   const handleAddCart = async () => {
     try {
       const data: CartDto = {
@@ -123,6 +111,18 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
 
       if (!productInCart?.id) onAddCart(data);
       else onUpdateCart(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onSubmit = async data => {
+    try {
+      if (!productInCart) {
+        handleAddCart();
+      }
+
+      push(PATH_CHECKOUT.root);
     } catch (error) {
       console.error(error);
     }
@@ -218,6 +218,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
           <Button
             fullWidth
             size="large"
+            color="warning"
             variant="contained"
             startIcon={<Iconify icon={'ic:round-add-shopping-cart'} sx={{}} />}
             onClick={handleAddCart}
@@ -226,9 +227,9 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
             Agregar Al Carrito
           </Button>
 
-          {/* <Button fullWidth size="large" type="submit" variant="contained">
-            Buy Now
-          </Button> */}
+          <Button fullWidth size="large" type="submit" variant="contained">
+            Comprar Ahora
+          </Button>
         </Stack>
 
         {/* <Stack alignItems="center" sx={{ mt: 3 }}>
