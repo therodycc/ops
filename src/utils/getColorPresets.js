@@ -12,11 +12,15 @@ export const colorPresets = [
   // PURPLE
   {
     name: 'purple',
-    lighter: '#EBD6FD',
-    light: '#B985F4',
-    main: '#7635dc',
-    dark: '#431A9E',
-    darker: '#200A69',
+    // lighter: '#EBD6FD',
+    // light: '#B985F4',
+    // main: '#7635dc',
+
+    lighter: '#4961DC',
+    light: '#84D891',
+    main: '#4961DC',
+    dark: '#9410B4',
+    darker: '#9410B4',
     contrastText: '#fff'
   },
   // CYAN

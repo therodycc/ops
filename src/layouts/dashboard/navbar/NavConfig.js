@@ -12,7 +12,6 @@ const ICONS = {
   dashboard: getIcon('ic_dashboard')
 };
 
-console.log(ICONS.dashboard);
 const sidebarConfig = [
   // GENERAL
   // ----------------------------------------------------------------------

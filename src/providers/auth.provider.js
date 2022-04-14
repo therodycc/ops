@@ -20,20 +20,19 @@ function AuthContext({ children }) {
       const user = getUserFromToken(accessToken);
       if (user) {
         setSession(accessToken);
-
         initializePlatform({
           isAuthenticated: true,
           user
         });
+
+        // Update user cart
+        dispatch(getCart());
       } else {
         initializePlatform({
           isAuthenticated: false,
           user: null
         });
       }
-
-      // Update user cart
-      dispatch(getCart());
     };
     initialize();
   }, []);

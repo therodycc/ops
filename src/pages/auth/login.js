@@ -72,25 +72,25 @@ export default function Login() {
       <RootStyle>
         <HeaderStyle>
           <Logo />
-          {smUp && (
+          {/* {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
               Aun no tienes una cuenta? {''}
               <NextLink href={PATH_AUTH.register} passHref>
                 <Link variant="subtitle2">Iniciemos</Link>
               </NextLink>
             </Typography>
-          )}
+          )} */}
         </HeaderStyle>
 
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hola, Welcome Back!
+              Hola, Bievenido de vuelta!
             </Typography>
             <Image
               visibleByDefault
               disabledEffect
-              src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_login.png"
+              src="/illustrations/illustration_login.png"
               alt="login"
             />
           </SectionStyle>
@@ -101,9 +101,9 @@ export default function Login() {
             <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="h4" gutterBottom>
-                  Sign in to Minimal
+                  Iniciemos
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>Ingresa tus credenciales</Typography>
               </Box>
             </Stack>
 
@@ -116,9 +116,9 @@ export default function Login() {
 
             {!smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                Don’t have an account?{' '}
+                Aun no tienes una cuenta?{' '}
                 <NextLink href={PATH_AUTH.register} passHref>
-                  <Link variant="subtitle2">Get started</Link>
+                  <Link variant="subtitle2">Iniciar</Link>
                 </NextLink>
               </Typography>
             )}

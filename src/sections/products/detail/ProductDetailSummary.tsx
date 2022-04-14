@@ -59,7 +59,6 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
   useEffect(() => {
     const productInCart = cardProducts.find(_product => product.id === _product.id);
     if (productInCart) {
-      console.log(productInCart);
       updateSellType(productInCart.selectedSellType);
       updateCounterQuantity(productInCart.quantity);
       setProductInCart(productInCart);
