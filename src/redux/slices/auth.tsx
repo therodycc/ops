@@ -47,15 +47,16 @@ const authSlice = createSlice({
       isLoading: false,
       isAuthenticated: false,
       user: null
-    }),
+    })
   }
 });
 
 // ----------------------------------------------------------------------
 
-// // Reducer 
+// // Reducer
 export const {
   //   initialize,
+  logoutSuccess,
   loginSuccess,
   hasError
   //   logoutSuccess
@@ -65,10 +66,16 @@ export default authSlice.reducer;
 
 export const initialize = ({ isAuthenticated, user }) => {
   dispatch(authSlice.actions.initialize({ isAuthenticated, user }));
-}
+};
 
+export const logout = () => {
+  return async () => {
+    setSession(null);
+    dispatch(authSlice.actions.logoutSuccess());
+  };
+};
 
-export const login = (credentials) => {
+export const login = credentials => {
   return async () => {
     dispatch(authSlice.actions.startLoading());
     try {
@@ -86,8 +93,4 @@ export const login = (credentials) => {
       dispatch(authSlice.actions.hasError(error));
     }
   };
-
-}
-
-
-
+};

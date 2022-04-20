@@ -18,8 +18,8 @@ const sidebarConfig = [
   {
     subheader: 'Menu',
     items: [
+      { title: 'Venta', path: '/checkout/', icon: ICONS.ecommerce },
       { title: 'Productos', path: '/products', icon: ICONS.dashboard }
-      // { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
       // { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics }
     ]
   }

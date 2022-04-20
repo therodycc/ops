@@ -11,12 +11,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
-import { PATH_AUTH, PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_AUTH, PATH_PRODUCTS } from '../../../routes/paths';
 // hooks
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { FormProvider, RHFTextField } from '../../../components/hook-form';
 import { authService } from '../../../services/auth.service';
 import { loginSuccess } from '../../../redux/slices/auth';
 import { useRouter } from 'next/router';
@@ -61,7 +61,7 @@ export default function LoginForm() {
       setSession(profile?.accessToken);
       dispatch(loginSuccess(profile));
 
-      replace(PATH_DASHBOARD.root);
+      replace(PATH_PRODUCTS.root);
     } catch (error) {
       reset();
       if (isMountedRef.current) {

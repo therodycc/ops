@@ -23,6 +23,8 @@ import { useDispatch, useSelector } from '../../redux/store';
 // sections
 import { ProductList, ProductSearch } from '../../sections/products/list';
 import { SkeletonProductItem } from '../../components/skeleton';
+import { useRouter } from 'next/router';
+import { Product } from '../../interfaces/product/product';
 
 // ----------------------------------------------------------------------
 
@@ -34,9 +36,15 @@ ProductListPage.getLayout = function getLayout(page) {
 
 export default function ProductListPage() {
   const { themeStretch } = useSettings();
+  const { replace } = useRouter();
   const dispatch = useDispatch();
 
-  const { products, isLoading } = useSelector(state => state.product);
+  const { products } = useSelector((state: any) => state.product);
+
+  const productSelectedHandler = (product: Product) => {
+    // Pass the current id
+    replace(PATH_PRODUCTS.new);
+  };
 
   useEffect(() => {
     dispatch(getProducts());
@@ -85,7 +93,11 @@ export default function ProductListPage() {
         >
           {(!products ? [...Array(12)] : products).map((product, index) =>
             product ? (
-              <ProductList key={product.id} product={product} />
+              <ProductList
+                key={product.id}
+                product={product}
+                onSelect={product => productSelectedHandler(product)}
+              />
             ) : (
               <SkeletonProductItem key={index} />
             )

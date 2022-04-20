@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import Login from '../pages/auth/login';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import { PATH_AUTH } from '../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +37,7 @@ export default function AuthGuard({ children }) {
 
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {
-      setRequestedLocation(pathname);
+      replace(PATH_AUTH.login);
     }
 
     return <Login />;

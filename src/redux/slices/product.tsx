@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import sum from 'lodash/sum';
 import uniqBy from 'lodash/uniqBy';
+import { Product } from '../../interfaces/product/product';
 
 // utils
 import { productService } from '../../services/product.service';
@@ -8,21 +9,17 @@ import { productService } from '../../services/product.service';
 import { dispatch } from '../store';
 
 // ----------------------------------------------------------------------
-
-const initialState = {
+type ProductType = {
+  isLoading: Boolean;
+  error: any;
+  product: Product;
+  products: Product[];
+};
+const initialState: ProductType = {
   isLoading: false,
   error: null,
   products: null,
-  product: null,
-  checkout: {
-    activeStep: 0,
-    cart: [],
-    subtotal: 0,
-    total: 0,
-    discount: 0,
-    shipping: 0,
-    billing: null
-  }
+  product: null
 };
 
 const slice = createSlice({
@@ -55,8 +52,8 @@ const slice = createSlice({
     // GET PRODUCT
     createProductSuccess(state, action) {
       state.isLoading = false;
-      state.product.push(action.payload);
-    },
+      state.products.push(action.payload);
+    }
   }
 });
 
@@ -75,7 +72,7 @@ export const createProduct = product => {
       dispatch(slice.actions.hasError(error));
     }
   };
-}
+};
 
 // ----------------------------------------------------------------------
 
@@ -89,7 +86,7 @@ export const getProducts = () => {
       dispatch(slice.actions.hasError(error));
     }
   };
-}
+};
 
 // ----------------------------------------------------------------------
 export const getProduct = id => {
@@ -103,7 +100,7 @@ export const getProduct = id => {
       dispatch(slice.actions.hasError(error));
     }
   };
-}
+};
 
 export const addElementToCartCart = ({ id, quantity, selectedSellType }) => {
   return async () => {
@@ -116,4 +113,4 @@ export const addElementToCartCart = ({ id, quantity, selectedSellType }) => {
       dispatch(slice.actions.hasError(error));
     }
   };
-}
+};

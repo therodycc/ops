@@ -41,7 +41,7 @@ export const CartWidget = () => {
   const totalProduct = sum(products.map(_product => _product.quantity));
 
   return (
-    <NextLink href={PATH_CHECKOUT.root} passHref>
+    <NextLink href={PATH_CHECKOUT.summary} passHref>
       <RootStyle>
         <Badge showZero badgeContent={totalProduct} color="error" max={99}>
           <Iconify icon={'eva:shopping-cart-fill'} width={24} height={24} />

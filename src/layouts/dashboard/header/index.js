@@ -18,6 +18,9 @@ import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import ContactsPopover from './ContactsPopover';
 import NotificationsPopover from './NotificationsPopover';
+import { useSelector } from 'react-redux';
+import { useDispatch } from '../../../redux/store';
+import { logout, logoutSuccess } from '../../../redux/slices/auth';
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +67,14 @@ export default function DashboardHeader({
 }) {
   const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
 
+  const test = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
   const isDesktop = useResponsive('up', 'lg');
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}>
@@ -87,8 +97,7 @@ export default function DashboardHeader({
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <NotificationsPopover />
-          <ContactsPopover />
-          <AccountPopover />
+          <ContactsPopover onLogout={logoutHandler} />
         </Stack>
       </Toolbar>
     </RootStyle>

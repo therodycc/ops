@@ -1,26 +1,36 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+// next
+import NextLink from 'next/link';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Avatar, Typography, ListItemText, ListItemAvatar, MenuItem } from '@mui/material';
-// utils
-import { fToNow } from '../../../utils/formatTime';
-// _mock_
-import { _contacts } from '../../../_mock';
+import { Box, Divider, Typography, Stack, MenuItem, Avatar } from '@mui/material';
 // components
-import Iconify from '../../../components/Iconify';
-import { Scrollbar } from '../../../components/Scrollbar';
 import MenuPopover from '../../../components/MenuPopover';
-import BadgeStatus from '../../../components/BadgeStatus';
 import { IconButtonAnimate } from '../../../components/animate';
 
 // ----------------------------------------------------------------------
 
-const ITEM_HEIGHT = 64;
+const MENU_OPTIONS = [
+  {
+    label: 'Home',
+    linkTo: '/'
+  },
+  {
+    label: 'Profile',
+    linkTo: '/'
+  },
+  {
+    label: 'Settings',
+    linkTo: '/'
+  }
+];
 
 // ----------------------------------------------------------------------
 
-export default function ContactsPopover() {
+export default function ContactsPopover({ onLogout }) {
   const [open, setOpen] = useState(null);
+  const { user } = useSelector(state => state.auth);
 
   const handleOpen = event => {
     setOpen(event.currentTarget);
@@ -33,58 +43,69 @@ export default function ContactsPopover() {
   return (
     <>
       <IconButtonAnimate
-        color={open ? 'primary' : 'default'}
         onClick={handleOpen}
         sx={{
-          width: 40,
-          height: 40,
+          p: 0,
           ...(open && {
-            bgcolor: theme => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
+            '&:before': {
+              zIndex: 1,
+              content: "''",
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              position: 'absolute',
+              bgcolor: theme => alpha(theme.palette.grey[900], 0.8)
+            }
           })
         }}
       >
-        <Iconify icon={'eva:people-fill'} width={20} height={20} />
+        <Avatar
+          src="https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg"
+          alt="Rayan Moran"
+        />
       </IconButtonAnimate>
 
       <MenuPopover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleClose}
+        arrow={'top-right'}
         sx={{
+          p: 0,
           mt: 1.5,
           ml: 0.75,
-          width: 320,
           '& .MuiMenuItem-root': {
-            px: 1.5,
-            height: ITEM_HEIGHT,
+            typography: 'body2',
             borderRadius: 0.75
           }
         }}
       >
-        <Typography variant="h6" sx={{ p: 1.5 }}>
-          Contacts <Typography component="span">({_contacts.length})</Typography>
-        </Typography>
+        <Box sx={{ my: 1.5, px: 2.5 }}>
+          <Typography variant="subtitle2" noWrap>
+            {user.fullName}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+            {user.email}
+          </Typography>
+        </Box>
 
-        <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
-          {_contacts.map(contact => (
-            <MenuItem key={contact.id}>
-              <ListItemAvatar sx={{ position: 'relative' }}>
-                <Avatar src={contact.avatar} />
-                <BadgeStatus
-                  status={contact.status}
-                  sx={{ position: 'absolute', right: 1, bottom: 1 }}
-                />
-              </ListItemAvatar>
+        <Divider sx={{ borderStyle: 'dashed' }} />
 
-              <ListItemText
-                primaryTypographyProps={{ typography: 'subtitle2', mb: 0.25 }}
-                secondaryTypographyProps={{ typography: 'caption' }}
-                primary={contact.name}
-                secondary={contact.status === 'offline' && fToNow(contact.lastActivity)}
-              />
-            </MenuItem>
+        <Stack sx={{ p: 1 }}>
+          {MENU_OPTIONS.map(option => (
+            <NextLink key={option.label} href={option.linkTo} passHref>
+              <MenuItem key={option.label} onClick={handleClose}>
+                {option.label}
+              </MenuItem>
+            </NextLink>
           ))}
-        </Scrollbar>
+        </Stack>
+
+        <Divider sx={{ borderStyle: 'dashed' }} />
+
+        <MenuItem onClick={onLogout} sx={{ m: 1 }}>
+          Logout
+        </MenuItem>
       </MenuPopover>
     </>
   );

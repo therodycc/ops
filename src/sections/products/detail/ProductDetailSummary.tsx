@@ -122,7 +122,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
         handleAddCart();
       }
 
-      push(PATH_CHECKOUT.root);
+      push(PATH_CHECKOUT.summary);
     } catch (error) {
       console.error(error);
     }
