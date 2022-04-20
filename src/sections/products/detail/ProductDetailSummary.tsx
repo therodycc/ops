@@ -40,7 +40,7 @@ export interface ProductDetailProps {
 export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: ProductDetailProps) => {
   const theme = useTheme();
 
-  const { push } = useRouter();
+  const { replace } = useRouter();
   const { id, name, blisterSize, activeSubstances } = product;
 
   const { products: cardProducts } = useSelector((state: any) => state.cart);
@@ -122,7 +122,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
         handleAddCart();
       }
 
-      push(PATH_CHECKOUT.summary);
+      replace(PATH_CHECKOUT.summary);
     } catch (error) {
       console.error(error);
     }

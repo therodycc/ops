@@ -42,7 +42,7 @@ export const PATH_PRODUCTS = {
 
 export const PATH_CHECKOUT = {
   root: path(ROOTS_CHECKOUT, ''),
-  summary: path(ROOTS_PRODUCTS, '/summary')
+  summary: path(ROOTS_CHECKOUT, '/summary')
 };
 
 export const PATH_DASHBOARD = {
