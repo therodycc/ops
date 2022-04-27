@@ -13,12 +13,13 @@ import { fCurrency } from '../../../utils/formatNumber';
 import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFSelect } from '../../../components/hook-form';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getPricesBySellTypeAndQuantity } from '../utils/product.util';
 import { Product } from '../../../interfaces/product/product';
 import { CartDto } from '../../../interfaces/cart/cart';
 import { Incrementer } from '../../../components/Incrementer';
 import { PATH_CHECKOUT } from '../../../routes/paths';
+import { AlertDialog } from '../../../override/mui/dialog/AlertDialog';
 
 // ----------------------------------------------------------------------
 
@@ -40,10 +41,13 @@ export interface ProductDetailProps {
 export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: ProductDetailProps) => {
   const theme = useTheme();
 
+  const cardDataRef = useRef<CartDto>(null);
   const { replace } = useRouter();
   const { id, name, blisterSize, activeSubstances } = product;
 
   const { products: cardProducts } = useSelector((state: any) => state.cart);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [quantity, setQuantity] = useState(1);
   const [productInCart, setProductInCart] = useState<Product>(null);
@@ -110,7 +114,13 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
       };
 
       if (!productInCart?.id) onAddCart(data);
-      else onUpdateCart(data);
+      else if (productInCart?.selectedSellType === data.selectedSellType) {
+        onUpdateCart(data);
+      } else {
+        // Trying to add same products with different sell type.
+        cardDataRef.current = data;
+        setIsModalOpen(true);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -130,6 +140,21 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
 
   return (
     <RootStyle>
+      <AlertDialog
+        open={isModalOpen}
+        title="Confirmation"
+        description="Este producto ya esta en el carrito con otra unidad. Seguro que desea agregarlo nuevamente?"
+        okButtonText="SI"
+        cancelButtonText="NO"
+        onAccept={() => {
+          setIsModalOpen(false);
+          onAddCart(cardDataRef.current);
+        }}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+      />
+
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Label
           variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
@@ -143,7 +168,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
           {name}
         </Typography>
 
-        {activeSubstances?.map(({ name }, i) => (
+        {(activeSubstances as any[])?.map(({ name }, i) => (
           <Label key={`${i} - ${name}`} sx={{ color: 'text.disabled', margin: '0 2px' }}>
             {name}
           </Label>

@@ -1,5 +1,3 @@
-import sum from 'lodash/sum';
-// next
 import NextLink from 'next/link';
 // @mui
 import { styled } from '@mui/material/styles';
@@ -25,20 +23,19 @@ const RootStyle = styled('div')(({ theme }) => ({
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
   paddingTop: theme.spacing(1.25),
-  boxShadow: theme.customShadows.z20,
   color: theme.palette.text.primary,
   backgroundColor: theme.palette.background.paper,
   borderTopLeftRadius: Number(theme.shape.borderRadius) * 2,
   borderBottomLeftRadius: Number(theme.shape.borderRadius) * 2,
   transition: theme.transitions.create('opacity'),
-  '&:hover': { opacity: 0.72 },
+  '&:hover': { opacity: 0.72 }
 }));
 
 // ----------------------------------------------------------------------
 
 export const CartWidget = () => {
-  const { products } = useSelector((state) => state.cart);
-  const totalProduct = sum(products.map(_product => _product.quantity));
+  const { products } = useSelector((state: any) => state.cart);
+  const totalProduct = products.length;
 
   return (
     <NextLink href={PATH_CHECKOUT.summary} passHref>
@@ -49,4 +46,4 @@ export const CartWidget = () => {
       </RootStyle>
     </NextLink>
   );
-}
+};

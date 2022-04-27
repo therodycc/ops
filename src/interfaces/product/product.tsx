@@ -13,6 +13,6 @@ export interface Product {
   selectedSellType: 'UNIT' | 'BLISTER';
   displayInMobile: boolean;
   blisterSize: number;
-  activeSubstances: string; // { id: number; name: string }[];
+  activeSubstances: string | { id: number; name: string }[];
   drugLab: number;
 }
