@@ -25,7 +25,7 @@
     "@hookform/resolvers": "^2.8.8",
     "@iconify/react": "^3.1.4",
     "@mui/lab": "^5.0.0-alpha.74",
-    "@mui/material": "^5.5.0",
+    "@mui/material": "^5.6.2",
     "@reduxjs/toolkit": "^1.8.0",
     "@types/react-redux": "^7.1.23",
     "autosuggest-highlight": "^3.2.1",

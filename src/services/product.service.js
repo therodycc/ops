@@ -2,31 +2,37 @@ import axios from '../utils/axios';
 
 const ENDPOINTS = {
   DEV: {
-    list: 'https://func-products-dev.azurewebsites.net/api/list?code=CT3%2FW39iTffquauI3wyQMg1Jg7iA00E3aay3bVtLcME7w9CSdf4Y1w%3D%3D',
-    save: 'https://func-products-dev.azurewebsites.net/api/create?code=HGJyhFD3SNlOG8TdmvI%2FKCfxL79Ydl64JCEwjrNCd3ct8Cx3P1BPgA%3D%3D',
+    list: 'https://func-products-dev.azurewebsites.net/api/list?code=I1N1gBVBYA7jgWz94HgvvOUXs7BOIk3PQXLJNxdEVqiSsHxX8hNSbQ%3D%3D',
+    save: 'https://func-products-dev.azurewebsites.net/api/create?code=KCuWFbU%2F5XPBP8RwYOGpDdafa1ZFrax40qM3ekpDdziXtuZaUyHCzw%3D%3D',
     detail:
-      'https://func-products-dev.azurewebsites.net/api/detail?code=aiB0EmIQI63T0kIcdJuglWJG3zhWY90H7PCLvSExBi4ccVmH83Nv5w%3D%3D',
+      'https://func-products-dev.azurewebsites.net/api/detail?code=aAFbDQgwDtsFue2qx2hU0rdtdHUN3LuRyxYziHaBVBA1Xf53yXiYLA%3D%3D',
     categories:
-      'https://func-products-dev.azurewebsites.net/api/categories?code=SrfkoHnE9fjhybHaQoGU57Xxmw9IS5MH7ih8W4oCcywVLnM1BBSEwA%3D%3D',
+      'https://func-products-dev.azurewebsites.net/api/categories?code=Z%2FTzUVbOsiMoBTTgqQldorbGcCMAqe3w9KnJ5eoMnxBGaNS%2Fkj1n2A%3D%3D',
     activeSubstances:
-      'https://func-products-dev.azurewebsites.net/api/active-substance?code=cpmqjOnaMi%2FVV7JxkYZzYHYrKriN8Mh%2FqFqMny8Of3RvLnk1Wj5Bdg%3D%3D'
+      'https://func-products-dev.azurewebsites.net/api/active-substance?code=T2UTcbuoKKCvNhbmiwNcarKrd2kJmM2D9SrMV4ZcywzXSkUcEey97g%3D%3D'
   },
   PROD: {
-    list: 'https://func-products-dev.azurewebsites.net/api/list?code=CT3%2FW39iTffquauI3wyQMg1Jg7iA00E3aay3bVtLcME7w9CSdf4Y1w%3D%3D',
-    save: 'https://func-products-dev.azurewebsites.net/api/create?code=HGJyhFD3SNlOG8TdmvI%2FKCfxL79Ydl64JCEwjrNCd3ct8Cx3P1BPgA%3D%3D',
+    list: 'https://func-products-dev.azurewebsites.net/api/list?code=I1N1gBVBYA7jgWz94HgvvOUXs7BOIk3PQXLJNxdEVqiSsHxX8hNSbQ%3D%3D',
+    save: 'https://func-products-dev.azurewebsites.net/api/create?code=KCuWFbU%2F5XPBP8RwYOGpDdafa1ZFrax40qM3ekpDdziXtuZaUyHCzw%3D%3D',
     detail:
-      'https://func-products-dev.azurewebsites.net/api/detail?code=aiB0EmIQI63T0kIcdJuglWJG3zhWY90H7PCLvSExBi4ccVmH83Nv5w%3D%3D',
+      'https://func-products-dev.azurewebsites.net/api/detail?code=aAFbDQgwDtsFue2qx2hU0rdtdHUN3LuRyxYziHaBVBA1Xf53yXiYLA%3D%3D',
     categories:
-      'https://func-products-dev.azurewebsites.net/api/categories?code=SrfkoHnE9fjhybHaQoGU57Xxmw9IS5MH7ih8W4oCcywVLnM1BBSEwA%3D%3D',
+      'https://func-products-dev.azurewebsites.net/api/categories?code=Z%2FTzUVbOsiMoBTTgqQldorbGcCMAqe3w9KnJ5eoMnxBGaNS%2Fkj1n2A%3D%3D',
     activeSubstances:
-      'https://func-products-dev.azurewebsites.net/api/active-substance?code=cpmqjOnaMi%2FVV7JxkYZzYHYrKriN8Mh%2FqFqMny8Of3RvLnk1Wj5Bdg%3D%3D'
+      'https://func-products-dev.azurewebsites.net/api/active-substance?code=T2UTcbuoKKCvNhbmiwNcarKrd2kJmM2D9SrMV4ZcywzXSkUcEey97g%3D%3D'
   }
 };
 const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
 
 const getProductTypes = () => {
   return axios.get(env.categories).catch(error => {
-    throw new Error('Error las sustancias activas');
+    throw new Error('Error al obtener las categorias de productos');
+  });
+};
+
+const getDrugLabs = () => {
+  return axios.get(env.categories).catch(error => {
+    throw new Error('Error al obtener los laboratorios');
   });
 };
 
@@ -71,6 +77,7 @@ export const productService = {
   save,
   filter,
   detail,
+  getDrugLabs,
   getProductTypes,
   getActiveSubstances
 };

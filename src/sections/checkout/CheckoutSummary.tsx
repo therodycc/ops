@@ -26,7 +26,6 @@ interface CheckoutSummaryProps {
   subTotal: number;
   onEdit?: () => void;
   enableEdit?: any;
-  onApplyDiscount?: any;
 }
 
 export const CheckoutSummary = ({
@@ -34,7 +33,6 @@ export const CheckoutSummary = ({
   itbis,
   discount,
   subTotal,
-  onApplyDiscount,
   onEdit,
   enableEdit = false
 }: CheckoutSummaryProps) => {
@@ -92,7 +90,6 @@ export const CheckoutSummary = ({
           <TextField
             fullWidth
             placeholder="RNC"
-            value=""
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

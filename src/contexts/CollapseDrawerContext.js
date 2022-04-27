@@ -26,7 +26,7 @@ function CollapseDrawerProvider({ children }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [collapse, setCollapse] = useState({
-    click: false,
+    click: true,
     hover: false
   });
 

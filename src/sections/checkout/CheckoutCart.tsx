@@ -88,7 +88,7 @@ export const CheckoutCart = () => {
           itbis={itbis}
           discount={discount}
           subTotal={subTotal}
-          onApplyDiscount={handleApplyDiscount}
+          // onApplyDiscount={handleApplyDiscount}
         />
         <Button
           fullWidth
