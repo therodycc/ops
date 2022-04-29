@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-prettier --write "**/*.js"
+prettier --write "src/**/*.js" "src/**/*.tsx" 
 # npm test
 git add .

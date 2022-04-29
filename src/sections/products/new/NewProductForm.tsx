@@ -452,11 +452,11 @@ export default function NewProductForm({ isEdit = false, currentProduct }: NewPr
                 <RHFRadioGroup
                   sx={{ ml: '15px' }}
                   name="priceOverCost"
-                  options={['0.3', '0.35', '0.4', '0.45', '0.5']}
+                  options={['0.1', '0.2', '0.3', '0.35', '0.4', '0.45', '0.5']}
                   onChange={e => {
                     setPriceOverCost(e.target.value);
                   }}
-                  getOptionLabel={['30%', '35%', '40%', '45%', '50%']}
+                  getOptionLabel={['10%', '20%', '30%', '35%', '40%', '45%', '50%']}
                 />
               </Stack>
               <Typography variant="h4" sx={{ float: 'right' }}>
