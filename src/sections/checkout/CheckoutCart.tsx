@@ -1,3 +1,4 @@
+import { useState } from 'react';
 // next
 import NextLink from 'next/link';
 // @mui
@@ -10,14 +11,16 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { Scrollbar } from '../../components/Scrollbar';
 import EmptyContent from '../../components/EmptyContent';
+// import RHFCheckbox from '../../components/hook-form/RHFCheckbox';
 //
 import { CheckoutSummary } from './CheckoutSummary';
 import { CheckoutProductList } from './CheckoutProductList';
-
+import { ApplyInsuranceCredit, InsuranceCredit } from './ApplyInsuranceCredit';
 // ----------------------------------------------------------------------
 
 export const CheckoutCart = () => {
   const { subTotal, discount, total, itbis, products } = useSelector((state: any) => state.cart);
+  const [insurance, setInsurance] = useState(0);
 
   const isEmptyCart = products.length === 0;
 
@@ -29,12 +32,16 @@ export const CheckoutCart = () => {
     //dispatch(onNextStep());
   };
 
+  const applyInsuranceCreditHandle = ({ amount }: InsuranceCredit) => {
+    setInsurance(amount);
+  };
+
   const handleIncreaseQuantity = productId => {
-    //dispatch(increaseQuantity(productId));
+    // dispatch(increaseQuantity(productId));
   };
 
   const handleDecreaseQuantity = productId => {
-    //dispatch(decreaseQuantity(productId));
+    // dispatch(decreaseQuantity(productId));
   };
 
   const handleApplyDiscount = value => {
@@ -83,13 +90,17 @@ export const CheckoutCart = () => {
       </Grid>
 
       <Grid item xs={12} md={4}>
+        {/* <RHFCheckbox onChange={e => console.log(e)}>Hola</RHFCheckbox> */}
         <CheckoutSummary
           total={total}
           itbis={itbis}
           discount={discount}
+          insurance={insurance}
           subTotal={subTotal}
           // onApplyDiscount={handleApplyDiscount}
         />
+
+        <ApplyInsuranceCredit total={total} onApply={applyInsuranceCreditHandle} />
         <Button
           fullWidth
           size="large"

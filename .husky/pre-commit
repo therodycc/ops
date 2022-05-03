@@ -3,4 +3,3 @@
 
 prettier --write "src/**/*.js" "src/**/*.tsx" 
 # npm test
-git add .

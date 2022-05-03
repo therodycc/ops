@@ -4,7 +4,6 @@ import { Box, Card, Typography, Stack, Link } from '@mui/material';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
 //paths
-import { PATH_PRODUCTS } from '../../../routes/paths';
 // components
 import Image from '../../../components/Image';
 import Label from '../../../components/Label';
@@ -47,9 +46,7 @@ export default function ProductList({ product, onSelect }: ProductListProps) {
 
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <div>
-              <Typography component="span">
-                {blisterSize > 0 ? 'Blister size ' : 'Unidad'}
-              </Typography>
+              <Typography component="span">{blisterSize > 0 ? 'Blister ' : 'Unidad'}</Typography>
 
               {blisterSize > 0 && (
                 <Typography

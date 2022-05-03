@@ -7,7 +7,7 @@ import { Card, Grid, Container, Stack, Box, InputAdornment } from '@mui/material
 import { useDispatch } from '../../redux/store';
 import { addToCart, updateCart } from '../../redux/slices/cart';
 // routes
-import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PRODUCTS, PATH_CHECKOUT } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // layouts
@@ -94,17 +94,17 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <Page title="Detalle de Producto">
+    <Page title="Facturacion">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Product Details"
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
             {
-              name: 'Productos',
-              href: PATH_PRODUCTS.root
+              name: 'Facturacion',
+              href: PATH_CHECKOUT.root
             },
-            { name: `Detalle de ${product?.name}` }
+            { name: product?.name ? `Detalle de ${product?.name}` : '' }
           ]}
         />
 
@@ -172,10 +172,10 @@ export default function ProductDetailPage() {
                       }
                     }}
                   >
-                    {(!products ? [...Array(12)] : products).map((product, index) =>
+                    {(!products ? [...Array(12)] : products).map((product: Product, index) =>
                       product ? (
                         <ProductList
-                          key={product.id}
+                          key={`${product.id}-${product.selectedSellType}`}
                           product={product}
                           onSelect={onSelectProductHandle}
                         />

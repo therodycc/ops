@@ -114,7 +114,10 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
       };
 
       if (!productInCart?.id) onAddCart(data);
-      else if (productInCart?.selectedSellType === data.selectedSellType) {
+      else if (
+        productInCart?.selectedSellType === data.selectedSellType &&
+        productInCart?.quantity != data?.quantity
+      ) {
         onUpdateCart(data);
       } else {
         // Trying to add same products with different sell type.

@@ -62,7 +62,9 @@ export const getCart = () => {
     try {
       dispatch(cartSlice.actions.startLoading());
       const { data } = await cartService.get();
-      dispatch(cartSlice.actions.updateCart(data));
+
+      if (!data) dispatch(cartSlice.actions.resetCart());
+      else dispatch(cartSlice.actions.updateCart(data));
     } catch (error) {
       console.error(error);
       dispatch(cartSlice.actions.hasError(error));
