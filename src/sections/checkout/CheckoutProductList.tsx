@@ -70,7 +70,7 @@ CheckoutProductListProps) => {
             const available = true;
             const stock = 10;
             return (
-              <TableRow key={id}>
+              <TableRow key={`${id}-${selectedSellType}`}>
                 <TableCell>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Image

@@ -66,7 +66,6 @@ export const getCart = () => {
       if (!data) dispatch(cartSlice.actions.resetCart());
       else dispatch(cartSlice.actions.updateCart(data));
     } catch (error) {
-      console.error(error);
       dispatch(cartSlice.actions.hasError(error));
     }
   };

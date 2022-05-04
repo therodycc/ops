@@ -30,7 +30,7 @@ export const Incrementer = ({
       <IconButton
         size="large"
         color="inherit"
-        disabled={quantity <= 1}
+        disabled={quantity == 0}
         onClick={onDecrementQuantity}
       >
         <Iconify icon={'eva:minus-fill'} width={14} height={14} sx={{}} />

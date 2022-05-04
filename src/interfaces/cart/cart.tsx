@@ -1,5 +1,7 @@
+import { ProductUnit } from '../../enums/product-unit.enum';
+
 export interface CartDto {
   productId: number;
   quantity: number;
-  selectedSellType: 'UNIT' | 'BLISTER';
+  selectedSellType: ProductUnit;
 }

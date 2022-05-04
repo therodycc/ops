@@ -73,7 +73,6 @@ const ApplyInsuranceCreditComponent = ({ total, onApply }: InsuranceCreditProps)
         <CardContent>
           <Stack spacing={2}>
             <Autocomplete
-              name="insurance"
               fullWidth
               isOptionEqualToValue={(option, value) => option.id === value.id}
               size="small"

@@ -67,7 +67,8 @@ export default function NewProductForm({ isEdit = false, currentProduct }: NewPr
       activeSubstances: currentProduct?.activeSubstances || [],
       photo: currentProduct?.photo || '',
       drugLab: currentProduct?.drugLab || [],
-      displayInMobile: currentProduct?.displayInMobile || true
+      displayInMobile: currentProduct?.displayInMobile || true,
+      priceOverCost: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -146,13 +147,11 @@ export default function NewProductForm({ isEdit = false, currentProduct }: NewPr
     return () => {
       clearTimeout(timeout);
     };
-    // console.log(values.priceOverCost, values.hasDiscount);
   }, [hasDiscount, priceOverCost, values.buyPrice, hasItbis]);
 
   const onSubmit = async () => {
     try {
       const form = new FormData();
-      console.log(values);
 
       for (var key in values) {
         form.append(key, values[key]);
@@ -455,6 +454,7 @@ export default function NewProductForm({ isEdit = false, currentProduct }: NewPr
                   options={['0.1', '0.2', '0.3', '0.35', '0.4', '0.45', '0.5']}
                   onChange={e => {
                     setPriceOverCost(e.target.value);
+                    setValue('priceOverCost', e.target.value);
                   }}
                   getOptionLabel={['10%', '20%', '30%', '35%', '40%', '45%', '50%']}
                 />

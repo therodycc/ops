@@ -13,13 +13,14 @@ import { fCurrency } from '../../../utils/formatNumber';
 import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFSelect } from '../../../components/hook-form';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { getPricesBySellTypeAndQuantity } from '../utils/product.util';
 import { Product } from '../../../interfaces/product/product';
 import { CartDto } from '../../../interfaces/cart/cart';
 import { Incrementer } from '../../../components/Incrementer';
 import { PATH_CHECKOUT } from '../../../routes/paths';
 import { AlertDialog } from '../../../override/mui/dialog/AlertDialog';
+import { ProductUnit } from '../../../enums/product-unit.enum';
 
 // ----------------------------------------------------------------------
 
@@ -43,67 +44,87 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
 
   const cardDataRef = useRef<CartDto>(null);
   const { replace } = useRouter();
-  const { id, name, blisterSize, activeSubstances } = product;
 
   const { products: cardProducts } = useSelector((state: any) => state.cart);
+  const DEFAULT_SELL_TYPE: ProductUnit = ProductUnit.BLISTER;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [quantity, setQuantity] = useState(1);
   const [productInCart, setProductInCart] = useState<Product>(null);
   const [stock, setStock] = useState(product.stock);
-  const [selectedSellType, setSelectedSellType] = useState<'UNIT' | 'BLISTER'>('BLISTER');
+  const [selectedSellType, setSelectedSellType] = useState<ProductUnit>(DEFAULT_SELL_TYPE);
 
+  const { id, name, blisterSize, activeSubstances } = product;
   const price = getPricesBySellTypeAndQuantity(product, selectedSellType, quantity);
-
-  const updateCounterQuantity = newValue => {
-    setQuantity(newValue);
-    setValue('quantity', newValue);
-  };
-
-  useEffect(() => {
-    const productInCart = cardProducts.find(_product => product.id === _product.id);
-    if (productInCart) {
-      updateSellType(productInCart.selectedSellType);
-      updateCounterQuantity(productInCart.quantity);
-      setProductInCart(productInCart);
-    } else {
-      if (blisterSize === 0) updateSellType('UNIT');
-    }
-  }, [cardProducts]);
-
-  const updateSellType = sellType => {
-    if (sellType === 'BLISTER') {
-      let stock = product.stock / blisterSize;
-      setStock(stock);
-    } else {
-      if (stock !== product.stock) setStock(product.stock);
-    }
-
-    if (productInCart?.selectedSellType === sellType) {
-      updateCounterQuantity(stock > 0 ? productInCart.quantity ?? 1 : 0);
-    } else {
-      updateCounterQuantity(stock > 0 ? 1 : 0);
-    }
-    setSelectedSellType(sellType);
-  };
-
   const defaultValues = {
     id,
     name,
     stock,
     price,
     quantity,
-    sellType: 'BLISTER'
+    sellType: ProductUnit.BLISTER
   };
 
   const methods = useForm({
     defaultValues
   });
-
-  const { watch, control, setValue, handleSubmit } = methods;
-
+  const { watch, setValue, handleSubmit } = methods;
   const values = watch();
+
+  const isProductInCard = useCallback(
+    _selectedSellType =>
+      cardProducts.find(
+        ({ id, selectedSellType: productSelectedSellType }) =>
+          product.id === id && _selectedSellType === productSelectedSellType
+      ),
+    [product, selectedSellType, cardProducts]
+  );
+
+  useEffect(() => {
+    let productInCart = isProductInCard(selectedSellType);
+    if (!productInCart)
+      productInCart = isProductInCard(
+        selectedSellType === ProductUnit.BLISTER ? ProductUnit.UNIT : ProductUnit.BLISTER
+      );
+
+    if (productInCart) updateSellType(productInCart.selectedSellType);
+    else if (product.blisterSize > 0) updateSellType(ProductUnit.BLISTER);
+    else updateSellType(ProductUnit.BLISTER);
+  }, [cardProducts]);
+
+  useEffect(() => {
+    const productInCart = isProductInCard(selectedSellType);
+
+    if (productInCart) {
+      updateSellType(productInCart.selectedSellType);
+      updateCounterQuantity(productInCart.quantity);
+      setProductInCart(productInCart);
+    } else {
+      if (blisterSize === 0) updateSellType(ProductUnit.UNIT);
+    }
+  }, [cardProducts, selectedSellType, isProductInCard]);
+
+  const updateCounterQuantity = newValue => {
+    setQuantity(newValue);
+    setValue('quantity', newValue);
+  };
+
+  const updateSellType = sellType => {
+    if (sellType === ProductUnit.BLISTER) {
+      let stock = parseInt(`${product.stock / blisterSize}`) ?? 1;
+      setStock(stock);
+    } else {
+      if (stock !== product.stock) setStock(product.stock);
+    }
+
+    if (productInCart?.selectedSellType && productInCart?.selectedSellType === sellType) {
+      updateCounterQuantity(stock > 0 ? productInCart.quantity ?? 1 : 0);
+    } else {
+      updateCounterQuantity(stock > 0 ? 1 : 0);
+    }
+    setSelectedSellType(sellType);
+  };
 
   const handleAddCart = async () => {
     try {
@@ -115,8 +136,8 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
 
       if (!productInCart?.id) onAddCart(data);
       else if (
-        productInCart?.selectedSellType === data.selectedSellType &&
-        productInCart?.quantity != data?.quantity
+        productInCart.selectedSellType === data.selectedSellType &&
+        productInCart.quantity !== data.quantity
       ) {
         onUpdateCart(data);
       } else {
@@ -151,7 +172,8 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
         cancelButtonText="NO"
         onAccept={() => {
           setIsModalOpen(false);
-          onAddCart(cardDataRef.current);
+          if (isProductInCard(selectedSellType)) onUpdateCart(cardDataRef.current);
+          else onAddCart(cardDataRef.current);
         }}
         onClose={() => {
           setIsModalOpen(false);
@@ -194,12 +216,12 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
               sx: { textAlign: 'right', margin: 0, mt: 1 }
             }}
           >
-            <option key={1} value={'UNIT'}>
+            <option key={1} value={ProductUnit.UNIT}>
               Unidad
             </option>
 
             {blisterSize && (
-              <option key={12} value={'BLISTER'}>
+              <option key={12} value={ProductUnit.BLISTER}>
                 Blister ({blisterSize}) unid.
               </option>
             )}
@@ -246,13 +268,18 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
           <Button
             fullWidth
             size="large"
-            color="warning"
+            color={values.quantity > 0 ? 'warning' : 'error'}
             variant="contained"
-            startIcon={<Iconify icon={'ic:round-add-shopping-cart'} sx={{}} />}
+            startIcon={
+              <Iconify
+                icon={values.quantity > 0 ? 'ic:round-add-shopping-cart' : 'ic:delete'}
+                sx={{}}
+              />
+            }
             onClick={handleAddCart}
             sx={{ whiteSpace: 'nowrap' }}
           >
-            Agregar Al Carrito
+            {values.quantity > 0 ? 'Agregar Al Carrito' : 'Eliminar del carrito'}
           </Button>
 
           <Button fullWidth size="large" type="submit" variant="contained">

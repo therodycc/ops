@@ -1,3 +1,5 @@
+import { ProductUnit } from '../../../enums/product-unit.enum';
+
 export const hasDiscount = price => {
   const applyDiscount = price.blisterPriceWithDiscount > 0 || price.priceWithDiscount > 0;
   return (
@@ -10,7 +12,7 @@ export const hasDiscount = price => {
 export const getPricesBySellTypeAndQuantity = (product, sellType, quantity) => {
   const applyDiscount = hasDiscount(product.price);
 
-  if (sellType === 'UNIT') {
+  if (sellType === ProductUnit.UNIT) {
     return {
       price: product.price.price * quantity,
       priceWithDiscount: applyDiscount ? product.price.priceWithDiscount * quantity : undefined

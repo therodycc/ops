@@ -1,3 +1,5 @@
+import { ProductUnit } from '../../enums/product-unit.enum';
+
 export interface Product {
   id: number;
   productTypeId: number;
@@ -10,7 +12,7 @@ export interface Product {
   sellPrice?: number;
   buyPrice?: number;
   description?: string;
-  selectedSellType: 'UNIT' | 'BLISTER';
+  selectedSellType: ProductUnit;
   displayInMobile: boolean;
   blisterSize: number;
   activeSubstances: string | { id: number; name: string }[];
