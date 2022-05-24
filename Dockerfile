@@ -15,7 +15,7 @@ FROM node:alpine AS prod
 WORKDIR /usr/src/app/ops
 
 ENV NODE_ENV prod
-ENV PORT 4000
+ENV PORT 3000
 
 # RUN npm install --only=production
 

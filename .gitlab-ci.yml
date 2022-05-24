@@ -1,0 +1,4 @@
+include:
+  - project: 'farmacia-nazir/pipelines-templates'
+    ref: main
+    file: '/docker-ci.yml'

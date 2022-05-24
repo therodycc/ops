@@ -2,20 +2,16 @@ import axios from '../utils/axios';
 
 const ENDPOINTS = {
   DEV: {
-    list: 'https://func-cart-dev.azurewebsites.net/api/all?code=ixBbBiDLaNSL%2F9LMunZBEFDVywDkXhDscl6FGheMR6WoKZ13qfJC8A%3D%3D',
-    save: 'https://func-cart-dev.azurewebsites.net/api/create?code=wLWxaxce7m7pJ64XPVkmo8xZt4aiMA4TJJkau61YUwn3v7Mb8ZWxDg%3D%3D',
-    update:
-      'https://func-cart-dev.azurewebsites.net/api/update?code=wjTISghoPx2cizs%2Fx%2FNboFaq5qDtO7qaCODzfYEpVeGkaqZmv9qLAQ%3D%3D',
-    clear:
-      'https://func-cart-dev.azurewebsites.net/api/clear?code=jvH8clA2zTkNHk22CTrOAwGl8Nnp3Wc5NJ5w49lhxXPbVRCi1Po7sQ%3D%3D'
+    list:   'https://dev-api.farmacianetzer.com/v1/carts',
+    save: 'https://dev-api.farmacianetzer.com/v1/carts',
+    update:  'https://dev-api.farmacianetzer.com/v1/carts',
+    clear:  'https://dev-api.farmacianetzer.com/v1/carts',
   },
   PROD: {
-    list: 'https://func-cart-dev.azurewebsites.net/api/all?code=ixBbBiDLaNSL%2F9LMunZBEFDVywDkXhDscl6FGheMR6WoKZ13qfJC8A%3D%3D',
-    save: 'https://func-cart-dev.azurewebsites.net/api/create?code=wLWxaxce7m7pJ64XPVkmo8xZt4aiMA4TJJkau61YUwn3v7Mb8ZWxDg%3D%3D',
-    update:
-      'https://func-cart-dev.azurewebsites.net/api/update?code=wjTISghoPx2cizs%2Fx%2FNboFaq5qDtO7qaCODzfYEpVeGkaqZmv9qLAQ%3D%3D',
-    clear:
-      'https://func-cart-dev.azurewebsites.net/api/clear?code=jvH8clA2zTkNHk22CTrOAwGl8Nnp3Wc5NJ5w49lhxXPbVRCi1Po7sQ%3D%3D'
+    list:   'https://api.farmacianetzer.com/v1/carts',
+    save: 'https://api.farmacianetzer.com/v1/carts',
+    update:  'https://api.farmacianetzer.com/v1/carts',
+    clear:  'https://api.farmacianetzer.com/v1/carts',
   }
 };
 const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;

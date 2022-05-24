@@ -2,24 +2,20 @@ import axios from '../utils/axios';
 
 const ENDPOINTS = {
   DEV: {
-    list: 'https://func-products-dev.azurewebsites.net/api/list?code=I1N1gBVBYA7jgWz94HgvvOUXs7BOIk3PQXLJNxdEVqiSsHxX8hNSbQ%3D%3D',
-    save: 'https://func-products-dev.azurewebsites.net/api/create?code=KCuWFbU%2F5XPBP8RwYOGpDdafa1ZFrax40qM3ekpDdziXtuZaUyHCzw%3D%3D',
-    detail:
-      'https://func-products-dev.azurewebsites.net/api/detail?code=aAFbDQgwDtsFue2qx2hU0rdtdHUN3LuRyxYziHaBVBA1Xf53yXiYLA%3D%3D',
-    categories:
-      'https://func-products-dev.azurewebsites.net/api/categories?code=Z%2FTzUVbOsiMoBTTgqQldorbGcCMAqe3w9KnJ5eoMnxBGaNS%2Fkj1n2A%3D%3D',
-    activeSubstances:
-      'https://func-products-dev.azurewebsites.net/api/active-substance?code=T2UTcbuoKKCvNhbmiwNcarKrd2kJmM2D9SrMV4ZcywzXSkUcEey97g%3D%3D'
+    labs: 'https://dev-api.farmacianetzer.com/v1/labs',
+    list: 'https://dev-api.farmacianetzer.com/v1/products',
+    save: 'https://dev-api.farmacianetzer.com/v1/products',
+    detail: 'https://dev-api.farmacianetzer.com/v1/products',
+    categories:  'https://dev-api.farmacianetzer.com/v1/categories',
+    activeSubstances:  'https://dev-api.farmacianetzer.com/v1/products',
   },
   PROD: {
-    list: 'https://func-products-dev.azurewebsites.net/api/list?code=I1N1gBVBYA7jgWz94HgvvOUXs7BOIk3PQXLJNxdEVqiSsHxX8hNSbQ%3D%3D',
-    save: 'https://func-products-dev.azurewebsites.net/api/create?code=KCuWFbU%2F5XPBP8RwYOGpDdafa1ZFrax40qM3ekpDdziXtuZaUyHCzw%3D%3D',
-    detail:
-      'https://func-products-dev.azurewebsites.net/api/detail?code=aAFbDQgwDtsFue2qx2hU0rdtdHUN3LuRyxYziHaBVBA1Xf53yXiYLA%3D%3D',
-    categories:
-      'https://func-products-dev.azurewebsites.net/api/categories?code=Z%2FTzUVbOsiMoBTTgqQldorbGcCMAqe3w9KnJ5eoMnxBGaNS%2Fkj1n2A%3D%3D',
-    activeSubstances:
-      'https://func-products-dev.azurewebsites.net/api/active-substance?code=T2UTcbuoKKCvNhbmiwNcarKrd2kJmM2D9SrMV4ZcywzXSkUcEey97g%3D%3D'
+    labs: 'https://api.farmacianetzer.com/v1/labs',
+    list: 'https://api.farmacianetzer.com/v1/products',
+    save: 'https://api.farmacianetzer.com/v1/products',
+    detail: 'https://api.farmacianetzer.com/v1/products',
+    categories:  'https://api.farmacianetzer.com/v1/categories',
+    activeSubstances:  'https://api.farmacianetzer.com/v1/products',
   }
 };
 const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
@@ -31,7 +27,7 @@ const getProductTypes = () => {
 };
 
 const getDrugLabs = () => {
-  return axios.get(env.categories).catch(error => {
+  return axios.get(env.labs).catch(error => {
     throw new Error('Error al obtener los laboratorios');
   });
 };
@@ -49,13 +45,13 @@ const list = (page = 1, offset = 20) => {
 };
 
 const filter = name => {
-  return axios.get(`${env.list}&name=${name}`).catch(error => {
+  return axios.get(`${env.list}?name=${name}`).catch(error => {
     throw new Error('Error al obtener lista de productos.');
   });
 };
 
 const detail = id => {
-  return axios.get(`${env.detail}&productId=${id}`).catch(error => {
+  return axios.get(`${env.detail}?productId=${id}`).catch(error => {
     throw new Error('Error al obtener el detalle del producto.');
   });
 };
