@@ -1,4 +1,4 @@
-FROM node:alpine AS dependencies
+FROM node:16-alpine AS dependencies
 WORKDIR /usr/src/app/ops
 
 COPY package.json yarn.lock ./
@@ -11,7 +11,7 @@ COPY . .
 COPY --from=dependencies /usr/src/app/ops/node_modules ./node_modules
 RUN yarn build
 
-FROM node:alpine AS prod
+FROM node:16-alpine AS prod
 WORKDIR /usr/src/app/ops
 
 ENV NODE_ENV prod
