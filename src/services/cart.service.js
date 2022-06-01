@@ -2,16 +2,16 @@ import axios from '../utils/axios';
 
 const ENDPOINTS = {
   DEV: {
-    list:   'https://dev-api.farmacianetzer.com/v1/carts',
+    list: 'https://dev-api.farmacianetzer.com/v1/carts',
     save: 'https://dev-api.farmacianetzer.com/v1/carts',
-    update:  'https://dev-api.farmacianetzer.com/v1/carts',
-    clear:  'https://dev-api.farmacianetzer.com/v1/carts',
+    update: 'https://dev-api.farmacianetzer.com/v1/carts',
+    clear: 'https://dev-api.farmacianetzer.com/v1/carts'
   },
   PROD: {
-    list:   'https://api.farmacianetzer.com/v1/carts',
+    list: 'https://api.farmacianetzer.com/v1/carts',
     save: 'https://api.farmacianetzer.com/v1/carts',
-    update:  'https://api.farmacianetzer.com/v1/carts',
-    clear:  'https://api.farmacianetzer.com/v1/carts',
+    update: 'https://api.farmacianetzer.com/v1/carts',
+    clear: 'https://api.farmacianetzer.com/v1/carts'
   }
 };
 const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;

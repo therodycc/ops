@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // next
@@ -18,7 +18,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
 import { authService } from '../../../services/auth.service';
-import { loginSuccess } from '../../../redux/slices/auth';
+import { login, loginSuccess } from '../../../redux/slices/auth';
 import { useRouter } from 'next/router';
 import { setSession } from '../../../utils/jwt';
 
@@ -27,10 +27,25 @@ import { setSession } from '../../../utils/jwt';
 export default function LoginForm() {
   const dispatch = useDispatch();
   const { replace } = useRouter();
-  const { user } = useSelector(state => state.auth);
+  const { user, error, isLoading } = useSelector(state => state.auth);
 
   const isMountedRef = useIsMountedRef();
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      replace(PATH_PRODUCTS.root);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log(error);
+    if (!error) return;
+    reset();
+    if (isMountedRef.current) {
+      setError('afterSubmit', { ...error, message: error.message });
+    }
+  }, [reset, error]);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Correo invalido').required('Correo requerido'),
@@ -38,7 +53,7 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: 'random@gmail.com',
+    email: 'user1@gmail.com',
     password: '12345678'
   };
 
@@ -51,23 +66,11 @@ export default function LoginForm() {
     reset,
     setError,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors }
   } = methods;
 
-  const onSubmit = async data => {
-    try {
-      const profile = await authService.login(data.email, data.password);
-
-      setSession(profile?.accessToken);
-      dispatch(loginSuccess(profile));
-
-      replace(PATH_PRODUCTS.root);
-    } catch (error) {
-      reset();
-      if (isMountedRef.current) {
-        setError('afterSubmit', { ...error, message: error.message });
-      }
-    }
+  const onSubmit = async credentials => {
+    dispatch(login(credentials));
   };
 
   return (
@@ -99,13 +102,7 @@ export default function LoginForm() {
         </NextLink>
       </Stack>
 
-      <LoadingButton
-        fullWidth
-        size="large"
-        type="submit"
-        variant="contained"
-        loading={isSubmitting}
-      >
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isLoading}>
         Inicia Sesión
       </LoadingButton>
     </FormProvider>

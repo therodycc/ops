@@ -1,8 +1,8 @@
 {
-  "name": "@farmacianazir/ops",
+  "name": "@farmacianetzer/ops",
   "author": "minimals.cc",
   "version": "3.3.0",
-  "description": "Farmacia Nazir ops dashboard",
+  "description": "Farmacia Netzer ops dashboard",
   "private": true,
   "scripts": {
     "lint": "next lint",

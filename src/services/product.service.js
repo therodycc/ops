@@ -6,16 +6,16 @@ const ENDPOINTS = {
     list: 'https://dev-api.farmacianetzer.com/v1/products',
     save: 'https://dev-api.farmacianetzer.com/v1/products',
     detail: 'https://dev-api.farmacianetzer.com/v1/products',
-    categories:  'https://dev-api.farmacianetzer.com/v1/categories',
-    activeSubstances:  'https://dev-api.farmacianetzer.com/v1/products',
+    categories: 'https://dev-api.farmacianetzer.com/v1/categories',
+    activeSubstances: 'https://dev-api.farmacianetzer.com/v1/products'
   },
   PROD: {
     labs: 'https://api.farmacianetzer.com/v1/labs',
     list: 'https://api.farmacianetzer.com/v1/products',
     save: 'https://api.farmacianetzer.com/v1/products',
     detail: 'https://api.farmacianetzer.com/v1/products',
-    categories:  'https://api.farmacianetzer.com/v1/categories',
-    activeSubstances:  'https://api.farmacianetzer.com/v1/products',
+    categories: 'https://api.farmacianetzer.com/v1/categories',
+    activeSubstances: 'https://api.farmacianetzer.com/v1/products'
   }
 };
 const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;

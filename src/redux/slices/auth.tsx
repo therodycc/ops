@@ -1,5 +1,5 @@
 import { authService } from '../../services/auth.service';
-import { setSession } from '../../utils/jwt';
+import { getUserFromToken, setSession } from '../../utils/jwt';
 const { createSlice } = require('@reduxjs/toolkit');
 
 import { dispatch } from '../store';
@@ -9,7 +9,7 @@ const initialState = {
   isInitialized: false,
   user: null,
   isLoading: false,
-  hasError: null
+  error: null
 };
 
 const authSlice = createSlice({
@@ -19,8 +19,6 @@ const authSlice = createSlice({
     startLoading(state) {
       state.isLoading = true;
     },
-
-    // HAS ERROR
     hasError(state, action) {
       state.isLoading = false;
       state.error = action.payload;
@@ -59,7 +57,6 @@ export const {
   logoutSuccess,
   loginSuccess,
   hasError
-  //   logoutSuccess
 } = authSlice.actions;
 
 export default authSlice.reducer;
@@ -78,16 +75,18 @@ export const logout = () => {
 export const login = credentials => {
   return async () => {
     dispatch(authSlice.actions.startLoading());
+
     try {
-      const { data } = await authService.login(credentials);
-      if (!data?.data?.role) {
+      const data = await authService.login(credentials);
+
+      if (!data?.accessToken) {
         dispatch(authSlice.actions.hasError('No tiene acceso a la plataforma'));
         return;
       }
 
-      setSession(data.data.accessToken);
-      delete data.data.accessToken;
-      dispatch(authSlice.actions.loginSuccess(data.data));
+      setSession(data.accessToken);
+      const user = getUserFromToken(data.accessToken);
+      dispatch(authSlice.actions.loginSuccess(user));
     } catch (error) {
       console.error(error);
       dispatch(authSlice.actions.hasError(error));
