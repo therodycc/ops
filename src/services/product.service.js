@@ -18,7 +18,7 @@ const ENDPOINTS = {
     activeSubstances: 'https://api.farmacianetzer.com/v1/products'
   }
 };
-const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
+const env = process.env.ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
 
 const getProductTypes = () => {
   return axios.get(env.categories).catch(error => {

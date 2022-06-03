@@ -39,7 +39,6 @@ export default function LoginForm() {
   }, [user]);
 
   useEffect(() => {
-    console.log(error);
     if (!error) return;
     reset();
     if (isMountedRef.current) {

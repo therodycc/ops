@@ -8,7 +8,8 @@ const ENDPOINTS = {
     login: 'https://api.farmacianetzer.com/v1/auth/login'
   }
 };
-const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
+
+const env = process.env.ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
 
 const login = async ({ email, password }) => {
   const profile = await axios.post(env.login, { email, password }).catch(error => {

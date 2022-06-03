@@ -14,7 +14,7 @@ const ENDPOINTS = {
     clear: 'https://api.farmacianetzer.com/v1/carts'
   }
 };
-const env = process.env.NODE_ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
+const env = process.env.ENV === 'development' ? ENDPOINTS.DEV : ENDPOINTS.PROD;
 
 const get = () => {
   return axios.get(env.list).catch(error => {
