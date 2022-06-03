@@ -17,7 +17,7 @@ WORKDIR /usr/src/app/ops
 ENV NODE_ENV prod
 ENV PORT 3000
 
-RUN npm install --only=production
+RUN yarn install --only=production
 
 COPY --from=builder /usr/src/app/ops/.next /usr/src/app/ops/.next
 COPY --from=builder /usr/src/app/ops/public /usr/src/app/ops/public
