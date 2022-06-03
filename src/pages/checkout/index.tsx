@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // next
 import { useRouter } from 'next/router';
 // @mui
@@ -38,10 +38,14 @@ export default function ProductDetailPage() {
   const [productQuery, setProductQuery] = useState<string>('');
 
   const [product, setProduct] = useState<Product>(null);
-  const [products, setProducts] = useState<Product[]>(null);
+  const [products, setProducts] = useState<Product[]>([]);
   const [showProductDetail, setShowProductDetail] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getProductList();
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -53,15 +57,13 @@ export default function ProductDetailPage() {
     };
   }, [productQuery]);
 
-  useEffect(() => {
-    getProductList();
-  }, []);
-
-  const getProductList = () => {
-    productService.list().then(response => {
-      setProducts(response?.data?.data ?? []);
-    });
-  };
+  const getProductList = useCallback(
+    () =>
+      productService.list().then(response => {
+        setProducts(response?.data?.data ?? []);
+      }),
+    [setProducts]
+  );
 
   const onSelectProductHandle = (product: Product) => {
     setProduct(product);

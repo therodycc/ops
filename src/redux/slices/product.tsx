@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import sum from 'lodash/sum';
-import uniqBy from 'lodash/uniqBy';
 import { Product } from '../../interfaces/product/product';
 
 // utils
@@ -15,6 +13,7 @@ type ProductType = {
   product: Product;
   products: Product[];
 };
+
 const initialState: ProductType = {
   isLoading: false,
   error: null,

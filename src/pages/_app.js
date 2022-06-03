@@ -6,18 +6,25 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 
+//redux
 import { Provider } from 'react-redux';
+import { store, persistor } from '../redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import PropTypes from 'prop-types';
 import cookie from 'cookie';
 // next
 import Head from 'next/head';
 import App from 'next/app';
-// utils
-import { getSettings } from '../utils/settings';
+
 // contexts
+import { AuthContext } from '../providers/auth.provider';
 import { SettingsProvider } from '../contexts/SettingsContext';
 import { CollapseDrawerProvider } from '../contexts/CollapseDrawerContext';
+
+// utils
+import { getSettings } from '../utils/settings';
+
 // theme
 import ThemeProvider from '../theme';
 // components
@@ -26,10 +33,6 @@ import ProgressBar from '../components/ProgressBar';
 import ThemeColorPresets from '../components/ThemeColorPresets';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
 import NotistackProvider from '../components/NotistackProvider';
-
-import { store, persistor } from '../redux/store';
-import { AuthContext } from '../providers/auth.provider';
-import { PersistGate } from 'redux-persist/integration/react';
 
 // ----------------------------------------------------------------------
 

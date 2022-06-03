@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useSelector } from 'react-redux';
 
 // next
@@ -17,7 +17,7 @@ AuthGuard.propTypes = {
   children: PropTypes.node
 };
 
-export default function AuthGuard({ children }) {
+function AuthGuard({ children }) {
   const { isAuthenticated, isInitialized } = useSelector(state => state.auth);
 
   const { pathname, push, replace } = useRouter();
@@ -29,7 +29,7 @@ export default function AuthGuard({ children }) {
       setRequestedLocation(null);
       push(requestedLocation);
     }
-  }, [pathname, push, requestedLocation]);
+  }, [pathname, requestedLocation]);
 
   if (!isInitialized) {
     return <LoadingScreen />;
@@ -45,3 +45,5 @@ export default function AuthGuard({ children }) {
 
   return <>{children}</>;
 }
+
+export default memo(AuthGuard);
