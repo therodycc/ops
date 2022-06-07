@@ -38,7 +38,7 @@ const PROD = Object.freeze({
   }
 });
 
-const isDev = process.env.ENV === 'development';
+const isDev = process.env.NEXT_PUBLIC_ENV === 'development';
 
 export const API = Object.freeze({
   AUTH: isDev ? DEV.AUTH : PROD.AUTH,
