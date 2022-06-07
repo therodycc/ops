@@ -1,4 +1,3 @@
-import NextLink from 'next/link';
 // @mui
 import { Box, Card, Typography, Stack, Link } from '@mui/material';
 // utils
@@ -7,7 +6,6 @@ import { fCurrency } from '../../../utils/formatNumber';
 // components
 import Image from '../../../components/Image';
 import Label from '../../../components/Label';
-import { hasDiscount } from '../utils/product.util';
 import { Product } from '../../../interfaces/product/product';
 
 interface ProductListProps {
@@ -17,7 +15,7 @@ interface ProductListProps {
 // ----------------------------------------------------------------------
 
 export default function ProductList({ product, onSelect }: ProductListProps) {
-  const { name, photo, stock, price, blisterSize } = product;
+  const { name, photo, stock, price, blisterSize, hasDiscount } = product;
 
   return (
     <Card sx={{ cursor: 'pointer' }} onClick={() => onSelect(product)}>
@@ -36,7 +34,7 @@ export default function ProductList({ product, onSelect }: ProductListProps) {
           >
             {stock} disp
           </Label>
-          <Image src={photo} alt={photo} ratio="16/9" sx={{}} />
+          <Image src={photo} alt={photo} ratio="16/9" />
         </Box>
 
         <Stack spacing={2} sx={{ p: 3 }}>
@@ -61,7 +59,7 @@ export default function ProductList({ product, onSelect }: ProductListProps) {
             </div>
 
             <Stack direction="row" spacing={0.5}>
-              {hasDiscount(price) && (
+              {hasDiscount && (
                 <Typography
                   component="span"
                   sx={{
@@ -69,15 +67,15 @@ export default function ProductList({ product, onSelect }: ProductListProps) {
                     textDecoration: 'line-through'
                   }}
                 >
-                  {fCurrency(price.blisterPrice > 0 ? price.blisterPrice : price.price)}
+                  {fCurrency(price.blister?.original ?? price.unit.original)}
                 </Typography>
               )}
 
               <Typography variant="subtitle1">
                 {fCurrency(
-                  price.blisterPriceWithDiscount > 0
-                    ? price.blisterPriceWithDiscount ?? price.blisterPrice
-                    : price.priceWithDiscount ?? price.price
+                  price.blister?.discount
+                    ? price.blister.discount ?? price.blister.original
+                    : price.unit.discount ?? price.unit.original
                 )}
               </Typography>
             </Stack>

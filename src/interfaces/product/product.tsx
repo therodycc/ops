@@ -10,6 +10,7 @@ export interface Product {
   quantity: number;
   price?: any;
   sellPrice?: number;
+  hasDiscount?: boolean;
   buyPrice?: number;
   description?: string;
   selectedSellType: ProductUnit;

@@ -14,7 +14,6 @@ RUN yarn build
 FROM node:16-alpine AS prod
 WORKDIR /usr/src/app/ops
 
-ENV NODE_ENV prod
 ENV PORT 3000
 
 RUN yarn install --only=production
