@@ -13,6 +13,6 @@ module.exports = withTM({
   swcMinify: true,
   trailingSlash: true,
   env: {
-    NEXT_PUBLIC_ENV: process.env.NODE_ENV || 'development'
+    ENV: process.env.ENV || 'development'
   }
 });
