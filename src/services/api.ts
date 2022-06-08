@@ -38,6 +38,9 @@ const PROD = Object.freeze({
   }
 });
 
+console.log('NEXT_PUBLIC_ENV', process.env.NEXT_PUBLIC_ENV);
+console.log('NODE_ENV', process.env.NODE_ENV);
+console.log('.env', process.env);
 const isDev = process.env.NEXT_PUBLIC_ENV === 'development';
 
 export const API = Object.freeze({
