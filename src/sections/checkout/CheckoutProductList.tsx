@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
 import {
   Box,
   Table,
-  Divider,
   TableRow,
   TableBody,
   TableCell,
@@ -36,21 +34,10 @@ const IncrementerStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 interface CheckoutProductListProps {
-  products: Product[];
+  products: Product[] | any[];
+  onDelete(cardId: string | number): void;
 }
-// CheckoutProductList.propTypes = {
-//   products: PropTypes.array.isRequired,
-//   onDelete: PropTypes.func,
-//   onDecreaseQuantity: PropTypes.func,
-//   onIncreaseQuantity: PropTypes.func
-// };
-
-export const CheckoutProductList = ({
-  products
-}: // onDelete,
-// onIncreaseQuantity,
-// onDecreaseQuantity
-CheckoutProductListProps) => {
+export const CheckoutProductList = ({ onDelete, products }: CheckoutProductListProps) => {
   return (
     <TableContainer sx={{ minWidth: 720 }}>
       <Table>
@@ -66,11 +53,11 @@ CheckoutProductListProps) => {
 
         <TableBody>
           {products.map(product => {
-            const { id, name, price, photo, quantity, selectedSellType } = product;
+            const { id, name, price, photo, quantity, unit } = product;
             const available = true;
             const stock = 10;
             return (
-              <TableRow key={`${id}-${selectedSellType}`}>
+              <TableRow key={`${id}-${unit}`}>
                 <TableCell>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Image
@@ -95,7 +82,7 @@ CheckoutProductListProps) => {
                             variant="body2"
                             sx={{ color: 'text.secondary' }}
                           ></Typography>
-                          {selectedSellType}
+                          {unit}
                         </Typography>
                       </Box>
                     </Box>
@@ -117,8 +104,7 @@ CheckoutProductListProps) => {
                 <TableCell align="right">{fCurrency(price * quantity)}</TableCell>
 
                 <TableCell align="right">
-                  {/* <IconButton onClick={() => onDelete(id)}> */}
-                  <IconButton onClick={() => null}>
+                  <IconButton onClick={() => onDelete(product.cartId)}>
                     <Iconify icon={'eva:trash-2-outline'} width={20} height={20} />
                   </IconButton>
                 </TableCell>

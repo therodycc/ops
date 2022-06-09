@@ -1,7 +1,8 @@
 import { ProductUnit } from '../../enums/product-unit.enum';
 
 export interface CartDto {
-  productId: number;
+  profileId?: number;
+  productId: any;
   quantity: number;
-  selectedSellType: ProductUnit;
+  unit: ProductUnit;
 }

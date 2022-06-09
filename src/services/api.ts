@@ -14,7 +14,29 @@ const DEV = Object.freeze({
     list: 'https://dev-api.farmacianetzer.com/v1/carts',
     save: 'https://dev-api.farmacianetzer.com/v1/carts',
     update: 'https://dev-api.farmacianetzer.com/v1/carts',
+    delete: 'https://dev-api.farmacianetzer.com/v1/carts',
     clear: 'https://dev-api.farmacianetzer.com/v1/carts'
+  }
+});
+
+const STAGING = Object.freeze({
+  AUTH: {
+    login: 'https://stg-api.farmacianetzer.com/v1/auth/login'
+  },
+  PRODUCTS: {
+    labs: 'https://stg-api.farmacianetzer.com/v1/labs',
+    list: 'https://stg-api.farmacianetzer.com/v1/products',
+    save: 'https://stg-api.farmacianetzer.com/v1/products',
+    detail: 'https://stg-api.farmacianetzer.com/v1/products',
+    categories: 'https://stg-api.farmacianetzer.com/v1/categories',
+    activeSubstances: 'https://stg-api.farmacianetzer.com/v1/products'
+  },
+  CART: {
+    list: 'https://stg-api.farmacianetzer.com/v1/carts',
+    save: 'https://stg-api.farmacianetzer.com/v1/carts',
+    update: 'https://stg-api.farmacianetzer.com/v1/carts',
+    delete: 'https://stg-api.farmacianetzer.com/v1/carts',
+    clear: 'https://stg-api.farmacianetzer.com/v1/carts'
   }
 });
 
@@ -34,17 +56,18 @@ const PROD = Object.freeze({
     list: 'https://api.farmacianetzer.com/v1/carts',
     save: 'https://api.farmacianetzer.com/v1/carts',
     update: 'https://api.farmacianetzer.com/v1/carts',
+    delete: 'https://api.farmacianetzer.com/v1/carts',
     clear: 'https://api.farmacianetzer.com/v1/carts'
   }
 });
 
-console.log('NEXT_PUBLIC_ENV', process.env.NEXT_PUBLIC_ENV);
-console.log('ENV', process.env.ENV);
-console.log('.env', process.env);
-const isDev = process.env.ENV === 'development';
+let endpoints = DEV;
+
+const env = process.env.ENV || 'development';
+
+if (env === 'production') endpoints = PROD;
+else if (env === 'staging') endpoints = STAGING;
 
 export const API = Object.freeze({
-  AUTH: isDev ? DEV.AUTH : PROD.AUTH,
-  CART: isDev ? DEV.CART : PROD.CART,
-  PRODUCTS: isDev ? DEV.PRODUCTS : PROD.PRODUCTS
+  ...endpoints
 });

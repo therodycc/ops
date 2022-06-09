@@ -4,9 +4,9 @@ import NextLink from 'next/link';
 // @mui
 import { Grid, Card, Button, CardHeader, Typography } from '@mui/material';
 // redux
-import { useSelector } from '../../redux/store';
+import { dispatch, useDispatch, useSelector } from '../../redux/store';
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_CHECKOUT } from '../../routes/paths';
 // components
 import Iconify from '../../components/Iconify';
 import { Scrollbar } from '../../components/Scrollbar';
@@ -16,16 +16,19 @@ import EmptyContent from '../../components/EmptyContent';
 import { CheckoutSummary } from './CheckoutSummary';
 import { CheckoutProductList } from './CheckoutProductList';
 import { ApplyInsuranceCredit, InsuranceCredit } from './ApplyInsuranceCredit';
+import { removeCart } from '../../redux/slices/cart';
 // ----------------------------------------------------------------------
 
 export const CheckoutCart = () => {
+  const dispatch = useDispatch();
+
   const { subTotal, discount, total, itbis, products } = useSelector((state: any) => state.cart);
   const [insurance, setInsurance] = useState(0);
 
   const isEmptyCart = products.length === 0;
 
-  const handleDeleteCart = productId => {
-    // //dispatch(deleteCart(productId));
+  const handleDeleteCart = cartId => {
+    dispatch(removeCart(cartId));
   };
 
   const handleNextStep = () => {
@@ -68,7 +71,7 @@ export const CheckoutCart = () => {
             <Scrollbar>
               <CheckoutProductList
                 products={products}
-                // onDelete={handleDeleteCart}
+                onDelete={handleDeleteCart}
                 // onIncreaseQuantity={handleIncreaseQuantity}
                 // onDecreaseQuantity={handleDecreaseQuantity}
               />
@@ -82,9 +85,9 @@ export const CheckoutCart = () => {
           )}
         </Card>
 
-        <NextLink href={PATH_DASHBOARD.eCommerce.root} passHref>
+        <NextLink href={PATH_CHECKOUT.root} passHref>
           <Button color="inherit" startIcon={<Iconify icon={'eva:arrow-ios-back-fill'} />}>
-            Continuar comprando
+            Seleccionar otros productos
           </Button>
         </NextLink>
       </Grid>

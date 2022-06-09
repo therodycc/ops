@@ -168,7 +168,7 @@ export default function ProductDetailPage() {
                     {(!products ? [...Array(4)] : products).map((product: Product, index) =>
                       product ? (
                         <ProductList
-                          key={`${product.id}-${product.selectedSellType}`}
+                          key={`${product.id}-${product.unit}`}
                           product={product}
                           onSelect={onSelectProductHandle}
                         />

@@ -100,16 +100,3 @@ export const getProduct = id => {
     }
   };
 };
-
-export const addElementToCartCart = ({ id, quantity, selectedSellType }) => {
-  return async () => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const { data } = await productService.detail(id);
-      dispatch(slice.actions.getProductSuccess(data));
-    } catch (error) {
-      console.error(error);
-      dispatch(slice.actions.hasError(error));
-    }
-  };
-};

@@ -1,4 +1,4 @@
 export enum ProductUnit {
-  BLISTER = 'BLISTER',
-  UNIT = 'UNIT'
+  BLISTER = 'blister',
+  UNIT = 'unit'
 }

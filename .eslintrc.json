@@ -1,63 +1,30 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "prettier"
-  ],
-  "plugins": [
-    "@typescript-eslint",
-    "@typescript-eslint/tslint",
-    "import"
-  ],
+  "extends": ["eslint:recommended", "prettier"],
+  "plugins": ["@typescript-eslint", "@typescript-eslint/tslint", "import"],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".ts",
-          ".tsx",
-          ".js",
-          ".jsx",
-          ".json"
-        ],
+        "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
       },
       "typescript": {
         "alwaysTryTypes": true
       }
     },
-    "propWrapperFunctions": [
-      "forbidExtraProps",
-      "exact",
-      "Object.freeze"
-    ],
-    "import/extensions": [
-      ".ts",
-      ".tsx",
-      ".js",
-      ".mjs",
-      ".jsx"
-    ],
+    "propWrapperFunctions": ["forbidExtraProps", "exact", "Object.freeze"],
+    "import/extensions": [".ts", ".tsx", ".js", ".mjs", ".jsx"],
     "import/core-modules": [],
-    "import/ignore": [
-      "node_modules",
-      "\\.(coffee|scss|css|less|hbs|svg|json)$"
-    ]
+    "import/ignore": ["node_modules", "\\.(coffee|scss|css|less|hbs|svg|json)$"]
   },
   "env": {
     "es6": true,
     "node": true,
     "mocha": true
   },
-  "ignorePatterns": [
-    "**/*.js",
-    "node_modules",
-    "__snapshots__"
-  ],
+  "ignorePatterns": ["**/*.js", "node_modules", "__snapshots__"],
   "rules": {
     "indent": "warn",
-    "@typescript-eslint/indent": [
-      "error",
-      2
-    ],
+    "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-this-alias": "error",
     "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/member-delimiter-style": [
@@ -73,21 +40,12 @@
         }
       }
     ],
-    "arrow-parens": [
-      "off",
-      "as-needed"
-    ],
+    "arrow-parens": ["off", "as-needed"],
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "camelcase": "off",
-    "curly": [
-      "error",
-      "multi-line"
-    ],
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    "curly": ["error", "multi-line"],
+    "eqeqeq": ["error", "smart"],
     "id-blacklist": "off",
     "id-match": "off",
     "max-len": [
@@ -107,21 +65,10 @@
     "no-new-wrappers": "error",
     "no-underscore-dangle": "off",
     "no-var": "error",
-    "one-var": [
-      "warn",
-      "never"
-    ],
-    "quote-props": [
-      "error",
-      "as-needed"
-    ],
+    "one-var": ["warn", "never"],
+    "quote-props": ["error", "as-needed"],
     "import/prefer-default-export": "warn",
-    "no-restricted-syntax": [
-      "error",
-      "ForInStatement",
-      "LabeledStatement",
-      "WithStatement"
-    ],
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "no-await-in-loop": "off", // Sequelize with promises or async/await is broken; we need await in for loops
     "no-plusplus": [
       "error",
@@ -131,9 +78,7 @@
     ],
     "no-return-await": "error",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": [
-      "error"
-    ],
+    "@typescript-eslint/no-shadow": ["error"],
     "new-cap": "warn",
     "no-console": "error",
     "guard-for-in": "error",

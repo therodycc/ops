@@ -25,6 +25,7 @@ import InputStyle from '../../components/InputStyle';
 import Iconify from '../../components/Iconify';
 import { productService } from '../../services/product.service';
 import { Product } from '../../interfaces/product/product';
+import { CartDto } from '../../interfaces/cart/cart';
 
 ProductDetailPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -88,11 +89,11 @@ export default function ProductDetailPage() {
     }
   };
 
-  const onAddCart = product => {
+  const onAddCart = (cartDto: CartDto) => {
     let timeout;
 
     clearTimeout(timeout);
-    timeout = setTimeout(() => dispatch(addToCart(product)), 1000);
+    timeout = setTimeout(() => dispatch(addToCart(cartDto)), 1000);
   };
 
   return (
@@ -177,7 +178,7 @@ export default function ProductDetailPage() {
                     {(!products ? [...Array(12)] : products).map((product: Product, index) =>
                       product ? (
                         <ProductList
-                          key={`${product.id}-${product.selectedSellType}`}
+                          key={`${product.id}-${product.unit}`}
                           product={product}
                           onSelect={onSelectProductHandle}
                         />

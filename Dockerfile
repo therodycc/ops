@@ -1,28 +1,33 @@
-FROM node:16-alpine AS dependencies
-WORKDIR /usr/src/app/ops
-
+FROM node:16-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
-FROM node:alpine AS builder
-WORKDIR /usr/src/app/ops
-
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-COPY --from=dependencies /usr/src/app/ops/node_modules ./node_modules
+
 RUN yarn build
 
-FROM node:16-alpine AS prod
-WORKDIR /usr/src/app/ops
+FROM node:16-alpine AS runner
+WORKDIR /app
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
 
 ENV PORT 3000
 
-RUN yarn install --only=production
-
-COPY --from=builder /usr/src/app/ops/.next /usr/src/app/ops/.next
-COPY --from=builder /usr/src/app/ops/public /usr/src/app/ops/public
-COPY --from=builder /usr/src/app/ops/node_modules /usr/src/app/ops/node_modules
-COPY --from=builder /usr/src/app/ops/package.json /usr/src/app/ops/package.json
-
-EXPOSE ${PORT}
-
-CMD yarn start
+CMD ["node", "server.js"]

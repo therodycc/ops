@@ -1,3 +1,4 @@
+import { CartDto } from '../../interfaces/cart/cart';
 import { cartService } from '../../services/cart.service';
 const { createSlice } = require('@reduxjs/toolkit');
 
@@ -71,11 +72,13 @@ export const getCart = () => {
   };
 };
 
-export const addToCart = product => {
+export const addToCart = (cartDto: CartDto) => {
   return async () => {
     try {
       dispatch(cartSlice.actions.startLoading());
-      const { data } = await cartService.add(product);
+
+      const { data } = await cartService.add(cartDto);
+
       dispatch(cartSlice.actions.addCart(data));
     } catch (error) {
       console.error(error);
@@ -89,6 +92,7 @@ export const updateCart = cart => {
     try {
       dispatch(cartSlice.actions.startLoading());
       const { data } = await cartService.update(cart);
+
       if (data) dispatch(cartSlice.actions.updateCart(data));
       else dispatch(cartSlice.actions.resetCart());
     } catch (error) {
@@ -102,8 +106,26 @@ export const clearCart = () => {
   return async () => {
     try {
       dispatch(cartSlice.actions.startLoading());
+
       await cartService.clear();
+
       dispatch(cartSlice.actions.resetCart());
+    } catch (error) {
+      console.error(error);
+      dispatch(cartSlice.actions.hasError(error));
+    }
+  };
+};
+
+export const removeCart = cartId => {
+  return async () => {
+    try {
+      dispatch(cartSlice.actions.startLoading());
+
+      const { data } = await cartService.remove(cartId);
+
+      if (data) dispatch(cartSlice.actions.updateCart(data));
+      else dispatch(cartSlice.actions.resetCart());
     } catch (error) {
       console.error(error);
       dispatch(cartSlice.actions.hasError(error));

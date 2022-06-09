@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Grid, Step, Stepper, Container, StepLabel, StepConnector } from '@mui/material';
+import { Box, Container, StepConnector } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 // import { getCart } from '../../redux/slices/product';

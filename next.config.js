@@ -14,5 +14,8 @@ module.exports = withTM({
   trailingSlash: true,
   env: {
     ENV: process.env.ENV || 'development'
+  },
+  experimental: {
+    outputStandalone: true
   }
 });
