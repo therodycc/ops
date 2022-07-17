@@ -71,8 +71,8 @@ export default function ProductDetailPage() {
     setShowProductDetail(true);
   };
 
-  const onUpdateCart = product => {
-    dispatch(updateCart(product));
+  const onUpdateCart = (cartDto: CartDto) => {
+    dispatch(updateCart(cartDto));
   };
 
   const handleFilterProducts = async value => {

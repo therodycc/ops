@@ -73,79 +73,64 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
   const { watch, setValue, handleSubmit } = methods;
   const values = watch();
 
-  const isProductInCard = useCallback(
-    _unit =>
-      cardProducts.find(
-        ({ id, unit: selectedProductUnit }) => product.id === id && _unit === selectedProductUnit
-      ),
-    [product, cardProducts]
-  );
+  useEffect(() => {
+    let otherProductUnit = ProductUnit.UNIT;
+    if (selectedUnit === ProductUnit.UNIT) otherProductUnit = ProductUnit.BLISTER;
 
-  const updateCartCount = useCallback(
-    newValue => {
-      setQuantity(newValue);
-      setValue('quantity', newValue);
-    },
-    [setQuantity, setValue]
-  );
+    const productWithDifferentUnitInCart = cardProducts.find(
+      ({ id, unit: selectedProductUnit }) =>
+        product.id === id && otherProductUnit === selectedProductUnit
+    );
 
-  const updateStock = useCallback(
-    unit => {
-      if (unit === ProductUnit.BLISTER) {
-        const stock = parseInt(`${product.stock / blisterSize}`) ?? 1;
-        setStock(stock);
-      } else {
-        if (stock !== product.stock) setStock(product.stock);
-      }
-    },
-    [product, setStock]
-  );
+    if (productWithDifferentUnitInCart) setSelectedUnit(otherProductUnit);
+  }, []);
 
-  const handleAddCart = useCallback(async () => {
+  useEffect(() => {
+    const quantity_ = productInCart?.quantity ?? 1;
+    setQuantity(quantity_);
+  }, [productInCart]);
+
+  useEffect(() => {
+    setValue('quantity', quantity);
+  }, [quantity]);
+
+  useEffect(() => {
+    if (selectedUnit === ProductUnit.BLISTER) {
+      const _stock = parseInt(`${product.stock / blisterSize}`) ?? 1;
+      setStock(_stock);
+    } else setStock(product.stock ?? 1);
+  }, [selectedUnit]);
+
+  useEffect(() => {
+    const prod = cardProducts.find(
+      ({ id, unit: selectedProductUnit }) =>
+        product.id === id && selectedUnit === selectedProductUnit
+    );
+
+    setProductInCart(prod);
+  }, [product, selectedUnit, cardProducts]);
+
+  const handleAddCart = async () => {
     try {
       const data: CartDto = {
         productId: product.id,
         quantity,
         unit: selectedUnit
       };
-
       if (!productInCart?.id) onAddCart(data);
       else if (productInCart.unit === data.unit && productInCart.quantity !== data.quantity) {
+        data.cartId = cardProducts.find(({ id }) => id === product.id)?.cartId;
         onUpdateCart(data);
       } else {
         // Trying to add same products with different sell type.
+        data.cartId = cardProducts.find(({ id }) => id === product.id)?.cartId;
         cardDataRef.current = data;
         setIsModalOpen(true);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [onAddCart, productInCart, onUpdateCart, setIsModalOpen]);
-
-  useEffect(() => {
-    let productInCart = isProductInCard(selectedUnit);
-
-    if (productInCart) {
-      const isSameUnit = productInCart.unit === selectedUnit;
-      updateCartCount(stock > 0 && isSameUnit ? productInCart.quantity ?? 1 : 0);
-    } else {
-      productInCart = isProductInCard(
-        selectedUnit === ProductUnit.BLISTER ? ProductUnit.UNIT : ProductUnit.BLISTER
-      );
-
-      updateCartCount(stock > 0 ? productInCart?.quantity ?? 1 : 0);
-      // if (blisterSize === 0) setSelectedUnit(ProductUnit.UNIT);
-    }
-    updateStock(selectedUnit);
-  }, [
-    cardProducts,
-    updateStock,
-    updateCartCount,
-    selectedUnit,
-    setSelectedUnit,
-    isProductInCard,
-    product
-  ]);
+  };
 
   const onSubmit = useCallback(
     async data => {
@@ -162,20 +147,25 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
     [handleAddCart, replace]
   );
 
-  const getPriceAndApplyDiscount = useCallback((): number => {
-    let _price = hasDiscount ? price.unit.discount : price.unit.original;
-    if (unit === ProductUnit.BLISTER)
-      _price = hasDiscount ? price.blister.discount : price.blister.original;
+  const getPriceAndApplyDiscount = useCallback(
+    (unit: ProductUnit): number => {
+      let _price = hasDiscount ? price.unit.discount : price.unit.original;
+      if (unit === ProductUnit.BLISTER)
+        _price = hasDiscount ? price.blister.discount : price.blister.original;
 
-    return _price;
-  }, [unit]);
+      return _price;
+    },
+    [unit]
+  );
 
-  const getPriceWithoutDiscount = useCallback((): number => {
-    let _price = price.unit.original;
-    if (unit === ProductUnit.BLISTER) _price = price.blister.original;
-
-    return _price;
-  }, [unit]);
+  const getPriceWithoutDiscount = useCallback(
+    (unit: ProductUnit): number => {
+      let _price = price.unit.original;
+      if (unit === ProductUnit.BLISTER) _price = price.blister.original;
+      return _price;
+    },
+    [unit]
+  );
 
   return (
     <RootStyle>
@@ -187,7 +177,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
         cancelButtonText="NO"
         onAccept={() => {
           setIsModalOpen(false);
-          if (isProductInCard(selectedUnit)) onUpdateCart(cardDataRef.current);
+          if (productInCart) onUpdateCart(cardDataRef.current);
           else onAddCart(cardDataRef.current);
         }}
         onClose={() => {
@@ -222,7 +212,9 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
           </Typography>
 
           <RHFSelect
-            onChange={e => setSelectedUnit(e.target.value)}
+            onChange={e => {
+              setSelectedUnit(e.target.value);
+            }}
             name="sellType"
             size="small"
             fullWidth={false}
@@ -252,8 +244,12 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
             <Incrementer
               quantity={values.quantity}
               stock={stock}
-              onIncrementQuantity={() => updateCartCount(quantity + 1)}
-              onDecrementQuantity={() => updateCartCount(quantity - 1)}
+              onIncrementQuantity={() => {
+                setQuantity(quantity => quantity + 1);
+              }}
+              onDecrementQuantity={() => {
+                setQuantity(quantity => quantity - 1);
+              }}
             />
             <Typography
               variant="caption"
@@ -272,9 +268,9 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
             component="span"
             sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 2.0 }}
           >
-            {hasDiscount && fCurrency(getPriceWithoutDiscount() * quantity)}
+            {hasDiscount && fCurrency(getPriceWithoutDiscount(selectedUnit) * quantity)}
           </Box>
-          &nbsp; {fCurrency(getPriceAndApplyDiscount() * quantity)}
+          &nbsp; {fCurrency(getPriceAndApplyDiscount(selectedUnit) * quantity)}
         </Typography>
 
         <Divider sx={{ borderStyle: 'dashed' }} />

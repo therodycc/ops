@@ -87,11 +87,11 @@ export const addToCart = (cartDto: CartDto) => {
   };
 };
 
-export const updateCart = cart => {
+export const updateCart = (cartDto: CartDto) => {
   return async () => {
     try {
       dispatch(cartSlice.actions.startLoading());
-      const { data } = await cartService.update(cart);
+      const { data } = await cartService.update(cartDto);
 
       if (data) dispatch(cartSlice.actions.updateCart(data));
       else dispatch(cartSlice.actions.resetCart());
