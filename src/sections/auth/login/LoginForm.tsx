@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // next
@@ -17,20 +17,45 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
-import { authService } from '../../../services/auth.service';
-import { login, loginSuccess } from '../../../redux/slices/auth';
+import { login } from '../../../redux/slices/auth';
 import { useRouter } from 'next/router';
-import { setSession } from '../../../utils/jwt';
+import { AuthState } from '../../../interfaces/user';
+import { AppState } from '../../../redux/rootReducer';
+// import { AuthState } from '../../../interfaces/user';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const dispatch = useDispatch();
   const { replace } = useRouter();
-  const { user, error, isLoading } = useSelector(state => state.auth);
+  const { user, error, isLoading } = useSelector<AppState, AuthState>(state => state.auth);
+
+  console.log(user, error, isLoading);
 
   const isMountedRef = useIsMountedRef();
   const [showPassword, setShowPassword] = useState(false);
+
+  const defaultValues = useRef({
+    email: 'user1@gmail.com',
+    password: '12345678'
+  });
+
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email('Correo invalido').required('Correo requerido'),
+    password: Yup.string().required('Contraseña requireda')
+  });
+
+  const methods = useForm({
+    resolver: yupResolver(LoginSchema),
+    defaultValues: defaultValues.current
+  });
+
+  const {
+    reset,
+    setError,
+    handleSubmit,
+    formState: { errors }
+  } = methods;
 
   useEffect(() => {
     if (user) {
@@ -41,41 +66,19 @@ export default function LoginForm() {
   useEffect(() => {
     if (!error) return;
     reset();
-    if (isMountedRef.current) {
-      setError('afterSubmit', { ...error, message: error.message });
-    }
   }, [reset, error]);
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Correo invalido').required('Correo requerido'),
-    password: Yup.string().required('Contraseña requireda')
-  });
-
-  const defaultValues = {
-    email: 'user1@gmail.com',
-    password: '12345678'
-  };
-
-  const methods = useForm({
-    resolver: yupResolver(LoginSchema),
-    defaultValues
-  });
-
-  const {
-    reset,
-    setError,
-    handleSubmit,
-    formState: { errors }
-  } = methods;
-
-  const onSubmit = async credentials => {
-    dispatch(login(credentials));
-  };
+  const onSubmit = useCallback(
+    async credentials => {
+      dispatch(login(credentials));
+    },
+    [dispatch]
+  );
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+        {!!error && <Alert severity="error">{error}</Alert>}
 
         <RHFTextField name="email" label="Email" />
 

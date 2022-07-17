@@ -1,73 +1,30 @@
-const DEV = Object.freeze({
+const API_HOST = process.env.API_HOST;
+const API_VERSION = process.env.API_VERSION;
+
+const products = 'http://localhost:3';
+
+const ENDPOINTS = Object.freeze({
   AUTH: {
-    login: 'https://dev-api.farmacianetzer.com/v1/auth/login'
+    login: `http://localhost:3100/login`
   },
   PRODUCTS: {
-    labs: 'https://dev-api.farmacianetzer.com/v1/labs',
-    list: 'https://dev-api.farmacianetzer.com/v1/products',
-    save: 'https://dev-api.farmacianetzer.com/v1/products',
-    detail: 'https://dev-api.farmacianetzer.com/v1/products',
-    categories: 'https://dev-api.farmacianetzer.com/v1/categories',
-    activeSubstances: 'https://dev-api.farmacianetzer.com/v1/products'
+    labs: `http://localhost:3500/labs`,
+    list: `http://localhost:3500`,
+    save: `http://localhost:3500`,
+    detail: `http://localhost:3500`,
+    categories: `http://localhost:3500/categories`,
+    activeSubstances: `http://localhost:3500`
   },
   CART: {
-    list: 'https://dev-api.farmacianetzer.com/v1/carts',
-    save: 'https://dev-api.farmacianetzer.com/v1/carts',
-    update: 'https://dev-api.farmacianetzer.com/v1/carts',
-    delete: 'https://dev-api.farmacianetzer.com/v1/carts',
-    clear: 'https://dev-api.farmacianetzer.com/v1/carts'
+    list: `http://localhost:3700/carts`,
+    save: `http://localhost:3700/carts`,
+    update: `http://localhost:3700/carts`,
+    delete: `http://localhost:3700/carts`,
+    clear: `http://localhost:3700/carts`
+  },
+  ORDER: {
+    list: `http://localhost:3000/carts`
   }
 });
 
-const STAGING = Object.freeze({
-  AUTH: {
-    login: 'https://stg-api.farmacianetzer.com/v1/auth/login'
-  },
-  PRODUCTS: {
-    labs: 'https://stg-api.farmacianetzer.com/v1/labs',
-    list: 'https://stg-api.farmacianetzer.com/v1/products',
-    save: 'https://stg-api.farmacianetzer.com/v1/products',
-    detail: 'https://stg-api.farmacianetzer.com/v1/products',
-    categories: 'https://stg-api.farmacianetzer.com/v1/categories',
-    activeSubstances: 'https://stg-api.farmacianetzer.com/v1/products'
-  },
-  CART: {
-    list: 'https://stg-api.farmacianetzer.com/v1/carts',
-    save: 'https://stg-api.farmacianetzer.com/v1/carts',
-    update: 'https://stg-api.farmacianetzer.com/v1/carts',
-    delete: 'https://stg-api.farmacianetzer.com/v1/carts',
-    clear: 'https://stg-api.farmacianetzer.com/v1/carts'
-  }
-});
-
-const PROD = Object.freeze({
-  AUTH: {
-    login: 'https://api.farmacianetzer.com/v1/auth/login'
-  },
-  PRODUCTS: {
-    labs: 'https://api.farmacianetzer.com/v1/labs',
-    list: 'https://api.farmacianetzer.com/v1/products',
-    save: 'https://api.farmacianetzer.com/v1/products',
-    detail: 'https://api.farmacianetzer.com/v1/products',
-    categories: 'https://api.farmacianetzer.com/v1/categories',
-    activeSubstances: 'https://api.farmacianetzer.com/v1/products'
-  },
-  CART: {
-    list: 'https://api.farmacianetzer.com/v1/carts',
-    save: 'https://api.farmacianetzer.com/v1/carts',
-    update: 'https://api.farmacianetzer.com/v1/carts',
-    delete: 'https://api.farmacianetzer.com/v1/carts',
-    clear: 'https://api.farmacianetzer.com/v1/carts'
-  }
-});
-
-let endpoints = DEV;
-
-const env = process.env.ENV || 'development';
-
-if (env === 'production') endpoints = PROD;
-else if (env === 'staging') endpoints = STAGING;
-
-export const API = Object.freeze({
-  ...endpoints
-});
+export const API = Object.freeze(ENDPOINTS);

@@ -54,4 +54,6 @@ const rootReducer = combineReducers({
   cart: persistReducer(cartPersistConfig, cartReducer)
 });
 
+export type AppState = ReturnType<typeof rootReducer>;
+
 export { rootPersistConfig, rootReducer };

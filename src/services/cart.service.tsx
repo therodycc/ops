@@ -28,7 +28,7 @@ const remove = id => {
 };
 
 const update = data => {
-  return axios.put(`${API.CART.update}&productId=${data.productId}`, data).catch(error => {
+  return axios.put(`${API.CART.update}/${data.cartId}`, data).catch(error => {
     throw new Error('Error al actualizar producto en el carrito');
   });
 };
