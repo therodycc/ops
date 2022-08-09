@@ -16,13 +16,23 @@ import EmptyContent from '../../components/EmptyContent';
 import { CheckoutSummary } from './CheckoutSummary';
 import { CheckoutProductList } from './CheckoutProductList';
 import { ApplyInsuranceCredit, InsuranceCredit } from './ApplyInsuranceCredit';
-import { removeCart } from '../../redux/slices/cart';
+import { removeCart, updateCart } from '../../redux/slices/cart';
+import { CartDto, CartState } from '../../interfaces/cart/cart';
+import { AppState } from '../../redux/rootReducer';
+import { ProductUnit } from '../../enums/product-unit.enum';
+import { AuthState } from '../../interfaces/user';
 // ----------------------------------------------------------------------
 
 export const CheckoutCart = () => {
   const dispatch = useDispatch();
 
-  const { subTotal, discount, total, itbis, products } = useSelector((state: any) => state.cart);
+  const {
+    user: { id: profileId }
+  } = useSelector<AppState, AuthState>(state => state.auth);
+  const { subTotal, discount, total, itbis, products } = useSelector<AppState, CartState>(
+    state => state.cart
+  );
+
   const [insurance, setInsurance] = useState(0);
 
   const isEmptyCart = products.length === 0;
@@ -39,12 +49,21 @@ export const CheckoutCart = () => {
     setInsurance(amount);
   };
 
-  const handleIncreaseQuantity = productId => {
-    // dispatch(increaseQuantity(productId));
-  };
+  const updateQuantity = (
+    cartId: number,
+    productId: number,
+    quantity: number,
+    unit: ProductUnit
+  ) => {
+    const cartDto: CartDto = {
+      cartId,
+      productId,
+      quantity,
+      profileId,
+      unit
+    };
 
-  const handleDecreaseQuantity = productId => {
-    // dispatch(decreaseQuantity(productId));
+    dispatch(updateCart(cartDto));
   };
 
   const handleApplyDiscount = value => {
@@ -72,8 +91,8 @@ export const CheckoutCart = () => {
               <CheckoutProductList
                 products={products}
                 onDelete={handleDeleteCart}
-                // onIncreaseQuantity={handleIncreaseQuantity}
-                // onDecreaseQuantity={handleDecreaseQuantity}
+                onIncrease={updateQuantity}
+                onDecrease={updateQuantity}
               />
             </Scrollbar>
           ) : (
@@ -103,16 +122,19 @@ export const CheckoutCart = () => {
           // onApplyDiscount={handleApplyDiscount}
         />
 
-        <ApplyInsuranceCredit total={total} onApply={applyInsuranceCreditHandle} />
+        {!isEmptyCart && (
+          <ApplyInsuranceCredit total={total} onApply={applyInsuranceCreditHandle} />
+        )}
+
         <Button
           fullWidth
           size="large"
           type="submit"
           variant="contained"
-          disabled={products.length === 0}
+          disabled={isEmptyCart}
           onClick={handleNextStep}
         >
-          Pagar
+          Crear orden
         </Button>
       </Grid>
     </Grid>

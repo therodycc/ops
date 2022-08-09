@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Card, Grid, Container, Stack, Box, InputAdornment } from '@mui/material';
 // redux
 import { useDispatch } from '../../redux/store';
-import { addToCart, updateCart } from '../../redux/slices/cart';
+import { addToCart, updateCart, removeCart } from '../../redux/slices/cart';
 // routes
 import { PATH_DASHBOARD, PATH_PRODUCTS, PATH_CHECKOUT } from '../../routes/paths';
 // hooks
@@ -75,6 +75,10 @@ export default function ProductDetailPage() {
     dispatch(updateCart(cartDto));
   };
 
+  const onRemoveCart = (cartId: number) => {
+    dispatch(removeCart(cartId));
+  };
+
   const handleFilterProducts = async value => {
     setShowProductDetail(false);
     try {
@@ -100,7 +104,7 @@ export default function ProductDetailPage() {
     <Page title="Facturacion">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Product Details"
+          heading={product?.name ? `Detalle de ${product?.name}` : 'Productos'}
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
             {
@@ -196,6 +200,7 @@ export default function ProductDetailPage() {
                     product={product}
                     // cart={checkout.cart}
                     onAddCart={onAddCart}
+                    onRemoveCart={onRemoveCart}
                     onUpdateCart={onUpdateCart}
                     // onGotoStep={handleGotoStep}
                   />

@@ -1,29 +1,29 @@
 const API_HOST = process.env.API_HOST;
-const API_VERSION = process.env.API_VERSION;
-
-const products = 'http://localhost:3';
 
 const ENDPOINTS = Object.freeze({
   AUTH: {
-    login: `http://localhost:3100/login`
+    login: `${API_HOST}/auth/login`
   },
   PRODUCTS: {
-    labs: `http://localhost:3500/labs`,
-    list: `http://localhost:3500`,
-    save: `http://localhost:3500`,
-    detail: `http://localhost:3500`,
-    categories: `http://localhost:3500/categories`,
-    activeSubstances: `http://localhost:3500`
-  },
-  CART: {
-    list: `http://localhost:3700/carts`,
-    save: `http://localhost:3700/carts`,
-    update: `http://localhost:3700/carts`,
-    delete: `http://localhost:3700/carts`,
-    clear: `http://localhost:3700/carts`
+    labs: `${API_HOST}/labs/`,
+    list: `${API_HOST}/products/`,
+    save: `${API_HOST}/products/`,
+    detail: `${API_HOST}/products/`,
+    categories: `${API_HOST}/categories/`,
+    activeSubstances: `${API_HOST}/products/active-substances`
   },
   ORDER: {
-    list: `http://localhost:3000/carts`
+    list: `${API_HOST}/orders/`
+  },
+  INSURANCE: {
+    list: `${API_HOST}/insurances/`
+  },
+  CART: {
+    list: `${API_HOST}/carts/`,
+    save: `${API_HOST}/carts/`,
+    update: `${API_HOST}/carts`,
+    delete: `${API_HOST}/carts`,
+    clear: `${API_HOST}/carts/clear`
   }
 });
 

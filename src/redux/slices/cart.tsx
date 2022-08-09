@@ -117,7 +117,7 @@ export const clearCart = () => {
   };
 };
 
-export const removeCart = cartId => {
+export const removeCart = (cartId: number) => {
   return async () => {
     try {
       dispatch(cartSlice.actions.startLoading());

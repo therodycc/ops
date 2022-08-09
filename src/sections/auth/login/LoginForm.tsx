@@ -21,7 +21,6 @@ import { login } from '../../../redux/slices/auth';
 import { useRouter } from 'next/router';
 import { AuthState } from '../../../interfaces/user';
 import { AppState } from '../../../redux/rootReducer';
-// import { AuthState } from '../../../interfaces/user';
 
 // ----------------------------------------------------------------------
 
@@ -30,13 +29,11 @@ export default function LoginForm() {
   const { replace } = useRouter();
   const { user, error, isLoading } = useSelector<AppState, AuthState>(state => state.auth);
 
-  console.log(user, error, isLoading);
-
   const isMountedRef = useIsMountedRef();
   const [showPassword, setShowPassword] = useState(false);
 
   const defaultValues = useRef({
-    email: 'user1@gmail.com',
+    email: 'user2@gmail.com',
     password: '12345678'
   });
 

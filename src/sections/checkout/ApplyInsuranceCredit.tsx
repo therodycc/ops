@@ -15,6 +15,8 @@ import { useForm } from 'react-hook-form';
 import { Insurance } from '../../interfaces/insurance';
 import { FormProvider, RHFTextField } from '../../components/hook-form';
 
+import { insuranceService } from '../../services/insurance.service';
+
 import Iconify from '../../components/Iconify';
 import { LoadingButton } from '@mui/lab';
 
@@ -46,16 +48,23 @@ const ApplyInsuranceCreditComponent = ({ total, onApply }: InsuranceCreditProps)
   const values = watch();
 
   useEffect(() => {
-    setInsurances([
-      { id: 1, name: 'Humano', logo: 'some' },
-      { id: 2, name: 'Universal', logo: 'some' }
-    ]);
+    const getInsurances = async () => {
+      try {
+        const data = await insuranceService.get();
+        setInsurances(data);
+      } catch (error) {
+        console.warn('Error getting insurances');
+      }
+    };
+
+    getInsurances();
   }, []);
 
   const applyCredit = () => {
     onApply(values as InsuranceCredit);
   };
 
+  if (!insurances.length) return null;
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(applyCredit)}>
       <Card sx={{ mb: 3 }}>

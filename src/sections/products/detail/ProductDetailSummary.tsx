@@ -33,12 +33,18 @@ const RootStyle = styled('div')(({ theme }) => ({
 export interface ProductDetailProps {
   product: Product;
   onAddCart(cart: CartDto): void;
+  onRemoveCart(cartId: number): void;
   onUpdateCart(cart: CartDto): void;
 }
 
 // ----------------------------------------------------------------------
 
-export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: ProductDetailProps) => {
+export const ProductDetailSummary = ({
+  product,
+  onAddCart,
+  onRemoveCart,
+  onUpdateCart
+}: ProductDetailProps) => {
   const theme = useTheme();
 
   const cardDataRef = useRef<CartDto>(null);
@@ -97,9 +103,14 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
   useEffect(() => {
     if (selectedUnit === ProductUnit.BLISTER) {
       const _stock = parseInt(`${product.stock / blisterSize}`) ?? 1;
+
+      if (quantity > _stock) {
+        setQuantity(_stock);
+      }
+
       setStock(_stock);
     } else setStock(product.stock ?? 1);
-  }, [selectedUnit]);
+  }, [selectedUnit, productInCart]);
 
   useEffect(() => {
     const prod = cardProducts.find(
@@ -129,6 +140,13 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleDeleteCart = async () => {
+    const cartId = cardProducts?.find(({ id }) => id === product.id)?.cartId;
+    if (cartId) {
+      onRemoveCart(cartId);
     }
   };
 
@@ -284,7 +302,7 @@ export const ProductDetailSummary = ({ product, onAddCart, onUpdateCart }: Produ
             startIcon={
               <Iconify icon={values.quantity > 0 ? 'ic:round-add-shopping-cart' : 'ic:delete'} />
             }
-            onClick={handleAddCart}
+            onClick={values.quantity > 0 ? handleAddCart : handleDeleteCart}
             sx={{ whiteSpace: 'nowrap' }}
           >
             {values.quantity > 0 ? 'Agregar Al Carrito' : 'Eliminar del carrito'}
