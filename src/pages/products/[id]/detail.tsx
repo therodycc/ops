@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 // next
 import { useRouter } from 'next/router';
 // @mui
 import { Card, Grid, Container, Stack, Box, InputAdornment } from '@mui/material';
 // redux
-import { useDispatch, useSelector } from '../../../redux/store';
-import { getProduct } from '../../../redux/slices/product';
-import { addToCart, updateCart } from '../../../redux/slices/cart';
+import { useDispatch } from '../../../redux/store';
+import { addToCart, removeCart, updateCart } from '../../../redux/slices/cart';
 // routes
 import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../../routes/paths';
 // hooks
@@ -15,7 +14,7 @@ import useSettings from '../../../hooks/useSettings';
 import Layout from '../../../layouts';
 // components
 import Page from '../../../components/Page';
-import { SkeletonProductDetail, SkeletonProductItem } from '../../../components/skeleton';
+import { SkeletonProductItem } from '../../../components/skeleton';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 // sections
 import { ProductImage } from '../../../sections/products/detail/ProductImage';
@@ -71,6 +70,10 @@ export default function ProductDetailPage() {
   const onSelectProductHandle = (product: Product) => {
     setProduct(product);
     setShowProductDetail(true);
+  };
+
+  const onRemoveCart = (cartId: number) => {
+    dispatch(removeCart(cartId));
   };
 
   const onUpdateCart = product => {
@@ -184,10 +187,9 @@ export default function ProductDetailPage() {
                 {product && showProductDetail && (
                   <ProductDetailSummary
                     product={product}
-                    // cart={checkout.cart}
+                    onRemoveCart={onRemoveCart}
                     onAddCart={onAddCart}
                     onUpdateCart={onUpdateCart}
-                    // onGotoStep={handleGotoStep}
                   />
                 )}
                 {/* {!product && <SkeletonProductDetail />} */}
