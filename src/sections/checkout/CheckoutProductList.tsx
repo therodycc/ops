@@ -17,7 +17,9 @@ import { fCurrency } from '../../utils/formatNumber';
 // components
 import Image from '../../components/Image';
 import Iconify from '../../components/Iconify';
-import { Product } from '../../interfaces/product/product';
+import { CartProduct } from '../../interfaces/product/product';
+import { ProductUnit } from '../../enums/product-unit.enum';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -34,10 +36,17 @@ const IncrementerStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 interface CheckoutProductListProps {
-  products: Product[] | any[];
+  products: CartProduct[];
   onDelete(cardId: string | number): void;
+  onDecrease(cartId: number, productId: number, quantity: number, unit: ProductUnit): void;
+  onIncrease(cartId: number, productId: number, quantity: number, unit: ProductUnit): void;
 }
-export const CheckoutProductList = ({ onDelete, products }: CheckoutProductListProps) => {
+export const CheckoutProductList = ({
+  products,
+  onDelete,
+  onDecrease,
+  onIncrease
+}: CheckoutProductListProps) => {
   return (
     <TableContainer sx={{ minWidth: 720 }}>
       <Table>
@@ -53,9 +62,7 @@ export const CheckoutProductList = ({ onDelete, products }: CheckoutProductListP
 
         <TableBody>
           {products.map(product => {
-            const { id, name, price, photo, quantity, unit } = product;
-            const available = true;
-            const stock = 10;
+            const { id, cartId, name, price, total, photo, quantity, unit, stock } = product;
             return (
               <TableRow key={`${id}-${unit}`}>
                 <TableCell>
@@ -89,19 +96,22 @@ export const CheckoutProductList = ({ onDelete, products }: CheckoutProductListP
                   </Box>
                 </TableCell>
 
-                <TableCell align="left">{fCurrency(price)}</TableCell>
+                <TableCell align="left">{fCurrency(total)}</TableCell>
 
-                {/* TODO: handle product stock */}
                 <TableCell align="left">
                   <Incrementer
                     quantity={quantity}
                     available={stock}
-                    onDecrease={() => {}}
-                    onIncrease={() => {}}
+                    onIncrease={(updatedQuantity: number) =>
+                      onIncrease(cartId, id, updatedQuantity, unit)
+                    }
+                    onDecrease={(updatedQuantity: number) =>
+                      onDecrease(cartId, id, updatedQuantity, unit)
+                    }
                   />
                 </TableCell>
 
-                <TableCell align="right">{fCurrency(price * quantity)}</TableCell>
+                <TableCell align="right">{fCurrency(parseInt(price) * quantity)}</TableCell>
 
                 <TableCell align="right">
                   <IconButton onClick={() => onDelete(product.cartId)}>
@@ -118,18 +128,35 @@ export const CheckoutProductList = ({ onDelete, products }: CheckoutProductListP
 };
 
 function Incrementer({ available, quantity, onIncrease, onDecrease }) {
+  const [productQuantity, setProductQuantity] = useState<number>(quantity);
+
+  const onIncreaseHandler = () => {
+    setProductQuantity(actual => actual + 1);
+    setTimeout(() => onDecrease(productQuantity + 1), 0);
+  };
+
+  const onDecreaseHandler = () => {
+    setProductQuantity(actual => actual - 1);
+    setTimeout(() => onDecrease(productQuantity - 1), 0);
+  };
+
   return (
     <Box sx={{ width: 96, textAlign: 'right' }}>
       <IncrementerStyle>
-        <IconButton size="small" color="inherit" onClick={onDecrease} disabled={quantity <= 1}>
-          <Iconify icon={'eva:minus-fill'} width={16} height={16} />
-        </IconButton>
-        {quantity}
         <IconButton
           size="small"
           color="inherit"
-          onClick={onIncrease}
-          disabled={quantity >= available}
+          onClick={onDecreaseHandler}
+          disabled={productQuantity <= 1}
+        >
+          <Iconify icon={'eva:minus-fill'} width={16} height={16} />
+        </IconButton>
+        {productQuantity}
+        <IconButton
+          size="small"
+          color="inherit"
+          onClick={onIncreaseHandler}
+          disabled={productQuantity >= available}
         >
           <Iconify icon={'eva:plus-fill'} width={16} height={16} />
         </IconButton>

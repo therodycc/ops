@@ -52,9 +52,9 @@ export const CheckoutSummary = ({
         <Stack spacing={2}>
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Productos
+              Subtotal
             </Typography>
-            <Typography variant="subtitle2">{fCurrency(subTotal)}</Typography>
+            <Typography variant="subtitle2">{fCurrency(parseInt(`${subTotal}`))}</Typography>
           </Stack>
 
           <Stack direction="row" justifyContent="space-between">
@@ -66,16 +66,9 @@ export const CheckoutSummary = ({
 
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Sub Total
+              Descuentos
             </Typography>
-            <Typography variant="subtitle2">{fCurrency(subTotal + itbis + discount)}</Typography>
-          </Stack>
-
-          <Stack direction="row" justifyContent="space-between">
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Descuento
-            </Typography>
-            <Typography variant="subtitle2" sx={{ color: 'blue' }}>
+            <Typography variant="subtitle2" sx={{ color: 'red' }}>
               {discount ? fCurrency(-discount) : '-'}
             </Typography>
           </Stack>
@@ -85,7 +78,7 @@ export const CheckoutSummary = ({
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 Seguro medico
               </Typography>
-              <Typography variant="subtitle2" sx={{ color: 'blue' }}>
+              <Typography variant="subtitle2" sx={{ color: 'red' }}>
                 -{fCurrency(insurance)}
               </Typography>
             </Stack>
@@ -96,7 +89,7 @@ export const CheckoutSummary = ({
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="subtitle1">Total</Typography>
             <Box sx={{ textAlign: 'right' }}>
-              <Typography variant="subtitle1" sx={{ color: 'error.main' }}>
+              <Typography variant="subtitle1" sx={{ color: 'blue' }}>
                 {fCurrency(total - insurance)}
               </Typography>
               {/* <Typography variant="caption" sx={{ fontStyle: 'italic' }}>

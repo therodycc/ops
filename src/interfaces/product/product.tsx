@@ -19,3 +19,15 @@ export interface Product {
   activeSubstances: string | { id: number; name: string }[];
   drugLab: number;
 }
+
+export interface CartProduct {
+  cartId: number;
+  id: number;
+  name: string;
+  photo: string;
+  price: string;
+  total: string;
+  quantity: number;
+  stock: number;
+  unit: ProductUnit;
+}
