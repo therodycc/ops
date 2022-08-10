@@ -4,6 +4,7 @@ import { getUserFromToken, setSession } from '../../utils/jwt';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { dispatch } from '../store';
+import { getCart } from './cart';
 
 const initialState: AuthState = {
   isInitialized: false,
@@ -91,6 +92,7 @@ export const login = credentials => {
       setSession(data.accessToken);
       const user = getUserFromToken(data.accessToken);
       dispatch(authSlice.actions.loginSuccess(user));
+      dispatch(getCart());
     } catch (error) {
       dispatch(authSlice.actions.hasError(error?.message));
     }

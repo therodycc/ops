@@ -4,6 +4,7 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 // slices
 import productReducer from './slices/product';
 import authReducer from './slices/auth';
+import orderReducer from './slices/order';
 import cartReducer from './slices/cart';
 
 // ----------------------------------------------------------------------
@@ -51,6 +52,7 @@ const cartPersistConfig = {
 const rootReducer = combineReducers({
   product: persistReducer(productPersistConfig, productReducer),
   auth: persistReducer(authPersistConfig, authReducer),
+  order: orderReducer,
   cart: persistReducer(cartPersistConfig, cartReducer)
 });
 

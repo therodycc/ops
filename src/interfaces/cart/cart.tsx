@@ -5,15 +5,16 @@ export interface CartState {
   error: any;
   isLoading: boolean;
   products: CartProduct[];
-  itbis: number;
-  total: number;
-  discount: number;
-  subTotal: number;
+  itbis: string;
+  total: string;
+  discount: string;
+  subTotal: string;
 }
+
 export interface CartDto {
   cartId?: number;
   profileId?: number;
-  productId: any;
+  productId: number;
   quantity: number;
   unit: ProductUnit;
 }

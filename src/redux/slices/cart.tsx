@@ -1,21 +1,21 @@
-import { CartDto } from '../../interfaces/cart/cart';
+import { CartDto, CartState } from '../../interfaces/cart/cart';
 import { cartService } from '../../services/cart.service';
-const { createSlice } = require('@reduxjs/toolkit');
-
 import { dispatch } from '../store';
 
-const initialState = {
+const { createSlice } = require('@reduxjs/toolkit');
+
+const initialState: CartState = {
   error: null,
   isLoading: false,
   products: [],
-  itbis: 0,
-  total: 0,
-  discount: 0,
-  subTotal: 0
+  itbis: '',
+  total: '',
+  discount: '',
+  subTotal: ''
 };
 
 const cartSlice = createSlice({
-  name: 'auth',
+  name: 'cart',
   initialState,
   reducers: {
     startLoading(state) {
@@ -26,15 +26,15 @@ const cartSlice = createSlice({
       state.error = action.payload;
     },
     addCart(state, action) {
-      state.isLoading = false;
       const cart = action.payload;
 
-      state.products.push(cart.products[0]);
+      state.isLoading = false;
+      state.products = cart.products;
 
-      state.itbis += cart.itbis;
-      state.total += cart.total;
-      state.discount += cart.discount;
-      state.subTotal += cart.subTotal;
+      state.itbis = cart.itbis;
+      state.total = cart.total;
+      state.discount = cart.discount;
+      state.subTotal = cart.subTotal;
     },
     updateCart(state, action) {
       state.isLoading = false;
@@ -124,8 +124,9 @@ export const removeCart = (cartId: number) => {
 
       const { data } = await cartService.remove(cartId);
 
-      if (data) dispatch(cartSlice.actions.updateCart(data));
-      else dispatch(cartSlice.actions.resetCart());
+      if (data) {
+        dispatch(cartSlice.actions.updateCart(data));
+      } else dispatch(cartSlice.actions.resetCart());
     } catch (error) {
       console.error(error);
       dispatch(cartSlice.actions.hasError(error));

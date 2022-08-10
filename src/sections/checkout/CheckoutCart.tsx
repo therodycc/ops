@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // next
 import NextLink from 'next/link';
 // @mui
@@ -21,28 +21,46 @@ import { CartDto, CartState } from '../../interfaces/cart/cart';
 import { AppState } from '../../redux/rootReducer';
 import { ProductUnit } from '../../enums/product-unit.enum';
 import { AuthState } from '../../interfaces/user';
+import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
+import { LoadingButton } from '@mui/lab';
+import { createOrder } from '../../redux/slices/order';
+import { useSnackbar } from 'notistack';
 // ----------------------------------------------------------------------
 
 export const CheckoutCart = () => {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const {
-    user: { id: profileId }
+    user: { id: profileId, officeId }
   } = useSelector<AppState, AuthState>(state => state.auth);
+
   const { subTotal, discount, total, itbis, products } = useSelector<AppState, CartState>(
     state => state.cart
   );
 
-  const [insurance, setInsurance] = useState(0);
+  const { isLoading: isCreatingOrder, created } = useSelector<AppState, OrderState>(
+    state => state.order
+  );
 
+  useEffect(() => {
+    enqueueSnackbar('Orden creada');
+  }, [created]);
+
+  const [insurance, setInsurance] = useState(0);
   const isEmptyCart = products.length === 0;
 
   const handleDeleteCart = cartId => {
     dispatch(removeCart(cartId));
   };
 
-  const handleNextStep = () => {
-    //dispatch(onNextStep());
+  const createOrderHandler = () => {
+    const orderDto: CreateOrderDto = {
+      profileId,
+      officeId,
+      products: []
+    };
+    dispatch(createOrder(orderDto));
   };
 
   const applyInsuranceCreditHandle = ({ amount }: InsuranceCredit) => {
@@ -119,23 +137,23 @@ export const CheckoutCart = () => {
           discount={discount}
           insurance={insurance}
           subTotal={subTotal}
-          // onApplyDiscount={handleApplyDiscount}
         />
 
         {!isEmptyCart && (
-          <ApplyInsuranceCredit total={total} onApply={applyInsuranceCreditHandle} />
+          <ApplyInsuranceCredit total={parseInt(total)} onApply={applyInsuranceCreditHandle} />
         )}
 
-        <Button
+        <LoadingButton
           fullWidth
           size="large"
           type="submit"
           variant="contained"
           disabled={isEmptyCart}
-          onClick={handleNextStep}
+          onClick={createOrderHandler}
+          loading={isCreatingOrder}
         >
           Crear orden
-        </Button>
+        </LoadingButton>
       </Grid>
     </Grid>
   );

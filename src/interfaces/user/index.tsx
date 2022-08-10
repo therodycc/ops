@@ -11,6 +11,7 @@ export interface User {
   name: string;
   lastName: string;
   fullName: string;
+  officeId: number;
   email: string;
   cellphone: string;
   role: string;

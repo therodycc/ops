@@ -12,9 +12,6 @@ const ENDPOINTS = Object.freeze({
     categories: `${API_HOST}/categories/`,
     activeSubstances: `${API_HOST}/products/active-substances`
   },
-  ORDER: {
-    list: `${API_HOST}/orders/`
-  },
   INSURANCE: {
     list: `${API_HOST}/insurances/`
   },
@@ -24,6 +21,12 @@ const ENDPOINTS = Object.freeze({
     update: `${API_HOST}/carts`,
     delete: `${API_HOST}/carts`,
     clear: `${API_HOST}/carts/clear`
+  },
+  ORDER: {
+    list: `${API_HOST}/orders/`,
+    save: `${API_HOST}/orders/`,
+    update: `${API_HOST}/orders`,
+    delete: `${API_HOST}/orders`
   }
 });
 

@@ -17,11 +17,11 @@ import Iconify from '../../components/Iconify';
 // ----------------------------------------------------------------------
 
 interface CheckoutSummaryProps {
-  total: number;
-  itbis: number;
-  discount: number;
+  total: string;
+  itbis: string;
+  discount: string;
+  subTotal: string;
   insurance: number;
-  subTotal: number;
   onEdit?: () => void;
   enableEdit?: any;
 }
@@ -61,7 +61,7 @@ export const CheckoutSummary = ({
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Itbis
             </Typography>
-            <Typography variant="subtitle2">{discount ? fCurrency(itbis) : '-'}</Typography>
+            <Typography variant="subtitle2">{itbis ? fCurrency(itbis) : '-'}</Typography>
           </Stack>
 
           <Stack direction="row" justifyContent="space-between">
@@ -90,7 +90,7 @@ export const CheckoutSummary = ({
             <Typography variant="subtitle1">Total</Typography>
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="subtitle1" sx={{ color: 'blue' }}>
-                {fCurrency(total - insurance)}
+                {fCurrency(parseInt(total) - insurance)}
               </Typography>
               {/* <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
                 (VAT included if applicable)
