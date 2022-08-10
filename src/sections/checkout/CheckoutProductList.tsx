@@ -96,7 +96,7 @@ export const CheckoutProductList = ({
                   </Box>
                 </TableCell>
 
-                <TableCell align="left">{fCurrency(total)}</TableCell>
+                <TableCell align="left">{fCurrency(price)}</TableCell>
 
                 <TableCell align="left">
                   <Incrementer
