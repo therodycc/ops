@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Notification } from '../../interfaces/notification';
 import { Product } from '../../interfaces/product/product';
 
 // utils
 import { productService } from '../../services/product.service';
 //
 import { dispatch } from '../store';
+import { notify } from './notification';
 
 // ----------------------------------------------------------------------
 type ProductType = {
@@ -66,7 +68,10 @@ export const createProduct = product => {
     try {
       const response = await productService.save(product);
       dispatch(slice.actions.getProductSuccess(response.data.data));
+      notify({ message: 'Product creado' } as Notification);
     } catch (error) {
+      notify({ message: error.message, type: 'error' } as Notification);
+
       console.error(error);
       dispatch(slice.actions.hasError(error));
     }

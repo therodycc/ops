@@ -3,6 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { dispatch } from '../store';
 import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
 import { orderService } from '../../services/order.service';
+import { notify } from './notification';
+import { getCart } from './cart';
+import { Notification } from '../../interfaces/notification';
 
 const initialState: OrderState = {
   error: null,
@@ -58,11 +61,11 @@ export const getOrders = () => {
     try {
       dispatch(orderSlice.actions.startLoading());
       const { data } = await orderService.get();
-
       if (!data) dispatch(orderSlice.actions.hasError('Unable to load orders'));
-      else dispatch(orderSlice.actions.loadOrderComplete(data));
+      else dispatch(orderSlice.actions.loadOrderComplete(data.data));
     } catch (error) {
       dispatch(orderSlice.actions.hasError(error));
+      notify({ message: error.message, type: 'error' } as Notification);
     }
   };
 };
@@ -71,12 +74,15 @@ export const createOrder = (cartDto: CreateOrderDto) => {
   return async () => {
     try {
       dispatch(orderSlice.actions.startLoading());
-
       const { data } = await orderService.add(cartDto);
 
       dispatch(orderSlice.actions.createOrder(data));
+      dispatch(getCart());
+
+      notify({ message: 'La order se creo', type: 'success' } as Notification);
     } catch (error) {
       console.error(error);
+      notify({ message: error.message, type: 'error' } as Notification);
       dispatch(orderSlice.actions.hasError(error));
     }
   };

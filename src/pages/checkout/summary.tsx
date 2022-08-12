@@ -22,62 +22,6 @@ import { CheckoutCart } from '../../sections/checkout';
 
 // ----------------------------------------------------------------------
 
-const STEPS = ['Cart', 'Billing & address', 'Payment'];
-
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  top: 10,
-  left: 'calc(-50% + 20px)',
-  right: 'calc(50% + 20px)',
-  '& .MuiStepConnector-line': {
-    borderTopWidth: 2,
-    borderColor: theme.palette.divider
-  },
-  '&.Mui-active, &.Mui-completed': {
-    '& .MuiStepConnector-line': {
-      borderColor: theme.palette.primary.main
-    }
-  }
-}));
-
-QontoStepIcon.propTypes = {
-  active: PropTypes.bool,
-  completed: PropTypes.bool
-};
-
-function QontoStepIcon({ active, completed }) {
-  return (
-    <Box
-      sx={{
-        zIndex: 9,
-        width: 24,
-        height: 24,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: active ? 'primary.main' : 'text.disabled'
-      }}
-    >
-      {completed ? (
-        <Iconify
-          icon={'eva:checkmark-fill'}
-          sx={{ zIndex: 1, width: 20, height: 20, color: 'primary.main' }}
-        />
-      ) : (
-        <Box
-          sx={{
-            width: 8,
-            height: 8,
-            borderRadius: '50%',
-            backgroundColor: 'currentColor'
-          }}
-        />
-      )}
-    </Box>
-  );
-}
-
-// ----------------------------------------------------------------------
-
 CheckoutSummaryPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };

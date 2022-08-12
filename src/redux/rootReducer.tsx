@@ -6,6 +6,7 @@ import productReducer from './slices/product';
 import authReducer from './slices/auth';
 import orderReducer from './slices/order';
 import cartReducer from './slices/cart';
+import notification from './slices/notification';
 
 // ----------------------------------------------------------------------
 
@@ -53,6 +54,7 @@ const rootReducer = combineReducers({
   product: persistReducer(productPersistConfig, productReducer),
   auth: persistReducer(authPersistConfig, authReducer),
   order: orderReducer,
+  notification,
   cart: persistReducer(cartPersistConfig, cartReducer)
 });
 

@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 // @mui
 import { Grid, Card, Button, CardHeader, Typography } from '@mui/material';
 // redux
-import { dispatch, useDispatch, useSelector } from '../../redux/store';
+import { useDispatch, useSelector } from '../../redux/store';
 // routes
 import { PATH_CHECKOUT } from '../../routes/paths';
 // components
@@ -24,12 +24,16 @@ import { AuthState } from '../../interfaces/user';
 import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
 import { LoadingButton } from '@mui/lab';
 import { createOrder } from '../../redux/slices/order';
+import { Notification } from '../../interfaces/notification';
 import { useSnackbar } from 'notistack';
+
 // ----------------------------------------------------------------------
 
 export const CheckoutCart = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+
+  const [insurance, setInsurance] = useState(0);
 
   const {
     user: { id: profileId, officeId }
@@ -39,16 +43,21 @@ export const CheckoutCart = () => {
     state => state.cart
   );
 
-  const { isLoading: isCreatingOrder, created } = useSelector<AppState, OrderState>(
-    state => state.order
-  );
+  const isEmptyCart = products.length === 0;
+
+  const { isLoading: isCreatingOrder } = useSelector<AppState, OrderState>(state => state.order);
+
+  const {
+    new: isNewNotification,
+    type,
+    message
+  } = useSelector<AppState, Notification>(state => state.notification);
 
   useEffect(() => {
-    enqueueSnackbar('Orden creada');
-  }, [created]);
+    if (!isNewNotification) return;
 
-  const [insurance, setInsurance] = useState(0);
-  const isEmptyCart = products.length === 0;
+    enqueueSnackbar(message);
+  }, [isNewNotification, type, message]);
 
   const handleDeleteCart = cartId => {
     dispatch(removeCart(cartId));
@@ -58,7 +67,13 @@ export const CheckoutCart = () => {
     const orderDto: CreateOrderDto = {
       profileId,
       officeId,
-      products: []
+      products: products.map(({ id, unit, quantity }) => {
+        return {
+          id,
+          unit,
+          quantity
+        };
+      })
     };
     dispatch(createOrder(orderDto));
   };

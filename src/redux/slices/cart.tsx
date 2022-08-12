@@ -1,6 +1,8 @@
 import { CartDto, CartState } from '../../interfaces/cart/cart';
+import { Notification } from '../../interfaces/notification';
 import { cartService } from '../../services/cart.service';
 import { dispatch } from '../store';
+import { notify } from './notification';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
@@ -55,6 +57,8 @@ const cartSlice = createSlice({
 });
 
 // ----------------------------------------------------------------------
+
+export const { resetCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
@@ -127,7 +131,10 @@ export const removeCart = (cartId: number) => {
       if (data) {
         dispatch(cartSlice.actions.updateCart(data));
       } else dispatch(cartSlice.actions.resetCart());
+
+      notify({ message: 'Operacion realizada correctamente' } as Notification);
     } catch (error) {
+      notify({ message: error.message, type: 'error' } as Notification);
       console.error(error);
       dispatch(cartSlice.actions.hasError(error));
     }

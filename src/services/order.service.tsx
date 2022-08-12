@@ -3,7 +3,7 @@ import axios from '../utils/axios';
 import { API } from './api';
 
 const get = () => {
-  return axios.get(API.CART.list).catch(error => {
+  return axios.get(API.ORDER.list).catch(error => {
     throw new Error('Error al obtener las ordenes');
   });
 };

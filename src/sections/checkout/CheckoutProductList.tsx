@@ -55,8 +55,7 @@ export const CheckoutProductList = ({
             <TableCell>Product</TableCell>
             <TableCell align="left">Precio</TableCell>
             <TableCell align="left">Cantidad</TableCell>
-            <TableCell align="right">Total</TableCell>
-            <TableCell align="right" />
+            <TableCell>Total</TableCell>
           </TableRow>
         </TableHead>
 
@@ -111,10 +110,9 @@ export const CheckoutProductList = ({
                   />
                 </TableCell>
 
-                <TableCell align="right">{fCurrency(parseInt(price) * quantity)}</TableCell>
-
                 <TableCell align="right">
-                  <IconButton onClick={() => onDelete(product.cartId)}>
+                  {fCurrency(parseInt(price) * quantity)}{' '}
+                  <IconButton onClick={() => onDelete(product.cartId)} sx={{ mb: 1 }}>
                     <Iconify icon={'eva:trash-2-outline'} width={20} height={20} />
                   </IconButton>
                 </TableCell>
