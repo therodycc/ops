@@ -1,10 +1,10 @@
-import { CartDto, CartState } from '../../interfaces/cart/cart';
-import { Notification } from '../../interfaces/notification';
-import { cartService } from '../../services/cart.service';
+import { createSlice } from '@reduxjs/toolkit';
+
 import { dispatch } from '../store';
 import { notify } from './notification';
-
-const { createSlice } = require('@reduxjs/toolkit');
+import { Notification } from '../../interfaces/notification';
+import { CartDto, CartState } from '../../interfaces/cart/cart';
+import { cartService } from '../../services/cart.service';
 
 const initialState: CartState = {
   error: null,
@@ -22,10 +22,14 @@ const cartSlice = createSlice({
   reducers: {
     startLoading(state) {
       state.isLoading = true;
+
+      return state;
     },
     hasError(state, action) {
       state.isLoading = false;
       state.error = action.payload;
+
+      return state;
     },
     addCart(state, action) {
       const cart = action.payload;
@@ -37,6 +41,8 @@ const cartSlice = createSlice({
       state.total = cart.total;
       state.discount = cart.discount;
       state.subTotal = cart.subTotal;
+
+      return state;
     },
     updateCart(state, action) {
       state.isLoading = false;
@@ -45,13 +51,18 @@ const cartSlice = createSlice({
       state.total = action.payload.total;
       state.discount = action.payload.discount;
       state.subTotal = action.payload.subTotal;
+
+      return state;
     },
     resetCart(state) {
       state.products = [];
-      state.total = 0;
-      state.itbis = 0;
-      state.subTotal = 0;
-      state.discount = 0;
+
+      state.total = '';
+      state.itbis = '';
+      state.subTotal = '';
+      state.discount = '';
+
+      return state;
     }
   }
 });

@@ -9,8 +9,6 @@ import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
 import useSettings from '../../hooks/useSettings';
 // next
 import NextLink from 'next/link';
-// _mock_
-import { _userCards } from '../../_mock';
 // layouts
 import Layout from '../../layouts';
 // components

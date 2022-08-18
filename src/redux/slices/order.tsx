@@ -10,6 +10,7 @@ import { Notification } from '../../interfaces/notification';
 const initialState: OrderState = {
   error: null,
   isLoading: false,
+  count: 0,
   orders: []
 };
 
@@ -33,17 +34,19 @@ const orderSlice = createSlice({
       state.isLoading = false;
 
       state.created = order;
+
       state.orders.push(order);
 
       return state;
     },
     loadOrderComplete(state: OrderState, action) {
-      const orders = action.payload;
+      const payload = action.payload;
 
       state.error = null;
       state.isLoading = false;
 
-      state.orders = orders;
+      state.count = payload.count;
+      state.orders = payload.data;
       return state;
     }
   }
@@ -56,13 +59,14 @@ export const { hasError } = orderSlice.actions;
 
 export default orderSlice.reducer;
 
-export const getOrders = () => {
+export const getOrdersSummary = (page: number, size: number) => {
   return async () => {
     try {
       dispatch(orderSlice.actions.startLoading());
-      const { data } = await orderService.get();
+      const { data } = await orderService.summary(page, size);
+
       if (!data) dispatch(orderSlice.actions.hasError('Unable to load orders'));
-      else dispatch(orderSlice.actions.loadOrderComplete(data.data));
+      else dispatch(orderSlice.actions.loadOrderComplete(data));
     } catch (error) {
       dispatch(orderSlice.actions.hasError(error));
       notify({ message: error.message, type: 'error' } as Notification);

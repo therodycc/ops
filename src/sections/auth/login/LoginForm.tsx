@@ -33,7 +33,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const defaultValues = useRef({
-    email: 'user2@gmail.com',
+    email: 'admin1@gmail.com',
     password: '12345678'
   });
 

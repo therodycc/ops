@@ -1,15 +1,38 @@
+import { OrderStatus } from '../../enums/order.status';
 import { ProductUnit } from '../../enums/product-unit.enum';
-import { CartProduct } from '../product/product';
 
 export interface OrderState {
   error: any;
+  count: number;
   isLoading: boolean;
   created?: OrderDto;
-  orders: OrderDto[];
+  orders: OrderSummary[];
+}
+
+export interface OrderSummary {
+  id: string;
+  isDraft: boolean;
+  status: OrderStatus;
+  hasPrescriptions: boolean;
+  statusDescription: string;
+  source: 'ops' | 'mobile';
+  profile: OrderProfileDto;
+  payments: OrderPayments;
+  date: {
+    created: Date;
+    lastModified: Date;
+  };
+}
+
+export interface OrderPayments {
+  id: string;
+  total: string;
+  pending: string;
+  isMissingPayment: boolean;
 }
 
 export interface OrderDto {
-  id: number;
+  id: string;
   officeId: number;
   profile: OrderProfileDto;
   products: CreateOrderProductDto[];
@@ -19,7 +42,7 @@ export interface OrderDto {
 
 export interface OrderProfileDto {
   id: number;
-  name: string;
+  firstName: string;
   lastName: string;
   fullName: string;
   email: string;

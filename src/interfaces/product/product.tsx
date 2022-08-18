@@ -1,7 +1,7 @@
 import { ProductUnit } from '../../enums/product-unit.enum';
 
 export interface Product {
-  id: number | string;
+  id: number;
   productTypeId: number;
   name: string;
   barcode: string;
