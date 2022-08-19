@@ -7,11 +7,11 @@ export interface AuthState {
 }
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
   lastName: string;
   fullName: string;
-  officeId: number;
+  officeId: string;
   email: string;
   cellphone: string;
   role: string;

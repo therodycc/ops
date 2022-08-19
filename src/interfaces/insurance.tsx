@@ -1,5 +1,5 @@
 export interface Insurance {
-  id: number;
+  id: string;
   name: string;
   logo?: string;
 }

@@ -83,8 +83,8 @@ export const CheckoutCart = () => {
   };
 
   const updateQuantity = (
-    cartId: number,
-    productId: number,
+    cartId: string,
+    productId: string,
     quantity: number,
     unit: ProductUnit
   ) => {

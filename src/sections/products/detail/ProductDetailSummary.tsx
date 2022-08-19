@@ -33,7 +33,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 export interface ProductDetailProps {
   product: Product;
   onAddCart(cart: CartDto): void;
-  onRemoveCart(cartId: number): void;
+  onRemoveCart(cartId: string): void;
   onUpdateCart(cart: CartDto): void;
 }
 

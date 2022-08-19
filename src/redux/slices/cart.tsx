@@ -132,7 +132,7 @@ export const clearCart = () => {
   };
 };
 
-export const removeCart = (cartId: number) => {
+export const removeCart = (cartId: string) => {
   return async () => {
     try {
       dispatch(cartSlice.actions.startLoading());

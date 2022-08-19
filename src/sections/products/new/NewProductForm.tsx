@@ -39,6 +39,8 @@ interface NewProductFormProps {
   isEdit?: boolean;
 }
 
+const DRUGS_PRODUCT_ID = '068acb1d-3d57-47de-8030-575f9fec2a4d';
+
 export default function NewProductForm({ isEdit = false, currentProduct }: NewProductFormProps) {
   const [activeSubstances, setActiveSubstances] = useState([]);
   const [drugLabs, setDrugLabs] = useState([]);
@@ -125,7 +127,7 @@ export default function NewProductForm({ isEdit = false, currentProduct }: NewPr
     let timeout = setTimeout(() => {
       let price = 0;
 
-      if (priceOverCost > 0 && values.buyPrice > 0 && values.productTypeId > 0) {
+      if (priceOverCost > 0 && values.buyPrice > 0 && values.productTypeId) {
         price = Number(values.buyPrice) + Number(values.buyPrice) * priceOverCost;
         setValue('sellPrice', price);
       }
@@ -418,13 +420,13 @@ export default function NewProductForm({ isEdit = false, currentProduct }: NewPr
               <RHFSwitch
                 sx={{ ml: 2 }}
                 name="hasDiscount"
-                value={values?.productTypeId > 0 && values?.productTypeId === 1}
+                value={values?.productTypeId && values?.productTypeId === DRUGS_PRODUCT_ID}
                 label="Descuentos"
               />
 
               <RHFSwitch
                 name="itbis"
-                value={values?.productTypeId > 0 && values?.productTypeId !== 1}
+                value={values?.productTypeId && values?.productTypeId !== DRUGS_PRODUCT_ID}
                 label="Itbis"
               />
             </Box>

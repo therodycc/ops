@@ -12,9 +12,9 @@ export interface CartState {
 }
 
 export interface CartDto {
-  cartId?: number;
-  profileId?: number;
-  productId: number;
+  cartId?: string;
+  profileId?: string;
+  productId: string;
   quantity: number;
   unit: ProductUnit;
 }

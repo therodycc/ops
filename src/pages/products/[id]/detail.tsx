@@ -72,7 +72,7 @@ export default function ProductDetailPage() {
     setShowProductDetail(true);
   };
 
-  const onRemoveCart = (cartId: number) => {
+  const onRemoveCart = (cartId: string) => {
     dispatch(removeCart(cartId));
   };
 

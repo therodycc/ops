@@ -33,7 +33,7 @@ export interface OrderPayments {
 
 export interface OrderDto {
   id: string;
-  officeId: number;
+  officeId: string;
   profile: OrderProfileDto;
   products: CreateOrderProductDto[];
   prescriptions?: any[];
@@ -41,7 +41,7 @@ export interface OrderDto {
 }
 
 export interface OrderProfileDto {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   fullName: string;
@@ -49,13 +49,13 @@ export interface OrderProfileDto {
 }
 
 export interface CreateOrderDto {
-  profileId: number;
-  officeId: number;
+  profileId: string;
+  officeId: string;
   products: CreateOrderProductDto[];
 }
 
 export interface CreateOrderProductDto {
-  id: number;
+  id: string;
   quantity: number;
   unit: ProductUnit;
 }

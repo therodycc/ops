@@ -38,8 +38,8 @@ const IncrementerStyle = styled('div')(({ theme }) => ({
 interface CheckoutProductListProps {
   products: CartProduct[];
   onDelete(cardId: string | number): void;
-  onDecrease(cartId: number, productId: number, quantity: number, unit: ProductUnit): void;
-  onIncrease(cartId: number, productId: number, quantity: number, unit: ProductUnit): void;
+  onDecrease(cartId: string, productId: string, quantity: number, unit: ProductUnit): void;
+  onIncrease(cartId: string, productId: string, quantity: number, unit: ProductUnit): void;
 }
 export const CheckoutProductList = ({
   products,
