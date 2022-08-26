@@ -2,20 +2,19 @@ import { useEffect, useState } from 'react';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 // next
-import { useRouter } from 'next/router';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
+import { Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
 // hooks
 
-// routes
-import { PATH_PRODUCTS } from '../../../routes/paths';
 // components
-import Image from '../../../components/Image';
-import Iconify from '../../../components/Iconify';
-import InputStyle from '../../../components/InputStyle';
-import SearchNotFound from '../../../components/SearchNotFound';
-import { productService } from '../../../services/product.service';
+import Image from './Image';
+import Iconify from './Iconify';
+import InputStyle from './InputStyle';
+import SearchNotFound from './SearchNotFound';
+import { productService } from '../services/product.service';
+import useIsMountedRef from '../hooks/useIsMountedRef';
+import { Product } from '../interfaces/product/product';
 
 // ----------------------------------------------------------------------
 
@@ -25,9 +24,15 @@ const PopperStyle = styled(props => <Popper open={false} placement="bottom-start
 
 // ----------------------------------------------------------------------
 
-export default function ProductSearch() {
-  const { push } = useRouter();
-  // const isMountedRef = useIsMountedRef();
+interface ProductSearchProps {
+  placeholder?: string;
+  onSelect(product: Product): void;
+}
+export const ProductSearch: React.FC<ProductSearchProps> = ({
+  placeholder = 'Buscar productos...',
+  onSelect
+}: ProductSearchProps) => {
+  const isMountedRef = useIsMountedRef();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -47,21 +52,19 @@ export default function ProductSearch() {
       if (!value) return;
       const response = await productService.filter(value);
 
-      setSearchResults(response.data.data);
+      if (isMountedRef.current) {
+        setSearchResults(response.data.data);
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleClick = id => {
-    push(PATH_PRODUCTS.detail(id));
-  };
-
-  const handleKeyUp = event => {
-    if (event.key === 'Enter') {
-      handleClick(searchQuery);
-    }
-  };
+  // const handleKeyUp = event => {
+  //   if (event.key === 'Enter') {
+  //     onSelect(searchQuery);
+  //   }
+  // };
 
   return (
     <Autocomplete
@@ -78,8 +81,8 @@ export default function ProductSearch() {
         <InputStyle
           sx={{ width: 300 }}
           {...params}
-          placeholder="Buscar productos..."
-          onKeyUp={handleKeyUp}
+          placeholder={placeholder}
+          // onKeyUp={handleKeyUp}
           InputProps={{
             ...params.InputProps,
             startAdornment: (
@@ -99,13 +102,13 @@ export default function ProductSearch() {
         const parts = parse(name, matches);
 
         return (
-          <li {...props}>
+          <li {...props} onClick={() => onSelect(product)}>
             <Image
               alt={photo}
               src={photo}
               sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }}
             />
-            <Link underline="none" onClick={() => handleClick(product.id)}>
+            <div>
               {parts.map((part, index) => (
                 <Typography
                   key={index}
@@ -116,10 +119,10 @@ export default function ProductSearch() {
                   {part.text}
                 </Typography>
               ))}
-            </Link>
+            </div>
           </li>
         );
       }}
     />
   );
-}
+};

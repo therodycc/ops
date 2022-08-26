@@ -9,8 +9,6 @@ import {
   Typography,
   CardContent
 } from '@mui/material';
-// utils
-import { fCurrency } from '../../utils/formatNumber';
 // components
 import Iconify from '../../components/Iconify';
 
@@ -54,14 +52,14 @@ export const CheckoutSummary = ({
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Subtotal
             </Typography>
-            <Typography variant="subtitle2">{fCurrency(parseInt(`${subTotal}`))}</Typography>
+            <Typography variant="subtitle2">{subTotal}</Typography>
           </Stack>
 
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Itbis
             </Typography>
-            <Typography variant="subtitle2">{itbis ? fCurrency(itbis) : '-'}</Typography>
+            <Typography variant="subtitle2">{itbis ? itbis : '-'}</Typography>
           </Stack>
 
           <Stack direction="row" justifyContent="space-between">
@@ -69,7 +67,7 @@ export const CheckoutSummary = ({
               Descuentos
             </Typography>
             <Typography variant="subtitle2" sx={{ color: 'red' }}>
-              {discount ? fCurrency(-discount) : '-'}
+              {discount ? -discount : '-'}
             </Typography>
           </Stack>
 
@@ -79,7 +77,7 @@ export const CheckoutSummary = ({
                 Seguro medico
               </Typography>
               <Typography variant="subtitle2" sx={{ color: 'red' }}>
-                -{fCurrency(insurance)}
+                -{insurance}
               </Typography>
             </Stack>
           )}
@@ -90,7 +88,7 @@ export const CheckoutSummary = ({
             <Typography variant="subtitle1">Total</Typography>
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="subtitle1" sx={{ color: 'blue' }}>
-                {fCurrency(parseInt(total) - insurance)}
+                {total}
               </Typography>
               {/* <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
                 (VAT included if applicable)

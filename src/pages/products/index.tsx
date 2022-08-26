@@ -1,5 +1,5 @@
 // React
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 // @mui
 import { Button } from '@mui/material';
 import { Container, Box, Stack } from '@mui/material';
@@ -19,10 +19,11 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { getProducts } from '../../redux/slices/product';
 import { useDispatch, useSelector } from '../../redux/store';
 // sections
-import { ProductList, ProductSearch } from '../../sections/products/list';
+import { ProductList } from '../../sections/products/list';
 import { SkeletonProductItem } from '../../components/skeleton';
 import { useRouter } from 'next/router';
 import { Product } from '../../interfaces/product/product';
+import { ProductSearch } from '../../components/ProductSearch';
 
 // ----------------------------------------------------------------------
 
@@ -34,15 +35,24 @@ ProductListPage.getLayout = function getLayout(page) {
 
 export default function ProductListPage() {
   const { themeStretch } = useSettings();
-  const { replace } = useRouter();
+  const { replace, push } = useRouter();
   const dispatch = useDispatch();
 
   const { products } = useSelector((state: any) => state.product);
 
-  const productSelectedHandler = (product: Product) => {
-    // Pass the current id
-    replace(PATH_PRODUCTS.new);
-  };
+  const productSelectedHandler = useCallback(
+    (product: Product) => {
+      replace(PATH_PRODUCTS.new);
+    },
+    [replace]
+  );
+
+  const goToDetail = useCallback(
+    ({ id }: Product) => {
+      push(PATH_PRODUCTS.detail(id));
+    },
+    [replace]
+  );
 
   useEffect(() => {
     dispatch(getProducts());
@@ -74,7 +84,7 @@ export default function ProductListPage() {
           justifyContent="space-between"
           sx={{ mb: 2 }}
         >
-          <ProductSearch />
+          <ProductSearch onSelect={goToDetail} />
         </Stack>
 
         <Box

@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 // next
-import { useRouter } from 'next/router';
-// @mui
 import { Card, Grid, Container, Stack, Box, InputAdornment } from '@mui/material';
 // redux
 import { useDispatch } from '../../redux/store';
 import { addToCart, updateCart, removeCart } from '../../redux/slices/cart';
 // routes
-import { PATH_DASHBOARD, PATH_PRODUCTS, PATH_CHECKOUT } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_CHECKOUT } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // layouts
@@ -21,11 +19,10 @@ import { ProductImage } from '../../sections/products/detail/ProductImage';
 import { ProductDetailSummary } from '../../sections/products/detail/ProductDetailSummary';
 import { CartWidget } from '../../sections/products/detail/CartWidget';
 import { ProductList } from '../../sections/products/list';
-import InputStyle from '../../components/InputStyle';
-import Iconify from '../../components/Iconify';
 import { productService } from '../../services/product.service';
 import { Product } from '../../interfaces/product/product';
 import { CartDto } from '../../interfaces/cart/cart';
+import { ProductSearch } from '../../components/ProductSearch';
 
 ProductDetailPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -42,6 +39,7 @@ export default function ProductDetailPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [showProductDetail, setShowProductDetail] = useState<boolean>(false);
 
+  console.log(product);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -100,6 +98,10 @@ export default function ProductDetailPage() {
     timeout = setTimeout(() => dispatch(addToCart(cartDto)), 1000);
   };
 
+  const goToDetail = useCallback((id: string) => {
+    // push(PATH_PRODUCTS.detail(id));
+  }, []);
+
   return (
     <Page title="Facturacion">
       <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -115,50 +117,22 @@ export default function ProductDetailPage() {
           ]}
         />
 
-        <Stack
-          spacing={2}
-          direction={{ xs: 'column', sm: 'row' }}
-          alignItems={{ sm: 'center' }}
-          justifyContent="space-between"
-          sx={{ mb: 2 }}
-        >
-          <InputStyle
-            size="small"
-            value={productQuery}
-            sx={{ width: 300 }}
-            onChange={e => setProductQuery(e.target.value)}
-            placeholder="Buscar productos..."
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify
-                    icon={'eva:search-fill'}
-                    sx={{ ml: 1, width: 20, height: 20, color: 'text.disabled' }}
-                  />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment
-                  position="end"
-                  onClick={() => {
-                    setProductQuery('');
-                  }}
-                >
-                  <Iconify
-                    icon={productQuery.length > 0 ? 'eva:close-fill' : ''}
-                    sx={{ ml: 1, width: 20, height: 20, color: 'text.disabled', cursor: 'pointer' }}
-                  />
-                </InputAdornment>
-              )
-            }}
-          />
-        </Stack>
-
         <CartWidget />
-
+        <div
+          style={{
+            marginBottom: 20,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '95%'
+          }}
+        >
+          <ProductSearch onSelect={onSelectProductHandle} />
+          {showProductDetail && <h4>Hola</h4>}
+        </div>
         <>
           <Card>
-            <Grid container sx={{ minHeight: 450 }}>
+            <Grid container sx={{ minHeight: 450, padding: 2 }}>
               {product && showProductDetail && (
                 <Grid item xs={6} md={6} lg={5} sx={{ top: 40 }}>
                   <ProductImage product={product} />

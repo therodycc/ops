@@ -55,13 +55,15 @@ export const CheckoutProductList = ({
             <TableCell>Product</TableCell>
             <TableCell align="left">Precio</TableCell>
             <TableCell align="left">Cantidad</TableCell>
+            <TableCell align="left">Descuento</TableCell>
             <TableCell>Total</TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {products.map(product => {
-            const { id, cartId, name, price, total, photo, quantity, unit, stock } = product;
+          {products.map((product: CartProduct) => {
+            const { id, cartId, name, price, photo, discount, total, quantity, unit, stock } =
+              product;
             return (
               <TableRow key={`${id}-${unit}`}>
                 <TableCell>
@@ -95,7 +97,7 @@ export const CheckoutProductList = ({
                   </Box>
                 </TableCell>
 
-                <TableCell align="left">{fCurrency(price)}</TableCell>
+                <TableCell align="left">{price}</TableCell>
 
                 <TableCell align="left">
                   <Incrementer
@@ -109,9 +111,10 @@ export const CheckoutProductList = ({
                     }
                   />
                 </TableCell>
+                <TableCell align="left">{discount}</TableCell>
 
-                <TableCell align="right">
-                  {fCurrency(parseInt(price) * quantity)}{' '}
+                <TableCell align="left">
+                  {total}
                   <IconButton onClick={() => onDelete(product.cartId)} sx={{ mb: 1 }}>
                     <Iconify icon={'eva:trash-2-outline'} width={20} height={20} />
                   </IconButton>

@@ -4,7 +4,7 @@ import { dispatch } from '../store';
 import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
 import { orderService } from '../../services/order.service';
 import { notify } from './notification';
-import { getCart } from './cart';
+import { clearCart } from './cart';
 import { Notification } from '../../interfaces/notification';
 
 const initialState: OrderState = {
@@ -81,7 +81,7 @@ export const createOrder = (cartDto: CreateOrderDto) => {
       const { data } = await orderService.add(cartDto);
 
       dispatch(orderSlice.actions.createOrder(data));
-      dispatch(getCart());
+      dispatch(clearCart());
 
       notify({ message: 'La order se creo', type: 'success' } as Notification);
     } catch (error) {

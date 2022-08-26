@@ -8,7 +8,6 @@ import { Box, Stack, Button, Divider, Typography } from '@mui/material';
 // redux
 import { useSelector } from '../../../redux/store';
 // utils
-import { fCurrency } from '../../../utils/formatNumber';
 // components
 import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
@@ -89,12 +88,22 @@ export const ProductDetailSummary = ({
     );
 
     if (productWithDifferentUnitInCart) setSelectedUnit(otherProductUnit);
-  }, []);
+  }, [selectedUnit, setSelectedUnit]);
+
+  useEffect(() => {
+    if (blisterSize === 0) {
+      setSelectedUnit(ProductUnit.UNIT);
+    }
+  }, [blisterSize]);
+
+  useEffect(() => {
+    setSelectedUnit(DEFAULT_PRODUCT_UNIT);
+  }, [product]);
 
   useEffect(() => {
     const quantity_ = productInCart?.quantity ?? 1;
     setQuantity(quantity_);
-  }, [productInCart]);
+  }, [productInCart, product]);
 
   useEffect(() => {
     setValue('quantity', quantity);
@@ -110,7 +119,7 @@ export const ProductDetailSummary = ({
 
       setStock(_stock);
     } else setStock(product.stock ?? 1);
-  }, [selectedUnit, productInCart]);
+  }, [selectedUnit, product, productInCart]);
 
   useEffect(() => {
     const prod = cardProducts.find(
@@ -169,7 +178,7 @@ export const ProductDetailSummary = ({
     (unit: ProductUnit): number => {
       let _price = hasDiscount ? price.unit.discount : price.unit.original;
       if (unit === ProductUnit.BLISTER)
-        _price = hasDiscount ? price.blister.discount : price.blister.original;
+        _price = hasDiscount ? price.blister.discount : price.blister?.original;
 
       return _price;
     },
@@ -179,7 +188,7 @@ export const ProductDetailSummary = ({
   const getPriceWithoutDiscount = useCallback(
     (unit: ProductUnit): number => {
       let _price = price.unit.original;
-      if (unit === ProductUnit.BLISTER) _price = price.blister.original;
+      if (unit === ProductUnit.BLISTER) _price = price.blister?.original;
       return _price;
     },
     [unit]
@@ -286,9 +295,9 @@ export const ProductDetailSummary = ({
             component="span"
             sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 2.0 }}
           >
-            {hasDiscount && fCurrency(getPriceWithoutDiscount(selectedUnit) * quantity)}
+            {hasDiscount && getPriceWithoutDiscount(selectedUnit) * quantity}
           </Box>
-          &nbsp; {fCurrency(getPriceAndApplyDiscount(selectedUnit) * quantity)}
+          &nbsp; {getPriceAndApplyDiscount(selectedUnit) * quantity}
         </Typography>
 
         <Divider sx={{ borderStyle: 'dashed' }} />

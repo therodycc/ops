@@ -1,5 +1,5 @@
 // React
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import moment from 'moment';
 import { useTheme } from '@mui/material/styles';
@@ -24,13 +24,10 @@ import { Container, Box, Stack } from '@mui/material';
 import { PATH_DASHBOARD, PATH_ORDER } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
-// next
-import NextLink from 'next/link';
 // layouts
 import Layout from '../../layouts';
 // components
 import Page from '../../components/Page';
-import Iconify from '../../components/Iconify';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // Redux
 import { useDispatch, useSelector } from '../../redux/store';
@@ -44,7 +41,6 @@ import { OrderState } from '../../interfaces/order/order';
 import { AppState } from '../../redux/rootReducer';
 import { Scrollbar } from '../../components/Scrollbar';
 import Label from '../../components/Label';
-import loadCustomRoutes from 'next/dist/lib/load-custom-routes';
 import { OrderStatus } from '../../enums/order.status';
 import EmptyContent from '../../components/EmptyContent';
 import { SkeletonOrderList } from '../../components/skeleton';
@@ -73,21 +69,18 @@ export default function OrderListPage() {
     dispatch(getOrdersSummary(page + 1, size));
   }, [page, size]);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = useCallback((event, newPage) => {
     setPage(newPage);
-    console.log(newPage);
-  };
+  }, []);
 
-  const handleChangeRowsPerPage = event => {
+  const handleChangeRowsPerPage = useCallback(event => {
     setSize(parseInt(event.target.value, 10));
     setPage(0);
-  };
+  }, []);
 
-  //   useEffect(() => {
-  //     if (isMountedRef.current) {
-  //       setOrders(orders);
-  //     }
-  //   }, [dispatch]);
+  const goToDetail = useCallback((id: string) => {
+    console.log('seleccionada', id);
+  }, []);
 
   if (isLoading) return <SkeletonOrderList />;
 
@@ -108,26 +101,26 @@ export default function OrderListPage() {
           <CardHeader title="Ordenes" sx={{ mb: 3 }} />
           <Scrollbar>
             {orders && orders.length && (
-              <TableContainer sx={{ minWidth: 720 }}>
+              <TableContainer>
                 <Table>
                   <TableHead>
                     <TableRow>
                       <TableCell sx={{ width: 140 }}>ID</TableCell>
                       <TableCell sx={{ width: 200 }}>Cliente</TableCell>
-                      <TableCell sx={{ width: 140 }}>Fecha</TableCell>
-                      <TableCell sx={{ width: 140 }}>Status</TableCell>
-                      <TableCell sx={{ width: 120 }}>Source</TableCell>
+                      <TableCell sx={{ width: 120 }}>Fecha</TableCell>
+                      <TableCell sx={{ width: 100 }}>Status</TableCell>
+                      <TableCell sx={{ width: 100 }}>Canal</TableCell>
                       <TableCell sx={{ width: 140 }}>Total</TableCell>
                       <TableCell sx={{ width: 120 }}>Falta pago</TableCell>
-                      <TableCell sx={{ width: 140 }}>Seguro?</TableCell>
-                      <TableCell sx={{ width: 160 }}>Vacia?</TableCell>
+                      <TableCell sx={{ width: 80 }}>Seguro?</TableCell>
+                      <TableCell sx={{ width: 80 }}>Vacia?</TableCell>
 
                       <TableCell />
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {orders.map(order => (
-                      <TableRow key={order.id}>
+                      <TableRow key={order.id} onClick={() => goToDetail(order.id)}>
                         <TableCell>
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Typography variant="subtitle2">{order.id}</Typography>

@@ -28,6 +28,7 @@ export interface CartProduct {
   price: string;
   total: string;
   quantity: number;
+  discount: string;
   stock: number;
   unit: ProductUnit;
 }

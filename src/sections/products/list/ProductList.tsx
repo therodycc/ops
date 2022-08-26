@@ -67,16 +67,14 @@ export default function ProductList({ product, onSelect }: ProductListProps) {
                     textDecoration: 'line-through'
                   }}
                 >
-                  {fCurrency(price.blister?.original ?? price.unit.original)}
+                  {price.blister?.original ?? price.unit.original}
                 </Typography>
               )}
 
               <Typography variant="subtitle1">
-                {fCurrency(
-                  price.blister?.discount
-                    ? price.blister.discount ?? price.blister.original
-                    : price.unit.discount ?? price.unit.original
-                )}
+                {price.blister?.discount
+                  ? price.blister.discount ?? price.blister.original
+                  : price.unit.discount ?? price.unit.original}
               </Typography>
             </Stack>
           </Stack>

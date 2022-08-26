@@ -41,5 +41,5 @@ export const defaultSettings = {
   themeDirection: 'ltr',
   themeColorPresets: 'purple',
   themeLayout: 'horizontal',
-  themeStretch: false
+  themeStretch: true
 };

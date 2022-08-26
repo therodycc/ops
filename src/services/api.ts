@@ -20,7 +20,7 @@ const ENDPOINTS = Object.freeze({
     save: `${API_HOST}/carts/`,
     update: `${API_HOST}/carts`,
     delete: `${API_HOST}/carts`,
-    clear: `${API_HOST}/carts/clear`
+    clear: `${API_HOST}/carts/`
   },
   ORDER: {
     summary: `${API_HOST}/orders/summary`,

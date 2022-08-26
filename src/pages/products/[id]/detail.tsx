@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react';
-// next
-import { useRouter } from 'next/router';
+// import { useEffect, useState } from 'react';
+// // next
+// import { useRouter } from 'next/router';
 // @mui
 import { Card, Grid, Container, Stack, Box, InputAdornment } from '@mui/material';
 // redux
-import { useDispatch } from '../../../redux/store';
-import { addToCart, removeCart, updateCart } from '../../../redux/slices/cart';
-// routes
-import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../../routes/paths';
-// hooks
-import useSettings from '../../../hooks/useSettings';
+// import { useDispatch } from '../../../redux/store';
+// import { addToCart, removeCart, updateCart } from '../../../redux/slices/cart';
+// // routes
+// import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../../routes/paths';
+// // hooks
+// import useSettings from '../../../hooks/useSettings';
 // layouts
 import Layout from '../../../layouts';
 // components
 import Page from '../../../components/Page';
-import { SkeletonProductItem } from '../../../components/skeleton';
-import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
-// sections
-import { ProductImage } from '../../../sections/products/detail/ProductImage';
-import { ProductDetailSummary } from '../../../sections/products/detail/ProductDetailSummary';
-import { CartWidget } from '../../../sections/products/detail/CartWidget';
-import { ProductList } from '../../../sections/products/list';
-import InputStyle from '../../../components/InputStyle';
-import Iconify from '../../../components/Iconify';
-import { productService } from '../../../services/product.service';
-import { Product } from '../../../interfaces/product/product';
+// import { SkeletonProductItem } from '../../../components/skeleton';
+// import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+// // sections
+// import { ProductImage } from '../../../sections/products/detail/ProductImage';
+// import { ProductDetailSummary } from '../../../sections/products/detail/ProductDetailSummary';
+// import { CartWidget } from '../../../sections/products/detail/CartWidget';
+// import { ProductList } from '../../../sections/products/list';
+// import InputStyle from '../../../components/InputStyle';
+// import Iconify from '../../../components/Iconify';
+// import { productService } from '../../../services/product.service';
+// import { Product } from '../../../interfaces/product/product';
 
 ProductDetailPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -33,77 +33,78 @@ ProductDetailPage.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function ProductDetailPage() {
-  const { themeStretch } = useSettings();
+  // const { themeStretch } = useSettings();
 
-  const [productQuery, setProductQuery] = useState<string>('');
+  // const [productQuery, setProductQuery] = useState<string>('');
 
-  const [product, setProduct] = useState<Product>(null);
-  const [products, setProducts] = useState<Product[]>(null);
-  const [showProductDetail, setShowProductDetail] = useState<boolean>(false);
+  // const [product, setProduct] = useState<Product>(null);
+  // const [products, setProducts] = useState<Product[]>(null);
+  // const [showProductDetail, setShowProductDetail] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
-  const { query } = useRouter();
+  // const dispatch = useDispatch();
+  // const { query } = useRouter();
   // const { id } = query;
 
   // const { product } = useSelector((state: any) => state.product);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      handleFilterProducts(productQuery);
-    }, 500);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     handleFilterProducts(productQuery);
+  //   }, 500);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [productQuery]);
+  //   return () => {
+  //     clearTimeout(timeout);
+  //   };
+  // }, [productQuery]);
 
-  useEffect(() => {
-    getProductList();
-  }, []);
+  // useEffect(() => {
+  //   getProductList();
+  // }, []);
 
-  const getProductList = () => {
-    productService.list().then(response => {
-      setProducts(response?.data?.data ?? []);
-    });
-  };
+  // const getProductList = () => {
+  //   productService.list().then(response => {
+  //     setProducts(response?.data?.data ?? []);
+  //   });
+  // };
 
-  const onSelectProductHandle = (product: Product) => {
-    setProduct(product);
-    setShowProductDetail(true);
-  };
+  // const onSelectProductHandle = (product: Product) => {
+  //   setProduct(product);
+  //   setShowProductDetail(true);
+  // };
 
-  const onRemoveCart = (cartId: string) => {
-    dispatch(removeCart(cartId));
-  };
+  // const onRemoveCart = (cartId: string) => {
+  //   dispatch(removeCart(cartId));
+  // };
 
-  const onUpdateCart = product => {
-    dispatch(updateCart(product));
-  };
+  // const onUpdateCart = product => {
+  //   dispatch(updateCart(product));
+  // };
 
-  const handleFilterProducts = async value => {
-    setShowProductDetail(false);
-    try {
-      if (!value) {
-        getProductList();
-        return;
-      }
-      const response = await productService.filter(value);
-      setProducts(response?.data?.data ?? []);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleFilterProducts = async value => {
+  //   setShowProductDetail(false);
+  //   try {
+  //     if (!value) {
+  //       getProductList();
+  //       return;
+  //     }
+  //     const response = await productService.filter(value);
+  //     setProducts(response?.data?.data ?? []);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const onAddCart = product => {
-    let timeout;
+  // const onAddCart = product => {
+  //   let timeout;
 
-    clearTimeout(timeout);
-    timeout = setTimeout(() => dispatch(addToCart(product)), 1000);
-  };
+  //   clearTimeout(timeout);
+  //   timeout = setTimeout(() => dispatch(addToCart(product)), 1000);
+  // };
 
   return (
     <Page title="Detalle de Producto">
-      <Container maxWidth={themeStretch ? false : 'lg'}>
+      <h2>El detalle de producto</h2>
+      {/* <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Product Details"
           links={[
@@ -192,14 +193,14 @@ export default function ProductDetailPage() {
                     onUpdateCart={onUpdateCart}
                   />
                 )}
-                {/* {!product && <SkeletonProductDetail />} */}
-              </Grid>
+             {!product && <SkeletonProductDetail />} 
+              {/* </Grid>
             </Grid>
           </Card>
         </>
 
-        {/*{error && <Typography variant="h6">404 Product not found</Typography>} */}
-      </Container>
+        {/*{error && <Typography variant="h6">404 Product not found</Typography>} 
+      </Container> */}
     </Page>
   );
 }
