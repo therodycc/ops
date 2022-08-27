@@ -22,13 +22,11 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-interface OrderPrescriptionsProps {
-  prescriptions: string[];
-}
+// type OrderPrescriptionsProps {
+//   prescriptions: string[];
+// }
 
-export const OrderPrescriptions: React.FC<OrderPrescriptionsProps> = ({
-  prescriptions
-}: OrderPrescriptionsProps) => {
+export const OrderPrescriptions = ({ prescriptions }) => {
   const [openLightbox, setOpenLightbox] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
