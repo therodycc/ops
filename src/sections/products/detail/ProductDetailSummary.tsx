@@ -79,6 +79,12 @@ export const ProductDetailSummary = ({
   const values = watch();
 
   useEffect(() => {
+    if (blisterSize === 0) {
+      setSelectedUnit(ProductUnit.UNIT);
+    } else setSelectedUnit(DEFAULT_PRODUCT_UNIT);
+  }, [product.id]);
+
+  useEffect(() => {
     let otherProductUnit = ProductUnit.UNIT;
     if (selectedUnit === ProductUnit.UNIT) otherProductUnit = ProductUnit.BLISTER;
 
@@ -88,17 +94,7 @@ export const ProductDetailSummary = ({
     );
 
     if (productWithDifferentUnitInCart) setSelectedUnit(otherProductUnit);
-  }, [selectedUnit, setSelectedUnit]);
-
-  useEffect(() => {
-    if (blisterSize === 0) {
-      setSelectedUnit(ProductUnit.UNIT);
-    }
-  }, [blisterSize]);
-
-  useEffect(() => {
-    setSelectedUnit(DEFAULT_PRODUCT_UNIT);
-  }, [product]);
+  }, []);
 
   useEffect(() => {
     const quantity_ = productInCart?.quantity ?? 1;

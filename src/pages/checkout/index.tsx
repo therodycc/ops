@@ -1,6 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 // next
-import { Card, Grid, Container, Stack, Box, InputAdornment } from '@mui/material';
+import {
+  Card,
+  Grid,
+  Container,
+  Stack,
+  Box,
+  InputAdornment,
+  IconButton,
+  Tooltip
+} from '@mui/material';
 // redux
 import { useDispatch } from '../../redux/store';
 import { addToCart, updateCart, removeCart } from '../../redux/slices/cart';
@@ -23,6 +32,7 @@ import { productService } from '../../services/product.service';
 import { Product } from '../../interfaces/product/product';
 import { CartDto } from '../../interfaces/cart/cart';
 import { ProductSearch } from '../../components/ProductSearch';
+import Iconify from '../../components/Iconify';
 
 ProductDetailPage.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -39,7 +49,6 @@ export default function ProductDetailPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [showProductDetail, setShowProductDetail] = useState<boolean>(false);
 
-  console.log(product);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -68,6 +77,11 @@ export default function ProductDetailPage() {
     setProduct(product);
     setShowProductDetail(true);
   };
+
+  const closeProductDetail = useCallback(() => {
+    setProduct(null);
+    setShowProductDetail(false);
+  }, []);
 
   const onUpdateCart = (cartDto: CartDto) => {
     dispatch(updateCart(cartDto));
@@ -106,14 +120,14 @@ export default function ProductDetailPage() {
     <Page title="Facturacion">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading={product?.name ? `Detalle de ${product?.name}` : 'Productos'}
+          heading={product?.name ? `${product?.name}` : 'Productos'}
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
             {
               name: 'Facturacion',
               href: PATH_CHECKOUT.root
             },
-            { name: product?.name ? `Detalle de ${product?.name}` : '' }
+            { name: product?.name ? `${product?.name}` : 'Productos' }
           ]}
         />
 
@@ -128,7 +142,13 @@ export default function ProductDetailPage() {
           }}
         >
           <ProductSearch onSelect={onSelectProductHandle} />
-          {showProductDetail && <h4>Hola</h4>}
+          {showProductDetail && (
+            <Tooltip title={`Cerrar ${product?.name}`}>
+              <IconButton onClick={closeProductDetail}>
+                <Iconify icon={'eva:close-fill'} />
+              </IconButton>
+            </Tooltip>
+          )}
         </div>
         <>
           <Card>

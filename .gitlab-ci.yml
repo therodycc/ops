@@ -2,3 +2,18 @@ include:
   - project: 'farmacia-nazir/pipelines-templates'
     ref: main
     file: '/docker-ci.yml'
+
+deploy:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $DEV_BRANCH
+      variables:
+        ENV_NAME: 'development'
+        STACK_NAME: 'dev-ops'
+    - if: $CI_COMMIT_BRANCH == $STG_BRANCH
+      variables:
+        ENV_NAME: 'staging'
+        STACK_NAME: 'stg-ops'
+    - if: $CI_COMMIT_BRANCH == $PRD_BRANCH
+      variables:
+        ENV_NAME: 'production'
+        STACK_NAME: 'prod-ops'

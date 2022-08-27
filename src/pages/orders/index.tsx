@@ -98,7 +98,7 @@ export default function OrderListPage() {
           <CardHeader title="Ordenes" sx={{ mb: 3 }} />
           <Scrollbar>
             {isLoading && [...Array(5)].map((_, index) => <TableSkeleton key={index} />)}
-            {!isLoading && orders.length && (
+            {!isLoading && orders.length > 0 && (
               <TableContainer>
                 <Table>
                   <TableHead>
@@ -194,7 +194,7 @@ export default function OrderListPage() {
 
             {!isLoading && !orders.length && (
               <EmptyContent
-                title="No hay ordenes que mostrar"
+                title="Sin ordenes"
                 description="Al parecer no hay ordenes pendientes"
                 img="/illustrations/illustration_empty_cart.svg"
               />

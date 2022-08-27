@@ -145,7 +145,6 @@ export const CheckoutCart = () => {
       </Grid>
 
       <Grid item xs={12} md={4}>
-        {/* <RHFCheckbox onChange={e => console.log(e)}>Hola</RHFCheckbox> */}
         <CheckoutSummary
           total={total}
           itbis={itbis}

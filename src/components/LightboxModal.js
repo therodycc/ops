@@ -86,12 +86,12 @@ function LightboxModalStyles() {
             '&.ril__navButtonPrev': {
               right: 'auto',
               left: theme.spacing(2),
-              ...Icon(isRTL ? 'arrow-right' : 'arrow-left')
+              ...Icon('arrow-left')
             },
             '&.ril__navButtonNext': {
               left: 'auto',
               right: theme.spacing(2),
-              ...Icon(isRTL ? 'arrow-left' : 'arrow-right')
+              ...Icon('arrow-right')
             }
           }
         }
@@ -136,6 +136,7 @@ export default function LightboxModal({ images, photoIndex, setPhotoIndex, isOpe
 
       {isOpen && (
         <Lightbox
+          enableZoom={true}
           animationDuration={160}
           nextSrc={images[(photoIndex + 1) % images.length]}
           prevSrc={images[(photoIndex + images.length - 1) % images.length]}

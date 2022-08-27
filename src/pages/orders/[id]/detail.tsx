@@ -31,7 +31,6 @@ export default function OrderDetail() {
   const id: string = query.id as string;
 
   const orderDetail: TOrderDetail = useOrderDetail(id);
-  console.log(orderDetail);
 
   const OrderDetail = <OrderDetailSummary order={orderDetail} />;
   const ORDERS_TABS = [
@@ -74,7 +73,11 @@ export default function OrderDetail() {
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
             { name: 'Ordenes', href: PATH_ORDER.root },
-            { name: 'Detalle' }
+            {
+              name: orderDetail?.profile.firstName
+                ? `Order de ${orderDetail?.profile.firstName}`
+                : ''
+            }
           ]}
         />
 
