@@ -47,8 +47,8 @@ export const PATH_CHECKOUT = {
 };
 
 export const PATH_ORDER = {
-  root: path(ROOT_ORDER, '')
-  // summary: path(ROOTS_CHECKOUT, '/summary')
+  root: path(ROOT_ORDER, ''),
+  detail: id => path(ROOT_ORDER, `/${id}/detail`)
 };
 
 export const PATH_DASHBOARD = {

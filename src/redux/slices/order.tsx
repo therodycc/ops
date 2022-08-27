@@ -11,7 +11,8 @@ const initialState: OrderState = {
   error: null,
   isLoading: false,
   count: 0,
-  orders: []
+  orders: [],
+  selected: null
 };
 
 const orderSlice = createSlice({
@@ -39,7 +40,16 @@ const orderSlice = createSlice({
 
       return state;
     },
-    loadOrderComplete(state: OrderState, action) {
+    loadOrderDetailCompleted(state: OrderState, action) {
+      const payload = action.payload;
+
+      state.error = null;
+      state.isLoading = false;
+
+      state.selected = payload;
+      return state;
+    },
+    loadOrdersComplete(state: OrderState, action) {
       const payload = action.payload;
 
       state.error = null;
@@ -59,6 +69,21 @@ export const { hasError } = orderSlice.actions;
 
 export default orderSlice.reducer;
 
+export const getOrderDetail = (id: string) => {
+  return async () => {
+    try {
+      dispatch(orderSlice.actions.startLoading());
+      const { data } = await orderService.detail(id);
+
+      if (!data) dispatch(orderSlice.actions.hasError('Unable to load order detail'));
+      else dispatch(orderSlice.actions.loadOrderDetailCompleted(data));
+    } catch (error) {
+      dispatch(orderSlice.actions.hasError(error));
+      notify({ message: error.message, type: 'error' } as Notification);
+    }
+  };
+};
+
 export const getOrdersSummary = (page: number, size: number) => {
   return async () => {
     try {
@@ -66,7 +91,7 @@ export const getOrdersSummary = (page: number, size: number) => {
       const { data } = await orderService.summary(page, size);
 
       if (!data) dispatch(orderSlice.actions.hasError('Unable to load orders'));
-      else dispatch(orderSlice.actions.loadOrderComplete(data));
+      else dispatch(orderSlice.actions.loadOrdersComplete(data));
     } catch (error) {
       dispatch(orderSlice.actions.hasError(error));
       notify({ message: error.message, type: 'error' } as Notification);

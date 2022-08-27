@@ -1,14 +1,11 @@
 // React
 import { useCallback, useEffect, useState } from 'react';
-import { format } from 'date-fns';
 import moment from 'moment';
 import { useTheme } from '@mui/material/styles';
 // @mui
 import {
   Card,
   Table,
-  Button,
-  Divider,
   TableRow,
   TableBody,
   TableHead,
@@ -43,7 +40,7 @@ import { Scrollbar } from '../../components/Scrollbar';
 import Label from '../../components/Label';
 import { OrderStatus } from '../../enums/order.status';
 import EmptyContent from '../../components/EmptyContent';
-import { SkeletonOrderList } from '../../components/skeleton';
+import TableSkeleton from '../../components/skeleton/TableSkeleton';
 
 // ----------------------------------------------------------------------
 
@@ -55,6 +52,8 @@ OrderListPage.getLayout = function getLayout(page) {
 
 export default function OrderListPage() {
   const { themeStretch } = useSettings();
+  const { push } = useRouter();
+
   const theme = useTheme();
 
   const [page, setPage] = useState(0);
@@ -79,10 +78,8 @@ export default function OrderListPage() {
   }, []);
 
   const goToDetail = useCallback((id: string) => {
-    console.log('seleccionada', id);
+    push(PATH_ORDER.detail(id));
   }, []);
-
-  if (isLoading) return <SkeletonOrderList />;
 
   return (
     <Page title="Ordenes - Lista">
@@ -100,7 +97,8 @@ export default function OrderListPage() {
         <Card>
           <CardHeader title="Ordenes" sx={{ mb: 3 }} />
           <Scrollbar>
-            {orders && orders.length && (
+            {isLoading && [...Array(5)].map((_, index) => <TableSkeleton key={index} />)}
+            {!isLoading && orders.length && (
               <TableContainer>
                 <Table>
                   <TableHead>
@@ -193,17 +191,15 @@ export default function OrderListPage() {
                 </Box>
               </TableContainer>
             )}
-            {!orders ||
-              (!orders.length && (
-                <EmptyContent
-                  title="No hay ordenes que mostrar"
-                  description="Al parecer no hay ordenes pendientes"
-                  img="/illustrations/illustration_empty_cart.svg"
-                />
-              ))}
-          </Scrollbar>
 
-          {/* <Divider /> */}
+            {!isLoading && !orders.length && (
+              <EmptyContent
+                title="No hay ordenes que mostrar"
+                description="Al parecer no hay ordenes pendientes"
+                img="/illustrations/illustration_empty_cart.svg"
+              />
+            )}
+          </Scrollbar>
         </Card>
       </Container>
     </Page>

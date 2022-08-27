@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { Container, Box, Stack } from '@mui/material';
 // routes
-import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_ORDER, PATH_PRODUCTS } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // next
@@ -59,22 +59,15 @@ export default function ProductListPage() {
   }, [dispatch]);
 
   return (
-    <Page title="Productos - Lista">
+    <Page title="Orden - Detalle">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Lista de Productos"
+          heading="Ordenes"
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
-            { name: 'Productos', href: PATH_PRODUCTS.root },
-            { name: 'Lista' }
+            { name: 'Ordenes', href: PATH_ORDER.root },
+            { name: 'Detalle' }
           ]}
-          action={
-            <NextLink href={PATH_PRODUCTS.new} passHref>
-              <Button variant="contained" startIcon={<Iconify icon={'eva:plus-fill'} />}>
-                Agregar Producto
-              </Button>
-            </NextLink>
-          }
         />
 
         <Stack

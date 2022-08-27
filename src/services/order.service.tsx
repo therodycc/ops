@@ -8,6 +8,12 @@ const get = () => {
   });
 };
 
+const detail = (id: string) => {
+  return axios.get(`${API.ORDER.detail}${id}`).catch(error => {
+    throw new Error('Error al obtener las ordenes');
+  });
+};
+
 const summary = (page: number, size: number) => {
   return axios.get(`${API.ORDER.summary}?page=${page}&size=${size}`).catch(error => {
     throw new Error('Error al obtener las ordenes');
@@ -23,5 +29,6 @@ const add = (cart: CreateOrderDto) => {
 export const orderService = {
   get,
   add,
+  detail,
   summary
 };
