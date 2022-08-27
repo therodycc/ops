@@ -14,6 +14,7 @@ import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 import { OrderDetailSummary } from '../../../sections/order/OrderDetailSummary';
 import { useRouter } from 'next/router';
 import { useOrderDetail } from '../../../hooks/useOrderDetail';
+import { OrderDetail as TOrderDetail } from '../../../interfaces/order/order';
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +30,8 @@ export default function OrderDetail() {
   const { query } = useRouter();
   const id: string = query.id as string;
 
-  const orderDetail = useOrderDetail(id);
+  const orderDetail: TOrderDetail = useOrderDetail(id);
+  console.log(orderDetail);
 
   const OrderDetail = <OrderDetailSummary order={orderDetail} />;
   const ORDERS_TABS = [
@@ -64,7 +66,11 @@ export default function OrderDetail() {
     <Page title="User: Account Settings">
       <Container maxWidth={'lg'}>
         <HeaderBreadcrumbs
-          heading={`Orden de ${'Michael'}`}
+          heading={
+            orderDetail?.profile.firstName
+              ? `Orden de ${orderDetail?.profile.firstName}`
+              : 'Cargando...'
+          }
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
             { name: 'Ordenes', href: PATH_ORDER.root },

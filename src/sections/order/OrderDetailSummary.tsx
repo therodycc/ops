@@ -1,4 +1,4 @@
-import { Card, Grid, Stack } from '@mui/material';
+import { Grid } from '@mui/material';
 import { OrderDetail } from '../../interfaces/order/order';
 import { OrderPrescriptions } from './OrderPrescriptions';
 
@@ -12,9 +12,14 @@ export const OrderDetailSummary: React.FC<OrderDetailSummaryProp> = ({
   if (!order) return null;
   return (
     <>
-      <Card sx={{ mb: 3, width: 300 }}>
-        <OrderPrescriptions prescriptions={order.prescriptions} />
-      </Card>
+      <Grid container>
+        <Grid item xs={12} md={9} lg={8}>
+          <h2>Hola</h2>
+        </Grid>
+        <Grid item xs={12} md={3} lg={4}>
+          <OrderPrescriptions prescriptions={order.prescriptions} />
+        </Grid>
+      </Grid>
     </>
   );
 };

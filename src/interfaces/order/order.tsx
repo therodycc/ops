@@ -17,7 +17,7 @@ export interface OrderSummary {
   hasPrescriptions: boolean;
   statusDescription: string;
   source: 'ops' | 'mobile';
-  profile: OrderProfileDto;
+  profile: OrderProfile;
   payments: OrderPayments;
   date: {
     created: Date;
@@ -28,6 +28,7 @@ export interface OrderSummary {
 export interface OrderDetail {
   id: string;
   officeId: string;
+  profile: OrderProfile;
   prescriptions: string[];
   products: OrderProduct[];
   payments: OrderPayment[];
@@ -49,13 +50,13 @@ export interface OrderPayments {
 export interface OrderDto {
   id: string;
   officeId: string;
-  profile: OrderProfileDto;
+  profile: OrderProfile;
   products: CreateOrderProductDto[];
   prescriptions?: any[];
   createdDate: Date;
 }
 
-export interface OrderProfileDto {
+export interface OrderProfile {
   id: string;
   firstName: string;
   lastName: string;
