@@ -9,13 +9,19 @@ const withTM = require('next-transpile-modules')();
 //   '@fullcalendar/timeline',
 // ]
 
+const env = process.env.ENV;
+let host = 'http://LoadBalancer-819446529.us-east-1.elb.amazonaws.com:3001';
+if (env === 'production') {
+  console.log('production host');
+  host = 'http://LoadBalancer-819446529.us-east-1.elb.amazonaws.com:3001'; // production host
+}
 module.exports = withTM({
+  compress: true,
   swcMinify: true,
   trailingSlash: true,
   env: {
     ENV: process.env.ENV || 'development',
-    API_HOST:
-      process.env.API_HOST || 'http://LoadBalancer-280640118.us-east-1.elb.amazonaws.com:3001'
+    API_HOST: host
   },
   experimental: {
     outputStandalone: true

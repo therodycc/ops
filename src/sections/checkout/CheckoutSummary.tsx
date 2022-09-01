@@ -15,6 +15,7 @@ import Iconify from '../../components/Iconify';
 // ----------------------------------------------------------------------
 
 interface CheckoutSummaryProps {
+  title: string;
   total: string;
   itbis: string;
   discount: string;
@@ -25,6 +26,7 @@ interface CheckoutSummaryProps {
 }
 
 export const CheckoutSummary = ({
+  title,
   total,
   itbis,
   discount,
@@ -36,7 +38,7 @@ export const CheckoutSummary = ({
   return (
     <Card sx={{ mb: 3 }}>
       <CardHeader
-        title="Resumen de la Compra"
+        title={title}
         action={
           enableEdit && (
             <Button size="small" onClick={onEdit} startIcon={<Iconify icon={'eva:edit-fill'} />}>
@@ -67,7 +69,7 @@ export const CheckoutSummary = ({
               Descuentos
             </Typography>
             <Typography variant="subtitle2" sx={{ color: 'red' }}>
-              {discount ? -discount : '-'}
+              {discount ? `-${discount}` : '-'}
             </Typography>
           </Stack>
 

@@ -146,6 +146,7 @@ export const CheckoutCart = () => {
 
       <Grid item xs={12} md={4}>
         <CheckoutSummary
+          title={'Resumen de la Compra'}
           total={total}
           itbis={itbis}
           discount={discount}

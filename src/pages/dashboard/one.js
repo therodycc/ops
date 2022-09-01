@@ -5,6 +5,7 @@ import Layout from '../../layouts';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
+import { CartWidget } from '../../sections/products/detail/CartWidget';
 
 // ----------------------------------------------------------------------
 
@@ -19,6 +20,7 @@ export default function PageOne() {
 
   return (
     <Page title="Page One">
+      <CartWidget />
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h3" component="h1" paragraph>
           Page One

@@ -24,6 +24,7 @@ import { SkeletonProductItem } from '../../components/skeleton';
 import { useRouter } from 'next/router';
 import { Product } from '../../interfaces/product/product';
 import { ProductSearch } from '../../components/ProductSearch';
+import { CartWidget } from '../../sections/products/detail/CartWidget';
 
 // ----------------------------------------------------------------------
 
@@ -69,6 +70,7 @@ export default function ProductListPage() {
             { name: 'Detalle' }
           ]}
         />
+        <CartWidget />
 
         <Stack
           spacing={2}

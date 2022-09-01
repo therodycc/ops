@@ -13,6 +13,8 @@ coverage
 # Files not required for production
 .env
 .editorconfig
+
+.gitignore
 Dockerfile
 README.md
 tslint.json

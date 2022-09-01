@@ -32,8 +32,13 @@ export interface OrderDetail {
   prescriptions: string[];
   products: OrderProduct[];
   payments: OrderPayment[];
-  summary: OrderSummaryDto;
+  summary: {
+    total: string;
+    discount: string;
+    itbis: string;
+  };
   status: OrderStatus;
+  statusDescription: string;
   date: {
     created: Date;
     lastModified: Date;
@@ -62,6 +67,7 @@ export interface OrderProfile {
   lastName: string;
   fullName: string;
   email: string;
+  cellphone: string;
 }
 
 export interface CreateOrderDto {
