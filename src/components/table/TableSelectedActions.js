@@ -32,7 +32,7 @@ export default function TableSelectedActions({
         borderRadius: 1,
         position: 'absolute',
         width: 'calc(100% - 16px)',
-        bgcolor: 'primary.lighter',
+        bgcolor: 'secondary.lighter',
         ...(dense && {
           pl: 1,
           height: 38
@@ -40,6 +40,7 @@ export default function TableSelectedActions({
       }}
     >
       <Checkbox
+        color="secondary"
         indeterminate={numSelected > 0 && numSelected < rowCount}
         checked={rowCount > 0 && numSelected === rowCount}
         onChange={event => onSelectAllRows(event.target.checked)}
@@ -50,7 +51,7 @@ export default function TableSelectedActions({
         sx={{
           ml: 2,
           flexGrow: 1,
-          color: 'primary.main',
+          color: 'secondary',
           ...(dense && {
             ml: 3
           })

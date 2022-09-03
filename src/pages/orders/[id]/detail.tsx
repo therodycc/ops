@@ -15,6 +15,7 @@ import { OrderDetailSummary } from '../../../sections/order/OrderDetailSummary';
 import { useRouter } from 'next/router';
 import { useOrderDetail } from '../../../hooks/useOrderDetail';
 import { OrderDetail as TOrderDetail } from '../../../interfaces/order/order';
+import ProductOrderTable from '../../../components/pages/order/ProductOrderTable';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +43,7 @@ export default function OrderDetail() {
     {
       value: 'billing',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: OrderDetail
+      component: <ProductOrderTable />
     },
     {
       value: 'notifications',
