@@ -12,7 +12,6 @@ const withTM = require('next-transpile-modules')();
 const env = process.env.ENV;
 let host = 'http://LoadBalancer-819446529.us-east-1.elb.amazonaws.com:3001';
 if (env === 'production') {
-  console.log('production host');
   host = 'http://LoadBalancer-819446529.us-east-1.elb.amazonaws.com:3001'; // production host
 }
 module.exports = withTM({

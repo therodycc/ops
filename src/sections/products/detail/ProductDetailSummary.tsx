@@ -155,20 +155,17 @@ export const ProductDetailSummary = ({
     }
   };
 
-  const onSubmit = useCallback(
-    async data => {
-      try {
-        if (!productInCart) {
-          handleAddCart();
-        }
-
-        replace(PATH_CHECKOUT.summary);
-      } catch (error) {
-        console.error(error);
+  const onSubmit = useCallback(async () => {
+    try {
+      if (!productInCart) {
+        handleAddCart();
       }
-    },
-    [handleAddCart, replace]
-  );
+
+      setTimeout(() => replace(PATH_CHECKOUT.summary), 350);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [handleAddCart, replace]);
 
   const getPriceAndApplyDiscount = useCallback(
     (unit: ProductUnit): number => {
