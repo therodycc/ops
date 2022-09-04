@@ -35,6 +35,8 @@ import ProgressBar from '../components/ProgressBar';
 import ThemeColorPresets from '../components/ThemeColorPresets';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
 import NotistackProvider from '../components/NotistackProvider';
+import { orderSocket, SocketContext } from '../contexts/Socket';
+import { Socket } from '../components/Socket';
 
 // ----------------------------------------------------------------------
 
@@ -58,21 +60,24 @@ export default function MyApp(props) {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <AuthContext>
-            <CollapseDrawerProvider>
-              <SettingsProvider defaultSettings={settings}>
-                <ThemeProvider>
-                  <NotistackProvider>
-                    <MotionLazyContainer>
-                      <ThemeColorPresets>
-                        <Settings />
-                        <ProgressBar />
-                        {getLayout(<Component {...pageProps} />)}
-                      </ThemeColorPresets>
-                    </MotionLazyContainer>
-                  </NotistackProvider>
-                </ThemeProvider>
-              </SettingsProvider>
-            </CollapseDrawerProvider>
+            <SocketContext.Provider value={orderSocket}>
+              <CollapseDrawerProvider>
+                <SettingsProvider defaultSettings={settings}>
+                  <ThemeProvider>
+                    <NotistackProvider>
+                      <MotionLazyContainer>
+                        <ThemeColorPresets>
+                          <Settings />
+                          <ProgressBar />
+                          <Socket />
+                          {getLayout(<Component {...pageProps} />)}
+                        </ThemeColorPresets>
+                      </MotionLazyContainer>
+                    </NotistackProvider>
+                  </ThemeProvider>
+                </SettingsProvider>
+              </CollapseDrawerProvider>
+            </SocketContext.Provider>
           </AuthContext>
         </PersistGate>
       </Provider>

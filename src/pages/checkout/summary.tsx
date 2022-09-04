@@ -7,7 +7,7 @@ import { Box, Container, StepConnector } from '@mui/material';
 import { useDispatch, useSelector } from '../../redux/store';
 // import { getCart } from '../../redux/slices/product';
 // routes
-import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
+import { PATH_CHECKOUT, PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
 // hooks
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 import useSettings from '../../hooks/useSettings';
@@ -62,7 +62,7 @@ export default function CheckoutSummaryPage() {
             { name: 'Inicio', href: PATH_DASHBOARD.root },
             {
               name: 'Productos',
-              href: PATH_PRODUCTS.root
+              href: PATH_CHECKOUT.root
             },
             { name: 'Carrito' }
           ]}
