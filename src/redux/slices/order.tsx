@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { OrderStatus } from '../../enums/order.status';
 
-import { dispatch } from '../store';
+import { Notification } from '../../interfaces/notification';
 import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
 import { orderService } from '../../services/order.service';
-import { notify } from './notification';
+import { dispatch } from '../store';
 import { clearCart } from './cart';
-import { Notification } from '../../interfaces/notification';
+import { notify } from './notification';
 
 const initialState: OrderState = {
   error: null,
   isLoading: false,
   count: 0,
   orders: [],
-  selected: null
+  summary: null,
+  detail: null
 };
 
 const orderSlice = createSlice({
@@ -45,8 +47,8 @@ const orderSlice = createSlice({
 
       state.error = null;
       state.isLoading = false;
-
-      state.selected = payload;
+      state.detail = payload;
+      // state.summary = payload;
       return state;
     },
     loadOrdersComplete(state: OrderState, action) {
@@ -58,6 +60,19 @@ const orderSlice = createSlice({
       state.count = payload.count;
       state.orders = payload.data;
       return state;
+    },
+    sendOrderToCashRegister(state: OrderState, action) {
+      state.detail = {
+        ...state.detail,
+        status: action.payload.status,
+        statusDescription: action.payload.statusDescription
+      };
+      state.isLoading = false;
+      return state;
+    },
+    removeDetail(state: OrderState) {
+      state.detail = null;
+      return state;
     }
   }
 });
@@ -65,7 +80,7 @@ const orderSlice = createSlice({
 // ----------------------------------------------------------------------
 
 // // Reducer
-export const { hasError } = orderSlice.actions;
+export const { hasError, removeDetail } = orderSlice.actions;
 
 export default orderSlice.reducer;
 
@@ -114,5 +129,28 @@ export const createOrder = (cartDto: CreateOrderDto) => {
       notify({ message: error.message, type: 'error' } as Notification);
       dispatch(orderSlice.actions.hasError(error));
     }
+  };
+};
+
+export const sendOrderToCashRegisterAction = (id: string) => {
+  return async () => {
+    dispatch(orderSlice.actions.startLoading());
+    const result = await orderService.sendToCashier({ orderId: id });
+
+    if (result.error)
+      return [
+        notify({ message: result.error.message, type: 'error' } as Notification),
+        dispatch(orderSlice.actions.hasError(result.error))
+      ];
+
+    dispatch(
+      orderSlice.actions.sendOrderToCashRegister({
+        id,
+        status: OrderStatus.PENDING_PAYMENT,
+        statusDescription: 'Pago pendiente'
+      })
+    );
+
+    notify({ message: 'Orden enviada a caja' } as Notification);
   };
 };

@@ -1,8 +1,8 @@
 export enum OrderStatus {
-  DRAFT = 0,
-  PENDING_PAYMENT = 1,
-  PAID = 2,
-  COMPLETED = 3,
-  PAYMENT_ERROR = 4,
-  CANCELLED = 5
+  DRAFT = 'draft',
+  IN_PROGRESS = 'in_progress',
+  PENDING_PAYMENT = 'pending_payment',
+  PAID = 'paid',
+  PENDING_DELIVERY = 'pending_delivery',
+  COMPLETED = 'completed'
 }

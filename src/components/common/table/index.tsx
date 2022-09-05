@@ -18,13 +18,13 @@ import { Scrollbar } from '../../Scrollbar';
 import TableSelectedActions from '../../table/TableSelectedActions';
 import TableSkeleton from '../../table/TableSkeleton';
 
-interface TableFCProps {
+interface NetzerTableProps {
   columns: Array<ColumnsI>;
   data: any[];
   isLoading?: boolean;
 }
 
-const TableFC: FC<TableFCProps> = ({ columns, data, isLoading = false }) => {
+export const NetzerTable: FC<NetzerTableProps> = ({ columns, data, isLoading = false }) => {
   return (
     <React.Fragment>
       <Scrollbar>
@@ -69,7 +69,7 @@ const TableFC: FC<TableFCProps> = ({ columns, data, isLoading = false }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row, index) => (
+                {data?.map((row, index) => (
                   <React.Fragment>
                     <TableRow key={index} onClick={() => {}}>
                       {columns?.map((head, index) => (
@@ -110,5 +110,3 @@ const TableFC: FC<TableFCProps> = ({ columns, data, isLoading = false }) => {
     </React.Fragment>
   );
 };
-
-export default TableFC;

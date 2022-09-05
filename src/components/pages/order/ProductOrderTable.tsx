@@ -1,39 +1,21 @@
 import React from 'react';
-import Layout from '../../../layouts';
-import TableFC from '../../common/table/table';
+import { OrderDetail } from '../../../interfaces/order/order';
+import { NetzerTable } from '../../common/table';
 import ColumnsProductsOrder from './ColumnsProductsOrder';
 
-let testData = [
-  {
-    id: '1',
-    price: '$100.00',
-    unit: '12',
-    photo: 'http://odoo-community.org/web/image/product.template/3936/image_1024?unique=6f59a22'
-  },
-  {
-    id: '1',
-    price: '$100.00',
-    unit: '12',
-    photo: 'http://odoo-community.org/web/image/product.template/3936/image_1024?unique=6f59a22'
-  }
-];
+interface ProductOrderTableProps {
+  products: OrderDetail['products'];
+}
 
-const ProductOrderTable = () => {
+export const ProductOrderTable: React.FC<ProductOrderTableProps> = ({ products }) => {
   const handleDelete = () => {
     console.log('delete');
   };
-
   return (
     <React.Fragment>
       <ColumnsProductsOrder handleDelete={handleDelete}>
-        {({ columns }) => <TableFC columns={columns} data={testData} />}
+        {({ columns }) => <NetzerTable columns={columns} data={products} />}
       </ColumnsProductsOrder>
     </React.Fragment>
   );
-};
-
-export default ProductOrderTable;
-
-ProductOrderTable.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
 };

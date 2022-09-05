@@ -8,21 +8,21 @@ interface ColumnsProductsOrderProps extends ColumnsTableI {
 const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProductsOrderProps) => {
   let columns = [
     {
-      title: () => {
-        return <Typography variant="body2">Product</Typography>;
-      },
-      render: row => (
-        <TableCell padding="checkbox">
-          <Checkbox checked={true} onClick={() => {}} />
-        </TableCell>
-      )
-    },
-    {
-      title: 'Product',
+      title: 'ID',
       render: ({ data }) => {
         return (
           <Box display="flex" alignItems="center">
             <Typography variant="body2">{data.id}</Typography>
+          </Box>
+        );
+      }
+    },
+    {
+      title: 'Producto',
+      render: ({ data }) => {
+        return (
+          <Box display="flex" alignItems="center">
+            <Typography variant="body2">{data.name}</Typography>
           </Box>
         );
       }
@@ -34,6 +34,10 @@ const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProductsOrderPr
     {
       title: 'Unidad',
       key: 'unit'
+    },
+    {
+      title: 'Cantidad',
+      key: 'quantity'
     },
     {
       title: 'Photo',

@@ -26,9 +26,17 @@ const add = (cart: CreateOrderDto) => {
   });
 };
 
+const sendToCashier = ({ orderId }: { orderId: string }) => {
+  return axios.post(API.ORDER.sendToCashier, { orderId }).catch(error => {
+    console.log('🪲 ~ sendToCashier ~ error', error);
+    return Promise.resolve({ error: { message: 'Error al enviar la orden a caja' } });
+  });
+};
+
 export const orderService = {
   get,
   add,
   detail,
-  summary
+  summary,
+  sendToCashier
 };

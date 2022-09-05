@@ -7,7 +7,8 @@ export interface OrderState {
   isLoading: boolean;
   created?: OrderDto;
   orders: OrderSummary[];
-  selected?: OrderDetail;
+  summary?: OrderSummary;
+  detail?: OrderDetail;
 }
 
 export interface OrderSummary {
