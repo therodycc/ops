@@ -1,12 +1,11 @@
 import { Avatar, Box, Checkbox, TableCell, Typography } from '@mui/material';
-import React, { ReactElement } from 'react';
+import { ColumnsTableI } from '../../../interfaces/table/table.interface';
 
-interface ColumnsTableI {
-  children: (props: { columns: any }) => ReactElement;
+interface ColumnsProductsOrderProps extends ColumnsTableI {
   handleDelete?: Function;
 }
 
-const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsTableI) => {
+const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProductsOrderProps) => {
   let columns = [
     {
       title: () => {

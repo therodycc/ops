@@ -41,7 +41,7 @@ export default function OrderDetail() {
       component: OrderDetail
     },
     {
-      value: 'billing',
+      value: 'Products',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
       component: <ProductOrderTable />
     },

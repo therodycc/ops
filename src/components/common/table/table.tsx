@@ -12,11 +12,11 @@ import {
   Tooltip
 } from '@mui/material';
 import React, { FC } from 'react';
-import EmptyContent from '../EmptyContent';
-import Iconify from '../Iconify';
-import { Scrollbar } from '../Scrollbar';
-import TableSelectedActions from './TableSelectedActions';
-import TableSkeleton from './TableSkeleton';
+import EmptyContent from '../../EmptyContent';
+import Iconify from '../../Iconify';
+import { Scrollbar } from '../../Scrollbar';
+import TableSelectedActions from '../../table/TableSelectedActions';
+import TableSkeleton from '../../table/TableSkeleton';
 
 interface TableFCProps {
   columns: Array<{

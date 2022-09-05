@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../../layouts';
-import TableFC from '../../table/table';
+import TableFC from '../../common/table/table';
 import ColumnsProductsOrder from './ColumnsProductsOrder';
 
 let testData = [
