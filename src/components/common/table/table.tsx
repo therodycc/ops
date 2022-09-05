@@ -1,6 +1,5 @@
 import {
   Box,
-  Checkbox,
   IconButton,
   Table,
   TableBody,
@@ -12,6 +11,7 @@ import {
   Tooltip
 } from '@mui/material';
 import React, { FC } from 'react';
+import { ColumnsI } from '../../../interfaces/table/table.interface';
 import EmptyContent from '../../EmptyContent';
 import Iconify from '../../Iconify';
 import { Scrollbar } from '../../Scrollbar';
@@ -19,11 +19,7 @@ import TableSelectedActions from '../../table/TableSelectedActions';
 import TableSkeleton from '../../table/TableSkeleton';
 
 interface TableFCProps {
-  columns: Array<{
-    title: string | Function;
-    key?: string;
-    render?: Function;
-  }>;
+  columns: Array<ColumnsI>;
   data: any[];
   isLoading?: boolean;
 }
