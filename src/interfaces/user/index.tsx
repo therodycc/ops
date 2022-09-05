@@ -1,3 +1,5 @@
+import { Role } from '../../enums/roles';
+
 export interface AuthState {
   user: User;
   isLoading: boolean;
@@ -14,6 +16,6 @@ export interface User {
   officeId: string;
   email: string;
   cellphone: string;
-  role: string;
+  role: Role;
   employeeId: string;
 }

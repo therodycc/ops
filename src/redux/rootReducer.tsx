@@ -50,9 +50,17 @@ const cartPersistConfig = {
   keyPrefix: 'redux-'
 };
 
+const orderPersistConfig = {
+  key: 'order',
+  storage,
+  keyPrefix: 'redux-',
+  whiteList: ['products']
+};
+
 const rootReducer = combineReducers({
   product: persistReducer(productPersistConfig, productReducer),
   auth: persistReducer(authPersistConfig, authReducer),
+  // order: persistReducer(orderPersistConfig, orderReducer),
   order: orderReducer,
   notification,
   cart: persistReducer(cartPersistConfig, cartReducer)

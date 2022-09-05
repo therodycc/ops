@@ -1,5 +1,5 @@
 // @mui
-import { Container, Tab, Box, Tabs } from '@mui/material';
+import { Box, Container, Tab, Tabs } from '@mui/material';
 // routes
 import { PATH_DASHBOARD, PATH_ORDER } from '../../../routes/paths';
 // hooks
@@ -8,58 +8,29 @@ import useTabs from '../../../hooks/useTabs';
 // layouts
 import Layout from '../../../layouts';
 // components
-import Page from '../../../components/Page';
-import Iconify from '../../../components/Iconify';
-import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
-import { OrderDetailSummary } from '../../../sections/order/OrderDetailSummary';
 import { useRouter } from 'next/router';
-import { useOrderDetail } from '../../../hooks/useOrderDetail';
-import { OrderDetail as TOrderDetail } from '../../../interfaces/order/order';
-
-// ----------------------------------------------------------------------
-
-OrderDetail.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};
-
-// ----------------------------------------------------------------------
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import Page from '../../../components/Page';
+import { OrderTabs } from '../../../components/pages/order/OrderTabs';
+import { OrderState } from '../../../interfaces/order/order';
+import { AppState } from '../../../redux/rootReducer';
+import { getOrderDetail } from '../../../redux/slices/order';
 
 export default function OrderDetail() {
   const { currentTab, onChangeTab } = useTabs('general');
-
+  const dispatch = useDispatch();
   const { query } = useRouter();
   const id: string = query.id as string;
 
-  const orderDetail: TOrderDetail = useOrderDetail(id);
+  useEffect(() => {
+    dispatch(getOrderDetail(id));
+  }, [id]);
 
-  const OrderDetail = <OrderDetailSummary order={orderDetail} />;
-  const ORDERS_TABS = [
-    {
-      value: 'general',
-      icon: <Iconify icon={'icon-park-solid:view-grid-detail'} width={20} height={20} />,
-      component: OrderDetail
-    },
-    {
-      value: 'billing',
-      icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: OrderDetail
-    },
-    {
-      value: 'notifications',
-      icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
-      component: <h2>Hola</h2>
-    },
-    {
-      value: 'social_links',
-      icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
-      component: <h2>Hola</h2>
-    },
-    {
-      value: 'change_password',
-      icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,
-      component: <h2>Hola</h2>
-    }
-  ];
+  const { detail: orderDetail } = useSelector<AppState, OrderState>(state => state.order);
+
+  const ORDERS_TABS = OrderTabs({ orderDetail });
 
   return (
     <Page title="User: Account Settings">
@@ -109,3 +80,11 @@ export default function OrderDetail() {
     </Page>
   );
 }
+
+// ----------------------------------------------------------------------
+
+OrderDetail.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
+};
+
+// ----------------------------------------------------------------------

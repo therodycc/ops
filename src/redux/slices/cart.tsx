@@ -22,7 +22,6 @@ const cartSlice = createSlice({
   reducers: {
     startLoading(state) {
       state.isLoading = true;
-
       return state;
     },
     hasError(state, action) {
