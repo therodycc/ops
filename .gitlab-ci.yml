@@ -9,11 +9,14 @@ deploy:
       variables:
         ENV_NAME: 'development'
         STACK_NAME: 'dev-ops'
+        SKIP_TEST: 'true'
     - if: $CI_COMMIT_BRANCH == $STG_BRANCH
       variables:
         ENV_NAME: 'staging'
         STACK_NAME: 'stg-ops'
+        SKIP_TEST: 'true'
     - if: $CI_COMMIT_BRANCH == $PRD_BRANCH
       variables:
         ENV_NAME: 'production'
         STACK_NAME: 'prod-ops'
+        SKIP_TEST: 'true'
