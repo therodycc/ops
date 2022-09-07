@@ -1,12 +1,12 @@
 import { Avatar, Box, Checkbox, TableCell, Typography } from '@mui/material';
-import { ColumnsTableI } from '../../../interfaces/table/table.interface';
+import { ColumnsI, ColumnsTableI } from '../../../interfaces/table/table.interface';
 
 interface ColumnsProductsOrderProps extends ColumnsTableI {
   handleDelete?: Function;
 }
 
-const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProductsOrderProps) => {
-  let columns = [
+export const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProductsOrderProps) => {
+  let columns: ColumnsI[] = [
     {
       title: 'ID',
       render: ({ data }) => {
@@ -52,5 +52,3 @@ const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProductsOrderPr
   ];
   return children({ columns });
 };
-
-export default ColumnsProductsOrder;

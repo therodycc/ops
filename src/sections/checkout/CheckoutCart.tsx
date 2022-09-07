@@ -88,14 +88,7 @@ export const CheckoutCart = () => {
     quantity: number,
     unit: ProductUnit
   ) => {
-    const cartDto: CartDto = {
-      cartId,
-      productId,
-      quantity,
-      profileId,
-      unit
-    };
-
+    const cartDto: CartDto = { cartId, productId, quantity, profileId, unit };
     dispatch(updateCart(cartDto));
   };
 

@@ -21,14 +21,18 @@ export const BoxDetails = ({
         <CardContent>
           <Stack spacing={2}>
             {isLoading
-              ? [...Array(rows.length || 5)].map(item => (
-                  <div className="" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              ? [...Array(rows.length || 5)].map((item, index) => (
+                  <div
+                    key={index}
+                    className=""
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
+                  >
                     <Skeleton variant="text" width={'40%'} height={30} />
                     <Skeleton variant="text" width={'50%'} height={30} />
                   </div>
                 ))
-              : rows?.map(item => (
-                  <React.Fragment>
+              : rows?.map((item, index) => (
+                  <React.Fragment key={index}>
                     {item?.divider ? (
                       <Divider />
                     ) : (

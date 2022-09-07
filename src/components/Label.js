@@ -16,12 +16,12 @@ const RootStyle = styled('span')(({ theme, ownerState }) => {
   const styleOutlined = color => ({
     color: theme.palette[color].main,
     backgroundColor: 'transparent',
-    border: `1px solid ${theme.palette[color].main}`
+    border: `1px solid ${theme.palette?.[color]?.main}`
   });
 
   const styleGhost = color => ({
-    color: theme.palette[color][isLight ? 'dark' : 'light'],
-    backgroundColor: alpha(theme.palette[color].main, 0.16)
+    color: theme.palette[color]?.[isLight ? 'dark' : 'light'],
+    backgroundColor: alpha(theme.palette?.[color]?.main, 0.16)
   });
 
   return {

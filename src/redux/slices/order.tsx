@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OrderStatus } from '../../enums/order.status';
 
 import { Notification } from '../../interfaces/notification';
-import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
+import { CreateOrderDto, OrderProduct, OrderState } from '../../interfaces/order/order';
 import { orderService } from '../../services/order.service';
 import { dispatch } from '../store';
 import { clearCart } from './cart';
@@ -137,11 +137,11 @@ export const sendOrderToCashRegisterAction = (id: string) => {
     dispatch(orderSlice.actions.startLoading());
     const result = await orderService.sendToCashier({ orderId: id });
 
-    if (result.error)
-      return [
-        notify({ message: result.error.message, type: 'error' } as Notification),
-        dispatch(orderSlice.actions.hasError(result.error))
-      ];
+    if (result.error) {
+      notify({ message: result.error.message, type: 'error' } as Notification);
+      dispatch(orderSlice.actions.hasError(result.error));
+      return;
+    }
 
     dispatch(
       orderSlice.actions.sendOrderToCashRegister({

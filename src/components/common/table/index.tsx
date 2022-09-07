@@ -11,99 +11,107 @@ import {
   Tooltip
 } from '@mui/material';
 import React, { FC } from 'react';
-import { ColumnsI } from '../../../interfaces/table/table.interface';
+import { ColumnsI, NetzerTablePropsI } from '../../../interfaces/table/table.interface';
 import EmptyContent from '../../EmptyContent';
 import Iconify from '../../Iconify';
 import { Scrollbar } from '../../Scrollbar';
 import TableSelectedActions from '../../table/TableSelectedActions';
 import TableSkeleton from '../../table/TableSkeleton';
 
-interface NetzerTableProps {
-  columns: Array<ColumnsI>;
-  data: any[];
-  isLoading?: boolean;
-}
-
-export const NetzerTable: FC<NetzerTableProps> = ({ columns, data, isLoading = false }) => {
+export const NetzerTable: FC<NetzerTablePropsI> = ({
+  columns,
+  data,
+  isLoading = false,
+  rowAction,
+  emptyData,
+  pagination
+}) => {
   return (
     <React.Fragment>
       <Scrollbar>
         {isLoading && [...Array(5)].map((_, index) => <TableSkeleton key={index} />)}
-        {true && (
-          <TableContainer
-            sx={{
-              minWidth: 800,
-              position: 'relative'
-            }}
-          >
-            {false && (
-              <TableSelectedActions
-                dense={false}
-                numSelected={20}
-                rowCount={data.length}
-                onSelectAllRows={
-                  checked => {}
-                  // onSelectAllRows(
-                  //     checked,
-                  //     tableData.map((row) => row.id)
-                  // )
-                }
-                actions={
-                  <Tooltip title="Delete">
-                    <IconButton color="info" onClick={() => {}}>
-                      <Iconify icon={'eva:trash-2-outline'} />
-                    </IconButton>
-                  </Tooltip>
-                }
-              />
-            )}
+        <TableContainer
+          sx={{
+            minWidth: 800,
+            position: 'relative'
+          }}
+        >
+          {false && (
+            <TableSelectedActions
+              dense={false}
+              numSelected={20}
+              rowCount={data?.length}
+              onSelectAllRows={
+                checked => {}
+                // onSelectAllRows(
+                //     checked,
+                //     tableData.map((row) => row.id)
+                // )
+              }
+              actions={
+                <Tooltip title="Delete">
+                  <IconButton color="info" onClick={() => {}}>
+                    <Iconify icon={'eva:trash-2-outline'} />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+          )}
 
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {columns?.map((head, index) => (
-                    <TableCell key={index}>
-                      {typeof head?.title === 'function' ? head?.title() : head.title}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data?.map((row, index) => (
-                  <React.Fragment>
-                    <TableRow key={index} onClick={() => {}}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {columns?.map((head, index) => (
+                  <TableCell key={index}>
+                    {typeof head?.title === 'function' ? head?.title() : head.title}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            {!isLoading && data && data?.length > 0 && (
+              <React.Fragment>
+                <TableBody>
+                  {data?.map((row, index) => (
+                    <TableRow
+                      key={index}
+                      onClick={() => {
+                        rowAction?.({ data: row });
+                      }}
+                    >
                       {columns?.map((head, index) => (
                         <TableCell key={index}>
                           {typeof head?.render === 'function'
-                            ? head?.render({ data: row })
+                            ? head?.render({ data: row, index })
                             : row?.[head.key]}
                         </TableCell>
                       ))}
                     </TableRow>
-                  </React.Fragment>
-                ))}
-              </TableBody>
-            </Table>
+                  ))}
+                </TableBody>
+              </React.Fragment>
+            )}
+          </Table>
+          {!isLoading && data?.length > 0 && pagination && (
+            <React.Fragment>
+              <Box sx={{ p: 2, textAlign: 'right' }}>
+                <TablePagination
+                  component="div"
+                  count={pagination.count || 0}
+                  page={pagination.page || 0}
+                  onPageChange={pagination.onPageChange}
+                  rowsPerPage={pagination.rowsPerPage || 20}
+                  onRowsPerPageChange={pagination.onRowsPerPageChange}
+                />
+              </Box>
+            </React.Fragment>
+          )}
+        </TableContainer>
 
-            {/* TODO: ----- LOGIC FOR PAGINATION -----   */}
-            <Box sx={{ p: 2, textAlign: 'right' }}>
-              <TablePagination
-                component="div"
-                count={12}
-                page={12}
-                onPageChange={() => {}}
-                rowsPerPage={10}
-                onRowsPerPageChange={() => {}}
-              />
-            </Box>
-          </TableContainer>
-        )}
-
-        {!isLoading && !data.length && (
+        {!isLoading && !data?.length && (
           <EmptyContent
-            title="Sin ordenes"
-            description="Al parecer no hay ordenes pendientes"
-            img="/illustrations/illustration_empty_cart.svg"
+            title={emptyData?.title || 'No hay data para mostrar'}
+            description={emptyData?.description || 'No hay data para mostrar'}
+            img={emptyData?.img || '/illustrations/illustration_empty_cart.svg'}
           />
         )}
       </Scrollbar>

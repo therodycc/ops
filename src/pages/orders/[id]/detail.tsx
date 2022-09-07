@@ -19,7 +19,7 @@ import { AppState } from '../../../redux/rootReducer';
 import { getOrderDetail } from '../../../redux/slices/order';
 
 export default function OrderDetail() {
-  const { currentTab, onChangeTab } = useTabs('general');
+  const { currentTab, onChangeTab } = useTabs('Resumen');
   const dispatch = useDispatch();
   const { query } = useRouter();
   const id: string = query.id as string;
@@ -51,7 +51,6 @@ export default function OrderDetail() {
             }
           ]}
         />
-
         <Tabs
           allowScrollButtonsMobile
           variant="scrollable"
