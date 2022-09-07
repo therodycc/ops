@@ -14,7 +14,7 @@ export const OrderTabs = ({ orderDetail }: OrderTabsProps) => {
       component: <OrderDetailSummary orderDetail={orderDetail} />
     },
     {
-      value: 'Products',
+      value: 'Productos',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
       component: <ProductOrderTable products={orderDetail?.products} />
     },

@@ -21,7 +21,6 @@ export default function DialogAnimate({ open = false, variants, onClose, childre
       {open && (
         <Dialog
           fullWidth
-          maxWidth="xs"
           open={open}
           onClose={onClose}
           PaperComponent={props => (
@@ -42,7 +41,14 @@ export default function DialogAnimate({ open = false, variants, onClose, childre
                 justifyContent: 'center'
               }}
             >
-              <Box onClick={onClose} sx={{ width: '100%', height: '100%', position: 'fixed' }} />
+              <Box
+                onClick={onClose}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  position: 'fixed'
+                }}
+              />
               <Paper sx={sx} {...props}>
                 {props.children}
               </Paper>

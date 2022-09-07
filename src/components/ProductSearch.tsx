@@ -71,8 +71,10 @@ export const ProductSearch: React.FC<ProductSearchProps> = ({
       size="small"
       autoHighlight
       popupIcon={null}
+      clearOnEscape={true}
       PopperComponent={PopperStyle}
       options={searchResults}
+      disableCloseOnSelect={true}
       onInputChange={(event, value) => setSearchQuery(value)}
       getOptionLabel={product => product.name}
       noOptionsText={<SearchNotFound searchQuery={searchQuery} />}
