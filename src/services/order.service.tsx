@@ -1,3 +1,4 @@
+import { ProductUnit } from '../enums/product-unit.enum';
 import { CreateOrderDto } from '../interfaces/order/order';
 import axios from '../utils/axios';
 import { API } from './api';
@@ -33,10 +34,28 @@ const sendToCashier = ({ orderId }: { orderId: string }) => {
   });
 };
 
+const addProductsToOrder = ({
+  orderId,
+  products
+}: {
+  orderId: string;
+  products: { id: string; quantity: number; unit: ProductUnit }[];
+}) => {
+  return axios
+    .post(API.ORDER.productsToOrder, {
+      orderId,
+      products
+    })
+    .catch(error => {
+      return Promise.resolve({ error: { message: 'Error al agregar los products a la orden' } });
+    });
+};
+
 export const orderService = {
   get,
   add,
   detail,
   summary,
-  sendToCashier
+  sendToCashier,
+  addProductsToOrder
 };

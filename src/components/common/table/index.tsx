@@ -71,9 +71,9 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
             {!isLoading && data && data?.length > 0 && (
               <React.Fragment>
                 <TableBody>
-                  {data?.map((row, index) => (
+                  {data?.map((row, iRow) => (
                     <TableRow
-                      key={index}
+                      key={iRow}
                       onClick={() => {
                         rowAction?.({ data: row });
                       }}
@@ -81,7 +81,7 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
                       {columns?.map((head, index) => (
                         <TableCell key={index}>
                           {typeof head?.render === 'function'
-                            ? head?.render({ data: row, index })
+                            ? head?.render({ data: row, index: iRow })
                             : row?.[head.key]}
                         </TableCell>
                       ))}
