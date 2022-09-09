@@ -2,11 +2,11 @@ import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { ColumnsI, ColumnsTableI } from '../../../../interfaces/table/table.interface';
 import { CounterCart } from '../../../../sections/checkout/CounterCart';
+import { formatAmount } from '../../../../utils/currencyFormat';
 import { getPriceAndApplyDiscount } from '../../../../utils/price.utils';
 import { NetzerSelect } from '../../../common/select';
 import Iconify from '../../../Iconify';
 import Image from '../../../Image';
-import Label from '../../../Label';
 
 interface MoreProductsToOrderColumnsProps extends ColumnsTableI {
   onIncrease: Function;
@@ -71,7 +71,7 @@ export const MoreProductsToOrderColumns = ({
         return (
           <React.Fragment>
             <NetzerSelect
-              id={data.id}
+              id={data.id + data?.unit}
               selected={data?.unit}
               options={Object.keys(data?.price).map(key => {
                 return {
@@ -79,6 +79,7 @@ export const MoreProductsToOrderColumns = ({
                   value: key
                 };
               })}
+              disabled={data?.disabledSelected}
               onChange={value => {
                 selectedWayOfProduct(data, value);
               }}
@@ -90,21 +91,23 @@ export const MoreProductsToOrderColumns = ({
     {
       title: 'Precio',
       render: ({ data }) => {
-        return <React.Fragment>{getPriceAndApplyDiscount(data, data.unit)}</React.Fragment>;
+        return (
+          <React.Fragment>{formatAmount(getPriceAndApplyDiscount(data, data.unit))}</React.Fragment>
+        );
       }
     },
     {
       title: 'Cantidad',
-      render: ({ data }) => {
+      render: ({ data, index }) => {
         return (
           <CounterCart
             quantity={data.quantity}
             available={data.stock}
             onIncrease={(updatedQuantity: number) =>
-              onIncrease(data.cartId, data.id, updatedQuantity, data.unit)
+              onIncrease(data.cartId, data.id, updatedQuantity, data.unit, index)
             }
             onDecrease={(updatedQuantity: number) =>
-              onDecrease(data.cartId, data.id, updatedQuantity, data.unit)
+              onDecrease(data.cartId, data.id, updatedQuantity, data.unit, index)
             }
           />
         );
@@ -116,13 +119,9 @@ export const MoreProductsToOrderColumns = ({
         return (
           <Grid justifyContent={'center'}>
             {data?.price[data.unit]?.discount ? (
-              <Label variant={'ghost'} color="success">
-                <Iconify icon={'ic:round-verified'} width={20} height={20} />:
-              </Label>
+              <Iconify icon={'ic:round-verified'} sx={{ color: 'green' }} width={20} height={20} />
             ) : (
-              <Label variant={'ghost'} color="warning">
-                <Iconify icon={'ic:round-close'} width={20} height={20} />
-              </Label>
+              <Iconify icon={'ic:round-close'} sx={{ color: 'red' }} width={20} height={20} />
             )}
           </Grid>
         );
@@ -133,8 +132,8 @@ export const MoreProductsToOrderColumns = ({
       render: ({ data, index }) => {
         return (
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="subtitle2">{data.total}</Typography>
-            <IconButton onClick={() => removeProduct(index)} sx={{ mb: 1 }}>
+            <Typography variant="subtitle2">{formatAmount(data.total)}</Typography>
+            <IconButton onClick={() => removeProduct(index, data.id)} sx={{ mb: 1 }}>
               <Iconify icon={'eva:trash-2-outline'} width={20} height={20} />
             </IconButton>
           </Stack>

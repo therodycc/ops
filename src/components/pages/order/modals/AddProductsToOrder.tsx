@@ -25,7 +25,7 @@ export const AddProductsToOrder = () => {
         </LoadingButton>
       </Masonry>
       <NetzerModal title="Agregar más productos" active={showModal} toggle={onShowModalHandle}>
-        <MoreProductsToOrderTable />
+        <MoreProductsToOrderTable toggle={onShowModalHandle} />
       </NetzerModal>
     </React.Fragment>
   );

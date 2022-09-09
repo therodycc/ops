@@ -1,87 +1,61 @@
 import { LoadingButton } from '@mui/lab';
-import { Grid } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Alert, Grid } from '@mui/material';
+import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductUnit } from '../../../../enums/product-unit.enum';
+import { useProductCart } from '../../../../hooks/common/useProductCart';
+import { OrderState } from '../../../../interfaces/order/order';
 import { AuthState } from '../../../../interfaces/user';
 import { AppState } from '../../../../redux/rootReducer';
-import { getProducts } from '../../../../redux/slices/product';
-import { getPriceAndApplyDiscount } from '../../../../utils/price.utils';
+import { addMoreProductsToOrder } from '../../../../redux/slices/order';
 import { NetzerTable } from '../../../common/table';
 import { ProductSearch } from '../../../ProductSearch';
 import { MoreProductsToOrderColumns } from './MoreProductsToOrderColumns';
+interface MoreProductsToOrderTableProps {
+  toggle: Function;
+}
 
-export const MoreProductsToOrderTable = () => {
+export const MoreProductsToOrderTable: FC<MoreProductsToOrderTableProps> = ({ toggle }) => {
   const dispatch = useDispatch();
   const {
     user: { id: profileId, officeId }
   } = useSelector<AppState, AuthState>(state => state.auth);
 
-  const [productsToBeAdded, setProductsToBeAdded] = useState([]);
+  const { detail, isLoading } = useSelector<AppState, OrderState>((state: AppState) => state.order);
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+  const {
+    addNewProductTo,
+    productsToBeAdded,
+    removeProduct,
+    selectedWayOfProduct,
+    updateQuantity,
+    showError
+  } = useProductCart();
 
-  const addNewProductTo = useCallback(product => {
-    console.log({ product });
-    console.log(getPriceAndApplyDiscount(product, Object.keys(product?.price)?.[0] as ProductUnit));
-    setProductsToBeAdded(_prev => [
-      ..._prev,
-      {
-        ...product,
-        unit: Object.keys(product?.price)?.[0],
-        quantity: 1,
-        total: getTotal(
-          1,
-          getPriceAndApplyDiscount(product, Object.keys(product?.price)?.[0] as ProductUnit)
-        )
-      }
-    ]);
-  }, []);
-
-  const getTotal = useCallback((quantity: number | string, price: number | string) => {
-    return Number(quantity) * Number(price);
-  }, []);
-
-  const selectedWayOfProduct = useCallback((product, way) => {
-    setProductsToBeAdded(_prev => {
-      const index = _prev.findIndex(_product => _product.id === product.id);
-      _prev[index].unit = way;
-      _prev[index].total = getTotal(
-        _prev[index].quantity,
-        _prev[index].price[product.unit].discount || _prev[index].price[product.unit].unit
-      );
-      return [..._prev];
-    });
-  }, []);
-
-  const updateQuantity = (
-    cartId: string,
-    productId: string,
-    quantity: number,
-    unit: ProductUnit
-  ) => {
-    setProductsToBeAdded(_prev => {
-      const index = _prev.findIndex(_product => _product.id === productId);
-      _prev[index].quantity = quantity;
-      _prev[index].unit = unit;
-      _prev[index].total = getTotal(
-        _prev[index].quantity,
-        _prev[index]?.price?.[unit].discount || _prev[index]?.price?.[unit]?.original
-      );
-      console.log();
-      return [..._prev];
-    });
+  const addProductsToOrder = () => {
+    dispatch(
+      addMoreProductsToOrder(
+        detail.id,
+        productsToBeAdded.map(item => {
+          return {
+            id: item.id,
+            quantity: item.quantity,
+            unit: item.unit as ProductUnit
+          };
+        })
+      )
+    );
+    toggle();
   };
-
-  const removeProduct = useCallback((id: number) => {
-    setProductsToBeAdded(_prev => _prev.filter((_product, index) => index !== id));
-  }, []);
 
   return (
     <React.Fragment>
       <Grid container padding={'10px'} marginTop={'10px'} justifyContent="flex-end" spacing={2}>
+        {showError.show && (
+          <Alert style={{ margin: '0rem 0.7rem' }} severity="error" onClose={() => {}}>
+            {showError.message}
+          </Alert>
+        )}
         <ProductSearch onSelect={addNewProductTo} />
       </Grid>
       <MoreProductsToOrderColumns
@@ -110,7 +84,14 @@ export const MoreProductsToOrderTable = () => {
           Cancelar selección
         </LoadingButton>
 
-        <LoadingButton variant="contained" onClick={() => {}} style={{ margin: '1rem 0.7rem' }}>
+        <LoadingButton
+          variant="contained"
+          loading={isLoading}
+          onClick={() => {
+            addProductsToOrder();
+          }}
+          style={{ margin: '1rem 0.7rem' }}
+        >
           Confirmar selección
         </LoadingButton>
       </Grid>

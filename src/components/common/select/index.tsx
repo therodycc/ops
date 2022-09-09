@@ -7,8 +7,17 @@ interface NetzerSelectProps {
   label?: string;
   selected?: string | number;
   onChange: (value: number | string) => void;
+  disabled?: boolean;
 }
-export const NetzerSelect: FC<NetzerSelectProps> = ({ label, options, selected, onChange, id }) => {
+
+export const NetzerSelect: FC<NetzerSelectProps> = ({
+  label,
+  options,
+  selected,
+  onChange,
+  id,
+  disabled
+}) => {
   const onChangeHandler = useCallback(
     e => {
       onChange?.(e.target.value);
@@ -20,7 +29,14 @@ export const NetzerSelect: FC<NetzerSelectProps> = ({ label, options, selected, 
     <React.Fragment>
       <FormControl fullWidth>
         <InputLabel id={id}>{label}</InputLabel>
-        <Select labelId={id} id={id} label={label} value={selected} onChange={onChangeHandler}>
+        <Select
+          labelId={id}
+          id={id}
+          label={label}
+          value={selected}
+          onChange={onChangeHandler}
+          disabled={disabled}
+        >
           {options.map((option, index) => (
             <MenuItem key={option.label} value={option.value}>
               {option.label}

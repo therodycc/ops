@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OrderStatus } from '../../enums/order.status';
+import { ProductUnit } from '../../enums/product-unit.enum';
 
 import { Notification } from '../../interfaces/notification';
 import { CreateOrderDto, OrderProduct, OrderState } from '../../interfaces/order/order';
@@ -73,6 +74,10 @@ const orderSlice = createSlice({
     removeDetail(state: OrderState) {
       state.detail = null;
       return state;
+    },
+    addMoreProductsToOrderAction(state: OrderState, action) {
+      state.detail = action.payload;
+      state.isLoading = false;
     }
   }
 });
@@ -152,5 +157,22 @@ export const sendOrderToCashRegisterAction = (id: string) => {
     );
 
     notify({ message: 'Orden enviada a caja' } as Notification);
+  };
+};
+
+export const addMoreProductsToOrder = (
+  id: string,
+  products: { id: string; quantity: number; unit: ProductUnit }[]
+) => {
+  return async () => {
+    dispatch(orderSlice.actions.startLoading());
+    const result = await orderService.addProductsToOrder({ orderId: id, products });
+    if (result.error) {
+      notify({ message: result.error.message, type: 'error' } as Notification);
+      dispatch(orderSlice.actions.hasError(result.error));
+      return;
+    }
+    notify({ message: 'Productos agregados a la orden', type: 'success' } as Notification);
+    dispatch(orderSlice.actions.addMoreProductsToOrderAction(result.data));
   };
 };

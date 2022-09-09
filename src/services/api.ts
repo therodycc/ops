@@ -29,7 +29,8 @@ const ENDPOINTS = Object.freeze({
     save: `${API_HOST}/orders/`,
     update: `${API_HOST}/orders`,
     delete: `${API_HOST}/orders`,
-    sendToCashier: `${API_HOST}/orders/sent-to-cashie`
+    sendToCashier: `${API_HOST}/orders/sent-to-cashie`,
+    productsToOrder: `${API_HOST}/orders/add-products`
   }
 });
 
