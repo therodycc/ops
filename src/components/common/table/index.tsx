@@ -1,5 +1,7 @@
+import { LoadingButton, Masonry } from '@mui/lab';
 import {
   Box,
+  Grid,
   IconButton,
   Table,
   TableBody,
@@ -17,6 +19,7 @@ import Iconify from '../../Iconify';
 import { Scrollbar } from '../../Scrollbar';
 import TableSelectedActions from '../../table/TableSelectedActions';
 import TableSkeleton from '../../table/TableSkeleton';
+import { SkeletonBody } from './SkeletonBody';
 
 export const NetzerTable: FC<NetzerTablePropsI> = ({
   columns,
@@ -24,12 +27,26 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
   isLoading = false,
   rowAction,
   emptyData,
-  pagination
+  pagination,
+  buttonTable
 }) => {
   return (
     <React.Fragment>
       <Scrollbar>
         {isLoading && [...Array(5)].map((_, index) => <TableSkeleton key={index} />)}
+        {buttonTable && (
+          <Grid container padding={'20px'} marginTop={'10px'} justifyContent="flex-end" spacing={2}>
+            <LoadingButton
+              variant={'contained'}
+              color={'success'}
+              onClick={() => buttonTable?.onClick()}
+              sx={{ color: 'white', width: 'auto' }}
+              startIcon={<Iconify icon={'eva:plus-fill'} />}
+            >
+              {buttonTable?.children}
+            </LoadingButton>
+          </Grid>
+        )}
         <TableContainer
           sx={{
             minWidth: 800,
@@ -88,6 +105,7 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
                     </TableRow>
                   ))}
                 </TableBody>
+                {isLoading && <SkeletonBody columns={columns} />}
               </React.Fragment>
             )}
           </Table>

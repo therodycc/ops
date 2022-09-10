@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 export interface ColumnsTableI {
   children: (props: { columns: ColumnsI[] }) => ReactElement;
@@ -17,6 +17,14 @@ export interface NetzerTablePropsI {
   rowAction?: Function;
   emptyData?: EmptyDataI;
   pagination?: PaginationI;
+  buttonTable?: {
+    variant: 'contained';
+    color: 'success';
+    onClick: Function;
+    sx: Object;
+    startIcon: ReactNode;
+    children: ReactNode;
+  };
 }
 
 export interface EmptyDataI {

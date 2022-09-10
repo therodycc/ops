@@ -1,5 +1,6 @@
 import { Avatar, Box, Checkbox, TableCell, Typography } from '@mui/material';
 import { ColumnsI, ColumnsTableI } from '../../../interfaces/table/table.interface';
+import Image from '../../Image';
 
 interface ColumnsProductsOrderProps extends ColumnsTableI {
   handleDelete?: Function;
@@ -8,21 +9,46 @@ interface ColumnsProductsOrderProps extends ColumnsTableI {
 export const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProductsOrderProps) => {
   let columns: ColumnsI[] = [
     {
-      title: 'ID',
+      title: 'Producto',
       render: ({ data }) => {
         return (
-          <Box display="flex" alignItems="center">
-            <Typography variant="body2">{data.id}</Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Image
+              alt="product image"
+              src={data.photo}
+              sx={{ width: 64, height: 64, borderRadius: 1.5, mr: 2 }}
+            />
+            <Box>
+              <Typography noWrap variant="subtitle2" sx={{ maxWidth: 180 }}>
+                {data?.name}
+              </Typography>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <Typography variant="body2">
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    sx={{ color: 'text.secondary' }}
+                  ></Typography>
+                  {data?.unit}
+                </Typography>
+              </Box>
+            </Box>
           </Box>
         );
       }
     },
     {
-      title: 'Producto',
+      title: 'ID',
       render: ({ data }) => {
         return (
           <Box display="flex" alignItems="center">
-            <Typography variant="body2">{data.name}</Typography>
+            <Typography variant="body2">{data.id}</Typography>
           </Box>
         );
       }
@@ -36,18 +62,8 @@ export const ColumnsProductsOrder = ({ children, handleDelete }: ColumnsProducts
       key: 'unit'
     },
     {
-      title: 'Cantidad',
+      title: 'Cantidad de productos',
       key: 'quantity'
-    },
-    {
-      title: 'Photo',
-      render: ({ data }) => {
-        return (
-          <Box display="flex" alignItems="center">
-            <Avatar src={data.photo} sx={{ mr: 2 }} />
-          </Box>
-        );
-      }
     }
   ];
   return children({ columns });

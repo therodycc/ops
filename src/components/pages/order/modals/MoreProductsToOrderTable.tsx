@@ -9,6 +9,7 @@ import { AuthState } from '../../../../interfaces/user';
 import { AppState } from '../../../../redux/rootReducer';
 import { addMoreProductsToOrder } from '../../../../redux/slices/order';
 import { NetzerTable } from '../../../common/table';
+import Iconify from '../../../Iconify';
 import { ProductSearch } from '../../../ProductSearch';
 import { MoreProductsToOrderColumns } from './MoreProductsToOrderColumns';
 interface MoreProductsToOrderTableProps {
@@ -35,28 +36,28 @@ export const MoreProductsToOrderTable: FC<MoreProductsToOrderTableProps> = ({ to
   const addProductsToOrder = () => {
     dispatch(
       addMoreProductsToOrder(
-        detail.id,
+        detail?.id,
         productsToBeAdded.map(item => {
           return {
             id: item.id,
             quantity: item.quantity,
             unit: item.unit as ProductUnit
           };
-        })
+        }),
+        toggle
       )
     );
-    toggle();
   };
 
   return (
     <React.Fragment>
-      <Grid container padding={'10px'} marginTop={'10px'} justifyContent="flex-end" spacing={2}>
+      <Grid container padding={'10px'} marginTop={'10px'} justifyContent="flex-start" spacing={2}>
+        <ProductSearch onSelect={addNewProductTo} />
         {showError.show && (
           <Alert style={{ margin: '0rem 0.7rem' }} severity="error" onClose={() => {}}>
             {showError.message}
           </Alert>
         )}
-        <ProductSearch onSelect={addNewProductTo} />
       </Grid>
       <MoreProductsToOrderColumns
         onDecrease={updateQuantity}
@@ -80,7 +81,11 @@ export const MoreProductsToOrderTable: FC<MoreProductsToOrderTableProps> = ({ to
         )}
       </MoreProductsToOrderColumns>
       <Grid container justifyContent="flex-end" spacing={2}>
-        <LoadingButton variant="outlined" onClick={() => {}} style={{ margin: '1rem 0.7rem' }}>
+        <LoadingButton
+          variant="outlined"
+          onClick={() => toggle?.()}
+          style={{ margin: '1rem 0.7rem' }}
+        >
           Cancelar selección
         </LoadingButton>
 
