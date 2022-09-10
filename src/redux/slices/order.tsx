@@ -162,7 +162,8 @@ export const sendOrderToCashRegisterAction = (id: string) => {
 
 export const addMoreProductsToOrder = (
   id: string,
-  products: { id: string; quantity: number; unit: ProductUnit }[]
+  products: { id: string; quantity: number; unit: ProductUnit }[],
+  toggle: Function
 ) => {
   return async () => {
     dispatch(orderSlice.actions.startLoading());
@@ -173,6 +174,7 @@ export const addMoreProductsToOrder = (
       return;
     }
     notify({ message: 'Productos agregados a la orden', type: 'success' } as Notification);
+    toggle();
     dispatch(orderSlice.actions.addMoreProductsToOrderAction(result.data));
   };
 };

@@ -14,9 +14,17 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import Page from '../../components/Page';
 import { OrdersTable } from '../../components/pages/order/OrdersTable';
 import { CartWidget } from '../../sections/products/detail/CartWidget';
+import { AlertDialog } from '../../components/common/alert';
+import { useEffect, useState } from 'react';
 
 export default function OrderListPage() {
   const { themeStretch } = useSettings();
+  const [showDialog, setShowDialog] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setShowDialog(false);
+    }, 5000);
+  }, []);
 
   return (
     <Page title="Ordenes - Lista">
@@ -35,6 +43,14 @@ export default function OrderListPage() {
           <OrdersTable />
         </Card>
       </Container>
+      {showDialog && (
+        <AlertDialog
+          title={'Test'}
+          message={'test'}
+          type={'success'}
+          sx={{ width: 'auto', zIndex: 9999, position: 'fixed', top: 10, right: 10 }}
+        />
+      )}
     </Page>
   );
 }
