@@ -2,6 +2,7 @@ import { OrderDetail } from '../../../interfaces/order/order';
 import { OrderDetailSummary } from './OrderDetailSummary';
 import Iconify from '../../Iconify';
 import { ProductOrderTable } from './ProductOrderTable';
+import { Payments } from './payments/Payments';
 
 interface OrderTabsProps {
   orderDetail: OrderDetail;
@@ -19,9 +20,9 @@ export const OrderTabs = ({ orderDetail }: OrderTabsProps) => {
       component: <ProductOrderTable products={orderDetail?.products} />
     },
     {
-      value: 'notifications',
-      icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
-      component: <h2>Hola</h2>
+      value: 'Pagos',
+      icon: <Iconify icon={'oi:credit-card'} width={20} height={20} />,
+      component: <Payments />
     },
     {
       value: 'social_links',
