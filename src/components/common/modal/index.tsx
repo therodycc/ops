@@ -8,6 +8,7 @@ interface NetzerModalPropsI {
   active: boolean;
   toggle: Function;
   footerSection?: ReactNode;
+  maxWidth?: 'lg' | 'md' | 'sm';
 }
 
 export const NetzerModal: FC<NetzerModalPropsI> = ({
@@ -15,12 +16,13 @@ export const NetzerModal: FC<NetzerModalPropsI> = ({
   footerSection,
   title,
   active,
-  toggle
+  toggle,
+  maxWidth = 'lg'
 }) => {
   return (
     <React.Fragment>
       <DialogAnimate
-        maxWidth="lg"
+        maxWidth={maxWidth}
         open={active}
         onClose={toggle}
         variants={getVariant('slideInUp')}
