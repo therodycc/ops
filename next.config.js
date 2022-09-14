@@ -10,9 +10,9 @@ const withTM = require('next-transpile-modules')();
 // ]
 
 const env = process.env.ENV;
-let host = 'http://LoadBalancer-819446529.us-east-1.elb.amazonaws.com:3001';
+let host = 'https://dev-api.farmacianetzer.com';
 if (env === 'production') {
-  host = 'http://LoadBalancer-819446529.us-east-1.elb.amazonaws.com:3001'; // production host
+  host = 'https://api.farmacianetzer.com';
 }
 module.exports = withTM({
   compress: true,
