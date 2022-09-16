@@ -78,6 +78,11 @@ const orderSlice = createSlice({
     addMoreProductsToOrderAction(state: OrderState, action) {
       state.detail = action.payload;
       state.isLoading = false;
+      return state;
+    },
+    addPayToOrderAction(state: OrderState, action) {
+      state.detail = action.payload.detail;
+      return state;
     }
   }
 });
@@ -85,7 +90,7 @@ const orderSlice = createSlice({
 // ----------------------------------------------------------------------
 
 // // Reducer
-export const { hasError, removeDetail } = orderSlice.actions;
+export const { hasError, removeDetail, startLoading, addPayToOrderAction } = orderSlice.actions;
 
 export default orderSlice.reducer;
 

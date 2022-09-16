@@ -1,4 +1,4 @@
-import { LoadingButton, Masonry } from '@mui/lab';
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Grid,
@@ -13,7 +13,7 @@ import {
   Tooltip
 } from '@mui/material';
 import React, { FC } from 'react';
-import { ColumnsI, NetzerTablePropsI } from '../../../interfaces/table/table.interface';
+import { NetzerTablePropsI } from '../../../interfaces/table/table.interface';
 import EmptyContent from '../../EmptyContent';
 import Iconify from '../../Iconify';
 import { Scrollbar } from '../../Scrollbar';
@@ -28,25 +28,35 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
   rowAction,
   emptyData,
   pagination,
-  buttonTable
+  buttonTable,
+  leftSection
 }) => {
   return (
     <React.Fragment>
       <Scrollbar>
         {isLoading && [...Array(5)].map((_, index) => <TableSkeleton key={index} />)}
-        {buttonTable && (
-          <Grid container padding={'20px'} marginTop={'10px'} justifyContent="flex-end" spacing={2}>
-            <LoadingButton
-              variant={'contained'}
-              color={'success'}
-              onClick={() => buttonTable?.onClick()}
-              sx={{ color: 'white', width: 'auto' }}
-              startIcon={<Iconify icon={'eva:plus-fill'} />}
-            >
-              {buttonTable?.children}
-            </LoadingButton>
-          </Grid>
-        )}
+        <Grid
+          container
+          padding={'20px'}
+          marginTop={'10px'}
+          justifyContent="space-between"
+          spacing={2}
+        >
+          <div>{leftSection}</div>
+          {buttonTable && (
+            <div style={{ display: 'flex', alignItems: 'end' }}>
+              <LoadingButton
+                variant={'contained'}
+                color={'success'}
+                onClick={() => buttonTable?.onClick()}
+                sx={{ color: 'white', width: 'auto' }}
+                startIcon={<Iconify icon={'eva:plus-fill'} />}
+              >
+                {buttonTable?.children}
+              </LoadingButton>
+            </div>
+          )}
+        </Grid>
         <TableContainer
           sx={{
             minWidth: 800,

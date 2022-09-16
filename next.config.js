@@ -12,7 +12,7 @@ const withTM = require('next-transpile-modules')();
 const env = process.env.ENV;
 let host = 'https://dev-api.farmacianetzer.com';
 if (env === 'production') {
-  host = 'https://api.farmacianetzer.com';
+  host = 'https://api.farmacianetzer.com'; // production host
 }
 module.exports = withTM({
   compress: true,

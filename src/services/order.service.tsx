@@ -50,12 +50,17 @@ const addProductsToOrder = ({
       return Promise.resolve({ error: { message: 'Error al agregar los products a la orden' } });
     });
 };
-
+const addPaymentToOrder = payment => {
+  return axios.post(API.ORDER.addPaymentToOrder, payment).catch(error => {
+    return Promise.resolve({ error: { message: 'Error al agregar el pago a la orden' } });
+  });
+};
 export const orderService = {
   get,
   add,
   detail,
   summary,
   sendToCashier,
-  addProductsToOrder
+  addProductsToOrder,
+  addPaymentToOrder
 };

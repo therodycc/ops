@@ -15,6 +15,7 @@ export interface NetzerTablePropsI {
   data: any[];
   isLoading?: boolean;
   rowAction?: Function;
+  leftSection?: ReactNode;
   emptyData?: EmptyDataI;
   pagination?: PaginationI;
   buttonTable?: {

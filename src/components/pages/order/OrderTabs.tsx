@@ -1,5 +1,5 @@
 import { OrderDetail } from '../../../interfaces/order/order';
-import { OrderDetailSummary } from './OrderDetailSummary';
+import { OrderDetailSummary } from './resume/OrderDetailSummary';
 import Iconify from '../../Iconify';
 import { ProductOrderTable } from './ProductOrderTable';
 import { Payments } from './payments/Payments';

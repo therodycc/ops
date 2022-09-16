@@ -1,12 +1,12 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { ColumnsI, ColumnsTableI } from '../../../../interfaces/table/table.interface';
-import { CounterCart } from '../../../../sections/checkout/CounterCart';
-import { formatAmount } from '../../../../utils/currencyFormat';
-import { getPriceAndApplyDiscount } from '../../../../utils/price.utils';
-import { NetzerSelect } from '../../../common/select';
-import Iconify from '../../../Iconify';
-import Image from '../../../Image';
+import { ColumnsI, ColumnsTableI } from '../../../../../interfaces/table/table.interface';
+import { CounterCart } from '../../../../../sections/checkout/CounterCart';
+import { formatAmount } from '../../../../../utils/currencyFormat';
+import { getPriceAndApplyDiscount } from '../../../../../utils/price.utils';
+import { NetzerSelect } from '../../../../common/select';
+import Iconify from '../../../../Iconify';
+import Image from '../../../../Image';
 
 interface MoreProductsToOrderColumnsProps extends ColumnsTableI {
   onIncrease: Function;

@@ -5,7 +5,7 @@ import { NetzerModal } from '../../common/modal';
 import { NetzerTable } from '../../common/table';
 import Iconify from '../../Iconify';
 import { ColumnsProductsOrder } from './ColumnsProductsOrder';
-import { MoreProductsToOrderTable } from './modals/MoreProductsToOrderTable';
+import { MoreProductsToOrderTable } from './modals/products/MoreProductsToOrderTable';
 interface ProductOrderTableProps {
   products: OrderDetail['products'];
 }
