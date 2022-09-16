@@ -7,17 +7,17 @@ moment.locale('en-ES');
 
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
-import { OrderStatus } from '../../../enums/order.status';
-import { Role } from '../../../enums/roles';
-import { OrderDetail, OrderState } from '../../../interfaces/order/order';
-import { AuthState } from '../../../interfaces/user';
-import { AppState } from '../../../redux/rootReducer';
-import { removeDetail, sendOrderToCashRegisterAction } from '../../../redux/slices/order';
-import { PATH_ORDER } from '../../../routes/paths';
-import { CheckoutSummary } from '../../../sections/checkout';
-import { BoxDetails } from '../../common/box/BoxDetails';
+import { OrderStatus } from '../../../../enums/order.status';
+import { Role } from '../../../../enums/roles';
+import { OrderDetail, OrderState } from '../../../../interfaces/order/order';
+import { AuthState } from '../../../../interfaces/user';
+import { AppState } from '../../../../redux/rootReducer';
+import { removeDetail, sendOrderToCashRegisterAction } from '../../../../redux/slices/order';
+import { PATH_ORDER } from '../../../../routes/paths';
+import { BoxDetails } from '../../../common/box/BoxDetails';
+import { OrderPrescriptions } from '../OrderPrescriptions';
 import OrderDetailsOptions from './OrderDetailsOptions';
-import { OrderPrescriptions } from './OrderPrescriptions';
+import orderResumeOptions from './orderResumeOptions';
 
 interface OrderDetailSummaryProp {
   orderDetail: OrderDetail;
@@ -79,13 +79,10 @@ export const OrderDetailSummary: React.FC<OrderDetailSummaryProp> = ({
         </Grid>
 
         <Grid item xs={12} md={5} lg={5}>
-          <CheckoutSummary
-            title={'Resumen de la orden'}
-            total={orderDetail?.summary.total}
-            itbis={orderDetail?.summary.itbis}
-            discount={orderDetail?.summary.discount}
-            insurance={0}
-            subTotal={'0'}
+          <BoxDetails
+            isLoading={!orderDetail}
+            header="Resumen de la orden"
+            rows={orderResumeOptions({ orderDetail })}
           />
         </Grid>
       </Grid>

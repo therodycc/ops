@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 interface BoxDetailsPropsI {
   header: string;
-  rows: { title?: string | JSX.Element; description?: string | JSX.Element; divider?: boolean }[];
+  rows: { title?: string | ReactNode; description?: string | ReactNode; divider?: boolean }[];
   footerSection?: ReactNode;
   isLoading?: boolean;
 }
@@ -40,7 +40,11 @@ export const BoxDetails = ({
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                           {item.title}
                         </Typography>
-                        <Typography variant="subtitle2">{item.description}</Typography>
+                        {typeof item.description === ('object' || 'function') ? (
+                          item.description
+                        ) : (
+                          <Typography variant="subtitle2">{item.description}</Typography>
+                        )}
                       </Stack>
                     )}
                   </React.Fragment>

@@ -1,3 +1,4 @@
+import { CardHeader, Grid, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { OrderState } from '../../../../interfaces/order/order';
@@ -14,6 +15,13 @@ export const PaymentsTable: FC<PaymentsTableProps> = ({ onShowModalHandle }) => 
 
   return (
     <React.Fragment>
+      <Grid
+        container
+        padding={'10px'}
+        marginTop={'10px'}
+        justifyContent="flex-end"
+        spacing={2}
+      ></Grid>
       <PaymentsColumns>
         {({ columns }) => (
           <NetzerTable
@@ -27,6 +35,14 @@ export const PaymentsTable: FC<PaymentsTableProps> = ({ onShowModalHandle }) => 
               sx: { color: 'white', width: 'auto' },
               startIcon: <Iconify icon={'eva:plus-fill'} />
             }}
+            leftSection={
+              <div style={{ margin: '10px 0px' }}>
+                <Typography variant="h6">Total : {'1000.00'}</Typography>
+                <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                  Pagado: {'1000.00'}
+                </Typography>
+              </div>
+            }
           />
         )}
       </PaymentsColumns>

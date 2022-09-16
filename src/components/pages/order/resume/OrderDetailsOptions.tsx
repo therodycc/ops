@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { OrderDetail } from '../../../interfaces/order/order';
+import { OrderDetail } from '../../../../interfaces/order/order';
 moment.locale('en-ES');
 
 interface OrderDetailsOptionsI {
