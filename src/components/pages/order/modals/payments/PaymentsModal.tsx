@@ -7,6 +7,7 @@ import { AuthState } from '../../../../../interfaces/user';
 import { AppState } from '../../../../../redux/rootReducer';
 import { addPayToOrderAction } from '../../../../../redux/slices/order';
 import { orderService } from '../../../../../services/order.service';
+import { formatAmount } from '../../../../../utils/currencyFormat';
 import { FormPayments } from './FormPayments';
 import { PaymentMethods } from './PaymentMethod';
 interface PaymentsModalProps {
@@ -15,10 +16,13 @@ interface PaymentsModalProps {
 export const PaymentsModal: FC<PaymentsModalProps> = memo(function PaymentModal({
   showModalPaymentsMethods
 }) {
-  const { step, methodId, toggleLoading, handleError } = useContext(PaymentContext);
+  const { step, methodId, toggleLoading, handleError, amount } = useContext(PaymentContext);
+
   const order = useSelector<AppState, OrderState>(state => state.order);
   const { user } = useSelector<AppState, AuthState>(state => state.auth);
   const dispatch = useDispatch();
+
+  let pendingAmount = +order?.detail?.paymentDetail?.pending - +amount;
 
   const handlePay = async formData => {
     toggleLoading();
@@ -63,9 +67,14 @@ export const PaymentsModal: FC<PaymentsModalProps> = memo(function PaymentModal(
             alignItems: 'flex-end'
           }}
         >
-          <Typography variant="h6">Total : {'1000.00'}</Typography>
-          <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-            Pagado: {'1000.00'}
+          <Typography variant="h6">
+            Total : {formatAmount(order?.detail?.paymentDetail?.total)}
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{ color: pendingAmount < 0 ? 'error.main' : 'text.warning' }}
+          >
+            Pendiente: {formatAmount(pendingAmount)}
           </Typography>
         </Grid>
       </Grid>

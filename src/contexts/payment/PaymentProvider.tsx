@@ -7,7 +7,8 @@ const INITIAL_STATE: IInitialPaymentState = {
   step: 0,
   methodId: null,
   isLoading: false,
-  error: null
+  error: null,
+  amount: 0
 };
 
 export const PaymentProvider = ({ children }) => {
@@ -36,6 +37,10 @@ export const PaymentProvider = ({ children }) => {
     }, 3000);
   };
 
+  const handleChangeAmount = (amount: number) => {
+    dispatch({ type: 'CHANGE_AMOUNT', payload: { amount } });
+  };
+
   return (
     <PaymentContext.Provider
       value={{
@@ -43,7 +48,8 @@ export const PaymentProvider = ({ children }) => {
         changeStep,
         handleMethodChange,
         toggleLoading,
-        handleError
+        handleError,
+        handleChangeAmount
       }}
     >
       {children}

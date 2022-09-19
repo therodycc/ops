@@ -40,6 +40,11 @@ export interface OrderDetail {
   };
   status: OrderStatus;
   statusDescription: string;
+  paymentDetail?: {
+    total: number;
+    pending: number;
+    isMissingPayment: boolean;
+  };
   date: {
     created: Date;
     lastModified: Date;

@@ -22,7 +22,11 @@ export const paymentReducer = (state: IInitialPaymentState, action: TPaymentActi
         ...state,
         error: action.payload.error
       };
-
+    case 'CHANGE_AMOUNT':
+      return {
+        ...state,
+        amount: action.payload.amount
+      };
     default:
       return state;
   }

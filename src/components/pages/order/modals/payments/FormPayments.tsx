@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 // next
 // form
@@ -9,16 +9,22 @@ import { LoadingButton } from '@mui/lab';
 import { Alert, Stack, Typography } from '@mui/material';
 
 import { useSelector } from 'react-redux';
+import { PaymentContext } from '../../../../../contexts/payment';
+import { useDebounce } from '../../../../../hooks/common/useDebounce';
 import { OrderState } from '../../../../../interfaces/order/order';
 import { AppState } from '../../../../../redux/rootReducer';
 import { FormProvider, RHFTextField } from '../../../../hook-form';
-import { PaymentContext } from '../../../../../contexts/payment';
 
 interface FormPaymentsProps {
   handlePay: (amount) => void;
 }
 export const FormPayments = ({ handlePay }: FormPaymentsProps) => {
-  const { isLoading, error } = useContext(PaymentContext);
+  const { isLoading, error, handleChangeAmount } = useContext(PaymentContext);
+
+  const { detail } = useSelector<AppState, OrderState>(state => state.order);
+  const [personError, setPersonError] = useState<null | string>(null);
+
+  const [amountInput, setAmountInput] = useState(0);
 
   const defaultValues = useRef({
     amount: ''
@@ -37,11 +43,34 @@ export const FormPayments = ({ handlePay }: FormPaymentsProps) => {
     reset,
     setError,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors }
   } = methods;
 
-  const onSubmit = async amount => {
-    handlePay(amount);
+  const result = watch();
+  const textValue = useDebounce(amountInput);
+
+  useEffect(() => {
+    setAmountInput(+result?.amount || 0);
+  }, [result]);
+
+  useEffect(() => {
+    if (!textValue) return;
+    handleChangeAmount(+textValue);
+  }, [textValue]);
+
+  const onSubmit = async data => {
+    if (+data.amount > detail?.paymentDetail.pending)
+      return handleError('El monto no puede ser mayor al pendiente');
+    handlePay(data);
+  };
+
+  const handleError = (error: string) => {
+    setPersonError(error);
+    setTimeout(() => {
+      setPersonError(null);
+    }, 3000);
   };
 
   return (
@@ -50,11 +79,11 @@ export const FormPayments = ({ handlePay }: FormPaymentsProps) => {
         <Typography variant="h5" sx={{ marginTop: '20px' }}>
           Monto
         </Typography>
-        <RHFTextField name="amount" placeholder="100.00" />
+        <RHFTextField type="number" name="amount" placeholder="100.00" />
       </Stack>
-      {!!error && (
+      {(!!error || personError) && (
         <Alert severity="error" sx={{ marginTop: '10px' }}>
-          {error}
+          {error || personError}
         </Alert>
       )}
       <LoadingButton

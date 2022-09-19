@@ -25,7 +25,7 @@ export const NetzerModal: FC<NetzerModalPropsI> = memo(function NetzerModal({
         maxWidth={maxWidth}
         open={active}
         onClose={toggle}
-        variants={getVariant('slideInUp')}
+        variants={getVariant('fadeIn')}
         sx={{
           maxWidth: '100%'
         }}

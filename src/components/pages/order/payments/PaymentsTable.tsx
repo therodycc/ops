@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { OrderState } from '../../../../interfaces/order/order';
 import { AppState } from '../../../../redux/rootReducer';
+import { formatAmount } from '../../../../utils/currencyFormat';
 import { NetzerTable } from '../../../common/table';
 import Iconify from '../../../Iconify';
 import { PaymentsColumns } from './PaymentsColumns';
@@ -27,19 +28,25 @@ export const PaymentsTable: FC<PaymentsTableProps> = ({ onShowModalHandle }) => 
           <NetzerTable
             columns={columns}
             data={detail?.payments}
-            buttonTable={{
-              variant: 'contained',
-              color: 'success',
-              children: 'Agregar metodo de pago',
-              onClick: onShowModalHandle,
-              sx: { color: 'white', width: 'auto' },
-              startIcon: <Iconify icon={'eva:plus-fill'} />
-            }}
+            {...(detail?.paymentDetail.isMissingPayment
+              ? {
+                  buttonTable: {
+                    variant: 'contained',
+                    color: 'success',
+                    children: 'Agregar metodo de pago',
+                    onClick: onShowModalHandle,
+                    sx: { color: 'white', width: 'auto' },
+                    startIcon: <Iconify icon={'eva:plus-fill'} />
+                  }
+                }
+              : {})}
             leftSection={
               <div style={{ margin: '10px 0px' }}>
-                <Typography variant="h6">Total : {'1000.00'}</Typography>
+                <Typography variant="h6">
+                  Total : {formatAmount(detail?.paymentDetail?.total)}
+                </Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                  Pagado: {'1000.00'}
+                  Pendiente: {formatAmount(detail?.paymentDetail?.pending)}
                 </Typography>
               </div>
             }
