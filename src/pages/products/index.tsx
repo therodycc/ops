@@ -1,30 +1,27 @@
 // React
 import { useCallback, useEffect } from 'react';
 // @mui
-import { Button } from '@mui/material';
-import { Container, Box, Stack } from '@mui/material';
+import { Box, Container, Stack } from '@mui/material';
 // routes
-import { PATH_DASHBOARD, PATH_ORDER, PATH_PRODUCTS } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PRODUCTS } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // next
-import NextLink from 'next/link';
 // layouts
 import Layout from '../../layouts';
 // components
-import Page from '../../components/Page';
-import Iconify from '../../components/Iconify';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import Page from '../../components/Page';
 // Redux
 import { getProducts } from '../../redux/slices/product';
 import { useDispatch, useSelector } from '../../redux/store';
 // sections
-import { ProductList } from '../../sections/products/list';
-import { SkeletonProductItem } from '../../components/skeleton';
 import { useRouter } from 'next/router';
-import { Product } from '../../interfaces/product/product';
 import { ProductSearch } from '../../components/ProductSearch';
+import { SkeletonProductItem } from '../../components/skeleton';
+import { Product } from '../../interfaces/product/product';
 import { CartWidget } from '../../sections/products/detail/CartWidget';
+import { ProductList } from '../../sections/products/list';
 
 // ----------------------------------------------------------------------
 
@@ -66,7 +63,7 @@ export default function ProductListPage() {
           heading="Ordenes"
           links={[
             { name: 'Inicio', href: PATH_DASHBOARD.root },
-            { name: 'Ordenes', href: PATH_ORDER.root },
+            { name: 'Productos', href: PATH_PRODUCTS.root },
             { name: 'Detalle' }
           ]}
         />

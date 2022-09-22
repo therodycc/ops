@@ -39,14 +39,7 @@ export const FormPayments = ({ handlePay }: FormPaymentsProps) => {
     defaultValues: defaultValues.current
   });
 
-  const {
-    reset,
-    setError,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors }
-  } = methods;
+  const { reset, setError, handleSubmit, setValue, watch } = methods;
 
   const result = watch();
   const textValue = useDebounce(amountInput);
@@ -56,8 +49,7 @@ export const FormPayments = ({ handlePay }: FormPaymentsProps) => {
   }, [result]);
 
   useEffect(() => {
-    if (!textValue) return;
-    handleChangeAmount(+textValue);
+    handleChangeAmount(+textValue || 0);
   }, [textValue]);
 
   const onSubmit = async data => {
