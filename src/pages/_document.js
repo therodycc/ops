@@ -32,6 +32,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
             rel="stylesheet"
           />
+          <link href="/assets/css/global.css" rel="stylesheet" />
 
           <meta name="description" content="Farmacia Nazir" />
           <meta name="keywords" content="farmacia,nazir,compra en linea," />
