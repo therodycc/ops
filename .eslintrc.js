@@ -3,11 +3,9 @@ module.exports = {
   root: true,
   extends: [
     'eslint:recommended',
-    '@react-native-community',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jest/recommended',
-    'plugin:react-native-a11y/all',
     'plugin:react-perf/recommended',
     'prettier'
   ],
@@ -22,7 +20,6 @@ module.exports = {
     'react/prop-types': 0,
     'no-shadow': 'off', // turn off eslint/no-shadow
     '@typescript-eslint/no-shadow': ['error'], // turn on typescript-eslint/no-shadow
-    'react-native-a11y/has-accessibility-hint': 'off', // do not enforce hint since we add complete labels
     'react/jsx-no-bind': [
       1,
       {
