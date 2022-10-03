@@ -11,6 +11,12 @@ export type FormInputsProps =
       props: TextFieldProps;
     }
   | {
+      type: 'phone';
+      cols: colsType;
+      label?: string;
+      props: TextFieldProps | any;
+    }
+  | {
       type: 'select';
       label?: string;
       cols: colsType;

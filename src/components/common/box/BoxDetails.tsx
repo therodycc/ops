@@ -1,8 +1,19 @@
-import { Card, CardContent, CardHeader, Divider, Skeleton, Stack, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  Skeleton,
+  Stack,
+  Typography
+} from '@mui/material';
 import React, { ReactNode } from 'react';
+import Iconify from '../../Iconify';
 
 interface BoxDetailsPropsI {
-  header: string;
+  header: ReactNode | string;
   rows: { title?: string | ReactNode; description?: string | ReactNode; divider?: boolean }[];
   footerSection?: ReactNode;
   isLoading?: boolean;
@@ -17,7 +28,9 @@ export const BoxDetails = ({
   return (
     <React.Fragment>
       <Card>
-        <CardHeader title={header} sx={{ mb: 3 }} />
+        <Grid padding="0 20px" marginTop={'20px'}>
+          {typeof header === 'string' ? <Typography variant="h6">{header}</Typography> : header}
+        </Grid>
         <CardContent>
           <Stack spacing={2}>
             {isLoading

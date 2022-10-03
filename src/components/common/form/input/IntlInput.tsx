@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, TextField, Typography } from '@mui/material';
 import React, { FC } from 'react';
 
 import IntlTelInput from 'react-intl-tel-input';
@@ -12,10 +12,12 @@ interface IntlInputProps {
 
 export const IntlInput: FC<IntlInputProps> = ({ onChange, props, label }) => {
   const handleChangeIntlInput = (...args) => {
+    let value = args?.[1].replace(/\D/g, '');
+    const message = value.slice(0, props?.maxLength);
     onChange?.(
       {
         target: {
-          value: args?.[1].replace(/\D/g, ''),
+          value: props?.maxLength !== -1 ? message : value,
           name: props?.name
         }
       },
@@ -25,18 +27,22 @@ export const IntlInput: FC<IntlInputProps> = ({ onChange, props, label }) => {
 
   return (
     <React.Fragment>
-      <Stack spacing={0} sx={{}}>
+      <Stack spacing={0} sx={{ width: '100%' }}>
         {label && <Typography variant="subtitle2">{label}</Typography>}
-        <IntlTelInput
-          containerClassName="intl-tel-input"
-          inputClassName="form-control"
-          format={true}
-          onPhoneNumberChange={handleChangeIntlInput}
-          formatOnInit={true}
-          fieldName={props?.name}
-          autoPlaceholder={true}
-          placeholder={props?.placeholder}
-        />
+        <div className="container-input">
+          <IntlTelInput
+            containerClassName="intl-tel-input"
+            inputClassName="intel-input"
+            format={true}
+            defaultCountry={'do'}
+            onPhoneNumberChange={handleChangeIntlInput}
+            formatOnInit={true}
+            fieldName={props?.name}
+            value={props.value}
+            autoPlaceholder={true}
+            placeholder={props?.placeholder}
+          />
+        </div>
       </Stack>
     </React.Fragment>
   );

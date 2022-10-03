@@ -32,6 +32,9 @@ const ENDPOINTS = Object.freeze({
     sendToCashier: `${API_HOST}/orders/sent-to-cashie`,
     productsToOrder: `${API_HOST}/orders/add-products`,
     addPaymentToOrder: `${API_HOST}/orders/pay`
+  },
+  PROFILE: {
+    getByPhone: `${API_HOST}/profiles/find-by-phone`
   }
 });
 

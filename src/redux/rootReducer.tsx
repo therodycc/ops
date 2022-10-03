@@ -7,6 +7,7 @@ import authReducer from './slices/auth';
 import orderReducer from './slices/order';
 import cartReducer from './slices/cart';
 import notification from './slices/notification';
+import cartOrderReducer from './slices/cart-order';
 
 // ----------------------------------------------------------------------
 
@@ -50,6 +51,12 @@ const cartPersistConfig = {
   keyPrefix: 'redux-'
 };
 
+const cartOrderPersistConfig = {
+  key: 'cartOrder',
+  storage,
+  keyPrefix: 'redux-'
+};
+
 const orderPersistConfig = {
   key: 'order',
   storage,
@@ -62,6 +69,7 @@ const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   // order: persistReducer(orderPersistConfig, orderReducer),
   order: orderReducer,
+  cartOrder: persistReducer(cartOrderPersistConfig, cartOrderReducer),
   notification,
   cart: persistReducer(cartPersistConfig, cartReducer)
 });

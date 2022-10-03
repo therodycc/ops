@@ -18,7 +18,6 @@ import EmptyContent from '../../EmptyContent';
 import Iconify from '../../Iconify';
 import { Scrollbar } from '../../Scrollbar';
 import TableSelectedActions from '../../table/TableSelectedActions';
-import TableSkeleton from '../../table/TableSkeleton';
 import { SkeletonBody } from './SkeletonBody';
 
 export const NetzerTable: FC<NetzerTablePropsI> = ({
@@ -34,7 +33,6 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
   return (
     <React.Fragment>
       <Scrollbar>
-        {isLoading && [...Array(5)].map((_, index) => <TableSkeleton key={index} />)}
         <Grid
           container
           padding={'20px'}
@@ -95,6 +93,7 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
                 ))}
               </TableRow>
             </TableHead>
+            {isLoading && <SkeletonBody columns={columns} />}
             {!isLoading && data && data?.length > 0 && (
               <React.Fragment>
                 <TableBody>
@@ -115,7 +114,6 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
                     </TableRow>
                   ))}
                 </TableBody>
-                {isLoading && <SkeletonBody columns={columns} />}
               </React.Fragment>
             )}
           </Table>

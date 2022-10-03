@@ -1,0 +1,13 @@
+{
+  "firstName": "Nombre",
+  "lastName": "Apellido",
+  "email": "Correo Electronico",
+  "phone": "Telefono",
+  "street": "Calle",
+  "number": "Numero",
+  "sector": "Sector",
+  "references": "Referencias",
+  "building": "Edificio",
+  "apartment": "Apartamento",
+  "floor": "Piso"
+}

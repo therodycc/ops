@@ -1,37 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // next
 import NextLink from 'next/link';
 // @mui
-import { Grid, Card, Button, CardHeader, Typography } from '@mui/material';
+import { Button, Card, CardHeader, Grid, Typography } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 // routes
 import { PATH_CHECKOUT } from '../../routes/paths';
 // components
+import EmptyContent from '../../components/EmptyContent';
 import Iconify from '../../components/Iconify';
 import { Scrollbar } from '../../components/Scrollbar';
-import EmptyContent from '../../components/EmptyContent';
 // import RHFCheckbox from '../../components/hook-form/RHFCheckbox';
 //
-import { CheckoutSummary } from './CheckoutSummary';
-import { CheckoutProductList } from './CheckoutProductList';
-import { ApplyInsuranceCredit, InsuranceCredit } from './ApplyInsuranceCredit';
-import { removeCart, updateCart } from '../../redux/slices/cart';
-import { CartDto, CartState } from '../../interfaces/cart/cart';
-import { AppState } from '../../redux/rootReducer';
-import { ProductUnit } from '../../enums/product-unit.enum';
-import { AuthState } from '../../interfaces/user';
-import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
 import { LoadingButton } from '@mui/lab';
-import { createOrder } from '../../redux/slices/order';
-import { Notification } from '../../interfaces/notification';
 import { useSnackbar } from 'notistack';
+import React from 'react';
+import { BoxDetails } from '../../components/common/box/BoxDetails';
+import { NetzerButton } from '../../components/common/button';
+import { NetzerModal } from '../../components/common/modal';
+import { ProductUnit } from '../../enums/product-unit.enum';
+import { CartDto, CartState } from '../../interfaces/cart/cart';
+import { Notification } from '../../interfaces/notification';
+import { CreateOrderDto, OrderState } from '../../interfaces/order/order';
+import { AuthState } from '../../interfaces/user';
+import { AppState } from '../../redux/rootReducer';
+import { removeCart, updateCart } from '../../redux/slices/cart';
+import { createOrder } from '../../redux/slices/order';
+import { ApplyInsuranceCredit, InsuranceCredit } from './ApplyInsuranceCredit';
+import { CheckoutProductList } from './CheckoutProductList';
+import { CheckoutSummary } from './CheckoutSummary';
+import { ClientForm } from './modals/ClientForm';
+import { getRowsForBoxClient } from '../../settings/checkout/getRowsForBoxClient';
+import { assignClientToOrderAction, CartOrderState } from '../../redux/slices/cart-order';
 
 // ----------------------------------------------------------------------
 
 export const CheckoutCart = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const [showModalClient, setShowModalClient] = useState(false);
 
   const [insurance, setInsurance] = useState(0);
 
@@ -46,6 +54,11 @@ export const CheckoutCart = () => {
   const isEmptyCart = products.length === 0;
 
   const { isLoading: isCreatingOrder } = useSelector<AppState, OrderState>(state => state.order);
+  const {
+    progressDataToCreateOrder,
+    existClient,
+    profileId: clientId
+  } = useSelector<AppState, CartOrderState>(state => state.cartOrder);
 
   const {
     new: isNewNotification,
@@ -65,8 +78,9 @@ export const CheckoutCart = () => {
 
   const createOrderHandler = () => {
     const orderDto: CreateOrderDto = {
-      profileId,
+      profileId: existClient ? clientId : profileId,
       officeId,
+      ...progressDataToCreateOrder,
       products: products.map(({ id, unit, quantity }) => {
         return {
           id,
@@ -75,6 +89,7 @@ export const CheckoutCart = () => {
         };
       })
     };
+    dispatch(assignClientToOrderAction({ progressDataToCreateOrder: null }));
     dispatch(createOrder(orderDto));
   };
 
@@ -95,6 +110,10 @@ export const CheckoutCart = () => {
   const handleApplyDiscount = value => {
     //dispatch(applyDiscount(value));
   };
+
+  const showModalClientAction = useCallback(() => {
+    setShowModalClient(_prev => !_prev);
+  }, []);
 
   return (
     <Grid container spacing={3}>
@@ -138,6 +157,45 @@ export const CheckoutCart = () => {
       </Grid>
 
       <Grid item xs={12} md={4}>
+        {!progressDataToCreateOrder && !isEmptyCart && (
+          <Grid
+            item
+            display={'flex'}
+            justifyContent={'flex-end'}
+            alignItems="flex-end"
+            xs={12}
+            sx={{ margin: '15px 0' }}
+          >
+            <NetzerButton
+              startIcon={<Iconify icon={'eva:plus-fill'} />}
+              isLoading={false}
+              color={'info'}
+              onClick={showModalClientAction}
+            >
+              Asignar a Cliente
+            </NetzerButton>
+          </Grid>
+        )}
+        <Grid item marginBottom={3}>
+          {progressDataToCreateOrder && (
+            <BoxDetails
+              isLoading={!true}
+              header={
+                <Grid item display={'flex'} justifyContent={'space-between'} alignItems="start">
+                  <Typography variant="h6">Cliente</Typography>
+                  <Button
+                    sx={{ color: 'green' }}
+                    onClick={showModalClientAction}
+                    startIcon={<Iconify icon={'akar-icons:pencil'} />}
+                  >
+                    Editar cliente
+                  </Button>
+                </Grid>
+              }
+              rows={getRowsForBoxClient(progressDataToCreateOrder, true)}
+            />
+          )}
+        </Grid>
         <CheckoutSummary
           title={'Resumen de la Compra'}
           total={total}
@@ -163,6 +221,12 @@ export const CheckoutCart = () => {
           Crear orden
         </LoadingButton>
       </Grid>
+
+      <NetzerModal title="Asignar cliente" active={showModalClient} toggle={showModalClientAction}>
+        <Grid item justifyContent="flex-start">
+          <ClientForm toggle={showModalClientAction} />
+        </Grid>
+      </NetzerModal>
     </Grid>
   );
 };
