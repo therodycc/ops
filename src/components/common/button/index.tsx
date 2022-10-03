@@ -1,22 +1,30 @@
 import { LoadingButton, LoadingButtonTypeMap } from '@mui/lab';
-import { ExtendButton } from '@mui/material';
+import { ExtendButton, ExtendButtonBaseTypeMap } from '@mui/material';
+import { DefaultComponentProps } from '@mui/material/OverridableComponent';
 import React, { FC } from 'react';
 
-interface NetzerButtonProps extends ExtendButton<LoadingButtonTypeMap<{}, 'button'>> {
+interface NetzerButtonProps
+  extends DefaultComponentProps<ExtendButtonBaseTypeMap<LoadingButtonTypeMap<{}, 'button'>>> {
   variant?: 'contained' | 'outlined' | 'text';
   color?: 'primary' | 'secondary' | 'success' | 'error' | 'info';
+  isLoading?: boolean;
 }
 
-export const NetzerButton: FC<NetzerButtonProps> = ({ children, variant, color, ...props }) => {
+export const NetzerButton: FC<NetzerButtonProps> = ({
+  children,
+  variant,
+  color,
+  isLoading = false,
+  ...props
+}) => {
   return (
     <React.Fragment>
       <LoadingButton
         variant={variant || 'contained'}
         color={color || 'success'}
-        // onClick={onShowModalHandle}
+        loading={isLoading}
         {...props}
-        sx={{ color: 'white', width: 'auto' }}
-        // startIcon={<Iconify icon={'eva:plus-fill'} />}
+        sx={{ width: 'auto' }}
       >
         {children}
       </LoadingButton>

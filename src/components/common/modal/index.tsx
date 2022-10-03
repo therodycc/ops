@@ -1,4 +1,4 @@
-import { DialogContent, DialogTitle } from '@mui/material';
+import { DialogContent, DialogTitle, Grid, Typography } from '@mui/material';
 import React, { FC, memo, ReactNode } from 'react';
 import getVariant from '../../../template/sections/overview/extra/animate/getVariant';
 import { DialogAnimate } from '../../animate';
@@ -30,9 +30,11 @@ export const NetzerModal: FC<NetzerModalPropsI> = memo(function NetzerModal({
           maxWidth: '100%'
         }}
       >
-        <DialogTitle>{title}</DialogTitle>
-        <DialogContent>{children}</DialogContent>
-        {footerSection && <DialogContent>{footerSection}</DialogContent>}
+        <Grid item sx={{ padding: '20px' }}>
+          <Typography variant="subtitle1">{title}</Typography>
+        </Grid>
+        <DialogContent sx={{}}>{children}</DialogContent>
+        {footerSection && <DialogContent> {footerSection}</DialogContent>}
       </DialogAnimate>
     </React.Fragment>
   );

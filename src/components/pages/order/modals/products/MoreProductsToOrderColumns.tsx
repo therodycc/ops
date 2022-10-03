@@ -4,7 +4,7 @@ import { ColumnsI, ColumnsTableI } from '../../../../../interfaces/table/table.i
 import { CounterCart } from '../../../../../sections/checkout/CounterCart';
 import { formatAmount } from '../../../../../utils/currencyFormat';
 import { getPriceAndApplyDiscount } from '../../../../../utils/price.utils';
-import { NetzerSelect } from '../../../../common/select';
+import { NetzerSelect } from '../../../../common/form/select';
 import Iconify from '../../../../Iconify';
 import Image from '../../../../Image';
 
@@ -71,15 +71,17 @@ export const MoreProductsToOrderColumns = ({
         return (
           <React.Fragment>
             <NetzerSelect
-              id={data.id + data?.unit}
-              selected={data?.unit}
               options={Object.keys(data?.price).map(key => {
                 return {
                   label: getNameOfKeys(key),
                   value: key
                 };
               })}
-              disabled={data?.disabledSelected}
+              props={{
+                id: data.id + data?.unit,
+                value: data?.unit,
+                disabled: data?.disabledSelected
+              }}
               onChange={value => {
                 selectedWayOfProduct(data, value);
               }}

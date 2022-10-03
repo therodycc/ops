@@ -9,7 +9,7 @@ export const SkeletonBody = ({ columns }) => {
           <TableRow key={iRow}>
             {columns?.map((head, index) => (
               <TableCell key={index}>
-                <Skeleton animation="wave" variant="text" width={'100%'} height={15} />
+                <Skeleton animation="wave" variant="text" width={'100%'} height={38} />
               </TableCell>
             ))}
           </TableRow>

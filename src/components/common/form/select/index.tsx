@@ -1,22 +1,20 @@
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, SelectProps } from '@mui/material';
 import React, { FC } from 'react';
 import { useCallback } from 'react';
 interface NetzerSelectProps {
-  id: string;
   options: Array<{ value: string | number; label: string }>;
   label?: string;
-  selected?: string | number;
   onChange: (value: number | string) => void;
-  disabled?: boolean;
+  errorMessage?: string;
+  props: SelectProps<string | number>;
 }
 
 export const NetzerSelect: FC<NetzerSelectProps> = ({
   label,
   options,
-  selected,
   onChange,
-  id,
-  disabled
+  errorMessage,
+  props
 }) => {
   const onChangeHandler = useCallback(
     e => {
@@ -28,14 +26,14 @@ export const NetzerSelect: FC<NetzerSelectProps> = ({
   return (
     <React.Fragment>
       <FormControl fullWidth>
-        <InputLabel id={id}>{label}</InputLabel>
+        <InputLabel id={props.id}>{label}</InputLabel>
         <Select
-          labelId={id}
-          id={id}
+          labelId={props.id}
           label={label}
-          value={selected}
           onChange={onChangeHandler}
-          disabled={disabled}
+          error={!!errorMessage}
+          autoCorrect={errorMessage}
+          {...props}
         >
           {options.map((option, index) => (
             <MenuItem key={option.label} value={option.value}>
