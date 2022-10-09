@@ -120,7 +120,7 @@ export const ClientFormOptions = ({ form, actions, handleChange }): FormInputsPr
         }
       },
       {
-        type: 'text',
+        type: 'number',
         label: 'Numero # ',
         cols: 3,
         props: {
@@ -165,7 +165,7 @@ export const ClientFormOptions = ({ form, actions, handleChange }): FormInputsPr
         }
       },
       {
-        type: 'text',
+        type: 'number',
         label: 'Piso',
         cols: 4,
         props: {
