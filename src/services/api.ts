@@ -1,8 +1,9 @@
 const API_HOST = process.env.API_HOST;
+// const API_HOST = 'http://localhost:';
 
 const ENDPOINTS = Object.freeze({
   AUTH: {
-    login: `${API_HOST}/auth/login`
+    login: `${API_HOST}/auth/login/`
   },
   PRODUCTS: {
     labs: `${API_HOST}/labs/`,
@@ -34,7 +35,15 @@ const ENDPOINTS = Object.freeze({
     addPaymentToOrder: `${API_HOST}/orders/pay`
   },
   PROFILE: {
-    getByPhone: `${API_HOST}/profiles/find-by-phone`
+    getByPhone: `${API_HOST}/profiles/find-by-phone`,
+    address: `${API_HOST}/profiles/address`
+  },
+  EMPLOYEE: {
+    employees: `${API_HOST}/employees/`,
+    deliveries: `${API_HOST}/employees/deliveries/`
+  },
+  DELIVERY: {
+    deliveryAndAddressToOrder: `${API_HOST}/deliveries/`
   }
 });
 

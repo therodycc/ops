@@ -6,7 +6,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import { FormInputsProps } from '../../../interfaces/form/form.interface';
 
 export const ClientFormOptions = ({ form, actions, handleChange }): FormInputsProps[] => {
-  const onPhoneChange = (e, isValid: boolean) => {
+  const onPhoneChange = e => {
     const { value } = e.target;
     if (value?.length === 10) actions?.getClientData(value);
     handleChange(e);

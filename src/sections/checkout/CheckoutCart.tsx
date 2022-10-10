@@ -157,7 +157,7 @@ export const CheckoutCart = () => {
       </Grid>
 
       <Grid item xs={12} md={4}>
-        {!progressDataToCreateOrder && !isEmptyCart && (
+        {!isCreatingOrder && !progressDataToCreateOrder && !isEmptyCart && (
           <Grid
             item
             display={'flex'}
@@ -222,7 +222,18 @@ export const CheckoutCart = () => {
         </LoadingButton>
       </Grid>
 
-      <NetzerModal title="Asignar cliente" active={showModalClient} toggle={showModalClientAction}>
+      <NetzerModal
+        title={
+          <React.Fragment>
+            <Typography variant="h5">Asignar cliente</Typography>
+            <Typography variant="subtitle2" color="gray">
+              Asignar orden a un cliente
+            </Typography>
+          </React.Fragment>
+        }
+        active={showModalClient}
+        toggle={showModalClientAction}
+      >
         <Grid item justifyContent="flex-start">
           <ClientForm toggle={showModalClientAction} />
         </Grid>

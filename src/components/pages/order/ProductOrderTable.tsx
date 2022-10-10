@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { OrderDetail } from '../../../interfaces/order/order';
@@ -24,7 +25,16 @@ export const ProductOrderTable: React.FC<ProductOrderTableProps> = ({ products }
 
   return (
     <React.Fragment>
-      <NetzerModal title="Agregar más productos" active={showModal} toggle={onShowModalHandle}>
+      <NetzerModal
+        title={
+          <Typography variant="subtitle1" padding="0px 15px">
+            {' '}
+            Agregar más productos
+          </Typography>
+        }
+        active={showModal}
+        toggle={onShowModalHandle}
+      >
         <MoreProductsToOrderTable toggle={onShowModalHandle} />
       </NetzerModal>
       <ColumnsProductsOrder handleDelete={handleDelete}>

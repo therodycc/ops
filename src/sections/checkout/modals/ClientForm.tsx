@@ -15,6 +15,7 @@ interface ClientFormPropsI {
 }
 
 const initialStateForm = () => ({
+  id: null,
   firstName: '',
   lastName: '',
   email: '',
@@ -51,14 +52,20 @@ export const ClientForm: FC<ClientFormPropsI> = ({ toggle }) => {
         ...address
       } = form;
       let dataToSend = {
-        profile: { firstName, lastName, email, phone },
+        profile: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          ...(id && { id })
+        },
         ...(Object.keys(address).length && { address })
       };
       toggle?.();
       dispatch(
         assignClientToOrderAction({
           progressDataToCreateOrder: dataToSend,
-          existClient: existClient || !!id,
+          existClient: !!id,
           ...(id && { profileId: id })
         })
       );
@@ -71,13 +78,13 @@ export const ClientForm: FC<ClientFormPropsI> = ({ toggle }) => {
     setIsLoading(true);
     const result = await profileService.getByPhone(number);
 
-    if (!result?.data || !result)
+    if (!result?.data || !result || result.error) {
       return [
         setDisabledPersonalDataInput(false),
         setIsLoading(false),
         setClientData(initialStateForm())
       ];
-
+    }
     setClientData(result?.data);
     setDisabledPersonalDataInput(true);
     setIsLoading(false);

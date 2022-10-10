@@ -33,28 +33,30 @@ export const NetzerTable: FC<NetzerTablePropsI> = ({
   return (
     <React.Fragment>
       <Scrollbar>
-        <Grid
-          container
-          padding={'20px'}
-          marginTop={'10px'}
-          justifyContent="space-between"
-          spacing={2}
-        >
-          <div>{leftSection}</div>
-          {buttonTable && (
-            <div style={{ display: 'flex', alignItems: 'end' }}>
-              <LoadingButton
-                variant={'contained'}
-                color={'success'}
-                onClick={() => buttonTable?.onClick()}
-                sx={{ color: 'white', width: 'auto' }}
-                startIcon={<Iconify icon={'eva:plus-fill'} />}
-              >
-                {buttonTable?.children}
-              </LoadingButton>
-            </div>
-          )}
-        </Grid>
+        {(leftSection || buttonTable) && (
+          <Grid
+            container
+            padding={'20px'}
+            marginTop={'10px'}
+            justifyContent="space-between"
+            spacing={2}
+          >
+            <div>{leftSection}</div>
+            {buttonTable && (
+              <div style={{ display: 'flex', alignItems: 'end' }}>
+                <LoadingButton
+                  variant={'contained'}
+                  color={'success'}
+                  onClick={() => buttonTable?.onClick()}
+                  sx={{ color: 'white', width: 'auto' }}
+                  startIcon={<Iconify icon={'eva:plus-fill'} />}
+                >
+                  {buttonTable?.children}
+                </LoadingButton>
+              </div>
+            )}
+          </Grid>
+        )}
         <TableContainer
           sx={{
             minWidth: 800,

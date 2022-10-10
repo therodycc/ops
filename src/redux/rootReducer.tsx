@@ -8,6 +8,7 @@ import orderReducer from './slices/order';
 import cartReducer from './slices/cart';
 import notification from './slices/notification';
 import cartOrderReducer from './slices/cart-order';
+import deliveryReducer from './slices/delivery/delivery';
 
 // ----------------------------------------------------------------------
 
@@ -71,7 +72,8 @@ const rootReducer = combineReducers({
   order: orderReducer,
   cartOrder: persistReducer(cartOrderPersistConfig, cartOrderReducer),
   notification,
-  cart: persistReducer(cartPersistConfig, cartReducer)
+  cart: persistReducer(cartPersistConfig, cartReducer),
+  delivery: deliveryReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

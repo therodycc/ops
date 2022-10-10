@@ -1,7 +1,5 @@
 import { AddressI, ProfileI } from '../../interfaces/client/client.interface';
-import keyNames from './key-names.json';
-
-const getNameOfKeys = (keyName: string) => keyNames?.[keyName] || keyName;
+import { getNameOfKeys } from '../getKeyNames';
 
 export const getRowsForBoxClient = (data, removeLastLine: boolean = false) => {
   let elements = [];

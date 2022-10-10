@@ -37,7 +37,7 @@ export default function NavbarAccount({ isCollapse }) {
       >
         <Avatar
           src="https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg"
-          alt={user.fullName}
+          alt={user?.fullName}
         />
 
         <Box
@@ -54,7 +54,7 @@ export default function NavbarAccount({ isCollapse }) {
           }}
         >
           <Typography variant="subtitle2" noWrap>
-            {user.fullName}
+            {user?.fullName}
           </Typography>
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
             {/* {user.role.toLowerCase()} */}

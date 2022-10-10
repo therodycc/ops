@@ -38,10 +38,7 @@ export default function OrderListPage() {
           ]}
         />
         <CartWidget />
-        <Card>
-          <CardHeader title="Ordenes" sx={{ mb: 3 }} />
-          <OrdersTable />
-        </Card>
+        <OrdersTable />
       </Container>
       {showDialog && (
         <AlertDialog

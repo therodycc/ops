@@ -15,16 +15,20 @@ export const NetzerButton: FC<NetzerButtonProps> = ({
   variant,
   color,
   isLoading = false,
+  size = 'small',
   ...props
 }) => {
+  const { sx, fullWidth, ...rest } = props;
   return (
     <React.Fragment>
       <LoadingButton
+        fullWidth={!!fullWidth}
         variant={variant || 'contained'}
         color={color || 'success'}
         loading={isLoading}
-        {...props}
-        sx={{ width: 'auto' }}
+        size={size}
+        {...rest}
+        sx={{ width: 'auto', ...(sx && sx) }}
       >
         {children}
       </LoadingButton>

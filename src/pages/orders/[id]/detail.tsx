@@ -1,5 +1,5 @@
 // @mui
-import { Box, Container, Tab, Tabs } from '@mui/material';
+import { Box, Container, Grid, Tab, Tabs } from '@mui/material';
 // routes
 import { PATH_DASHBOARD, PATH_ORDER } from '../../../routes/paths';
 // hooks
@@ -17,6 +17,7 @@ import { OrderTabs } from '../../../components/pages/order/OrderTabs';
 import { OrderState } from '../../../interfaces/order/order';
 import { AppState } from '../../../redux/rootReducer';
 import { getOrderDetail } from '../../../redux/slices/order';
+import { resetSelectedState } from '../../../redux/slices/delivery/delivery';
 
 export default function OrderDetail() {
   const { currentTab, onChangeTab } = useTabs('Resumen');
@@ -26,6 +27,10 @@ export default function OrderDetail() {
 
   useEffect(() => {
     dispatch(getOrderDetail(id));
+
+    return () => {
+      dispatch(resetSelectedState());
+    };
   }, [id]);
 
   const { detail: orderDetail } = useSelector<AppState, OrderState>(state => state.order);
@@ -34,7 +39,7 @@ export default function OrderDetail() {
 
   return (
     <Page title="User: Account Settings">
-      <Container maxWidth={'lg'}>
+      <Grid item>
         <HeaderBreadcrumbs
           heading={
             orderDetail?.profile.firstName
@@ -75,7 +80,7 @@ export default function OrderDetail() {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;
         })}
-      </Container>
+      </Grid>
     </Page>
   );
 }

@@ -1,5 +1,6 @@
 import { OrderStatus } from '../../enums/order.status';
 import { ProductUnit } from '../../enums/product-unit.enum';
+import { AddressI, ProfileI } from '../client/client.interface';
 
 export interface OrderState {
   error: any;
@@ -37,6 +38,7 @@ export interface OrderDetail {
     total: string;
     discount: string;
     itbis: string;
+    subTotal: string;
   };
   status: OrderStatus;
   statusDescription: string;
@@ -48,6 +50,10 @@ export interface OrderDetail {
   date: {
     created: Date;
     lastModified: Date;
+  };
+  delivery: {
+    employee: ProfileI;
+    address: AddressI;
   };
 }
 

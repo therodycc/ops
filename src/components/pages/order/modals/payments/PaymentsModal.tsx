@@ -46,12 +46,12 @@ export const PaymentsModal: FC<PaymentsModalProps> = memo(function PaymentModal(
 
   return (
     <React.Fragment>
-      <Grid container padding={'10px'} marginTop={'10px'} justifyContent="flex-end" spacing={2}>
+      <Grid container padding={'10px'} justifyContent="flex-end" spacing={2}>
         {step === 1 && (
           <Grid item xs={6}>
             <Typography
               variant="subtitle1"
-              sx={{ marginTop: '20px', color: 'gray', marginLeft: '10px' }}
+              sx={{ marginTop: '10px', color: 'gray', marginLeft: '10px' }}
             >
               Metodo de pago seleccionado
             </Typography>

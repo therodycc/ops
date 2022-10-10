@@ -9,7 +9,6 @@ import { AuthState } from '../../../../../interfaces/user';
 import { AppState } from '../../../../../redux/rootReducer';
 import { addMoreProductsToOrder } from '../../../../../redux/slices/order';
 import { NetzerTable } from '../../../../common/table';
-import Iconify from '../../../../Iconify';
 import { ProductSearch } from '../../../../ProductSearch';
 import { MoreProductsToOrderColumns } from './MoreProductsToOrderColumns';
 interface MoreProductsToOrderTableProps {
@@ -51,7 +50,7 @@ export const MoreProductsToOrderTable: FC<MoreProductsToOrderTableProps> = ({ to
 
   return (
     <React.Fragment>
-      <Grid container padding={'10px'} marginTop={'10px'} justifyContent="flex-start" spacing={2}>
+      <Grid container padding={'15px 25px'} justifyContent="flex-start" spacing={2}>
         <ProductSearch onSelect={addNewProductTo} />
         {showError.show && (
           <Alert style={{ margin: '0rem 0.7rem' }} severity="error" onClose={() => {}}>

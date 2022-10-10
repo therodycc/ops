@@ -12,7 +12,7 @@ export const orderResumeOptions = ({ orderDetail }: OrderResumeOptionsI) => {
   return [
     {
       title: 'Subtotal',
-      description: 0
+      description: orderDetail?.summary?.subTotal
     },
     {
       title: 'Itbis',

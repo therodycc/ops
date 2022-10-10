@@ -14,6 +14,7 @@ export const IntlInput: FC<IntlInputProps> = ({ onChange, props, label }) => {
   const handleChangeIntlInput = (...args) => {
     let value = args?.[1].replace(/\D/g, '');
     const message = value.slice(0, props?.maxLength);
+
     onChange?.(
       {
         target: {

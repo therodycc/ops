@@ -3,6 +3,7 @@ import { OrderDetailSummary } from './resume/OrderDetailSummary';
 import Iconify from '../../Iconify';
 import { ProductOrderTable } from './ProductOrderTable';
 import { Payments } from './payments/Payments';
+import { DeliveryTab } from './delivery';
 
 interface OrderTabsProps {
   orderDetail: OrderDetail;
@@ -25,14 +26,9 @@ export const OrderTabs = ({ orderDetail }: OrderTabsProps) => {
       component: <Payments />
     },
     {
-      value: 'social_links',
-      icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
-      component: <h2>Hola</h2>
-    },
-    {
-      value: 'change_password',
-      icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,
-      component: <h2>Hola</h2>
+      value: 'Delivery',
+      icon: <Iconify icon={'mdi:motorbike'} width={20} height={20} />,
+      component: <DeliveryTab />
     }
   ];
 };

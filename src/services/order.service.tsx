@@ -55,6 +55,19 @@ const addPaymentToOrder = payment => {
     return Promise.resolve({ error: { message: 'Error al agregar el pago a la orden' } });
   });
 };
+
+const assignOrderToDelivery = (payload: {
+  orderId: string;
+  employeeId: string;
+  addressId: string;
+}) => {
+  return axios.post(API.DELIVERY.deliveryAndAddressToOrder, payload).catch(error => {
+    return Promise.resolve({
+      error: { message: 'Error asignar delivery y direccion a una orden' }
+    });
+  });
+};
+
 export const orderService = {
   get,
   add,
@@ -62,5 +75,6 @@ export const orderService = {
   summary,
   sendToCashier,
   addProductsToOrder,
-  addPaymentToOrder
+  addPaymentToOrder,
+  assignOrderToDelivery
 };

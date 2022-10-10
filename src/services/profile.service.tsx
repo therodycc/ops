@@ -8,6 +8,14 @@ const getByPhone = (phone: number) => {
   });
 };
 
+const getProfileAddress = (profileId: string) => {
+  return axios.get(`${API.PROFILE.address}?profileId=${profileId}`).catch(error => {
+    console.log('🪲 - | -  error', error);
+    return Promise.resolve({ message: 'An error has ocurred getting the profile info' });
+  });
+};
+
 export const profileService = {
-  getByPhone
+  getByPhone,
+  getProfileAddress
 };
